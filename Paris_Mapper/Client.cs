@@ -14,6 +14,7 @@ using Org.BouncyCastle.Asn1;
 using System.Data;
 using Org.BouncyCastle.Crypto.Signers;
 using System.Web;
+using Azure.Core.Pipeline;
 
 namespace Paris_Mapper
 {
@@ -24,11 +25,12 @@ namespace Paris_Mapper
         string login;
         public Client()
         {
-            connexion = "Data Source=(localdb)\\ProjectModels;Initial Catalog=Paris;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-             client = new SqlConnection(connexion);
+
+            connexion = "Data Source=(localdb)\\ProjectModels;Initial Catalog=Paris;Persist Security Info=True;User ID=Log_Client;Pooling=False;Multiple Active Result Sets=False;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Authentication=SqlPassword;Application Name=\"Microsoft SQL Server Data Tools, T-SQL Editor\";Column Encryption Setting=Disabled;Command Timeout=0;PWD = 123";
+            client = new SqlConnection(connexion);
             client.Open();
-            Console.WriteLine("Mot de passe (Client) :");
-            login = Console.ReadLine();
+            //Console.WriteLine("Mot de passe (Client) :");
+            //login = Console.ReadLine();
 
         }
         

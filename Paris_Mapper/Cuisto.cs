@@ -30,11 +30,11 @@ namespace Paris_Mapper
         string login;
         public Cuisto()
         {
-            connexion = "Data Source=(localdb)\\ProjectModels;Initial Catalog=Paris;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-            cuisto = new SqlConnection();
+            connexion = "Data Source=(localdb)\\ProjectModels;Initial Catalog=Paris;Persist Security Info=True;User ID=Log_Cuisto;Pooling=False;Multiple Active Result Sets=False;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Authentication=SqlPassword;Application Name=\"Microsoft SQL Server Data Tools, T-SQL Editor\";Column Encryption Setting=Disabled;Command Timeout=0;PWD = 456";
+            cuisto = new SqlConnection(connexion);
             cuisto.Open();
-            Console.WriteLine("Mot de passe (Cuisto) :");
-            login = Console.ReadLine();
+            //Console.WriteLine("Mot de passe (Cuisto) :");
+            //login = Console.ReadLine();
            
         }
         public void Modifcation_Cuisto()

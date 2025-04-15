@@ -510,9 +510,9 @@ switch (Menu)
                    bool client_modif = Convert.ToBoolean(Console.ReadLine());
                    if (client_modif)
                    {
-
+                        
                        client.Modification_Client();
-
+                       
                    }
                    Console.WriteLine("Selection : Suppression du Client  \n\t True \n\t False");
                    bool client_suppression = Convert.ToBoolean(Console.ReadLine());
@@ -1742,10 +1742,9 @@ switch (Menu)
 
 
                                     bool com = false;
-                                    while (com == null)
-                                    {
-                                        com = Convert.ToBoolean(Console.ReadLine());
-                                    }
+                                        
+                                    com = Convert.ToBoolean(Console.ReadLine());
+                                    
                                     int id_com = commande + 1;
                                     int id_C = 0;
                                     int id_cuisinier = 0;
@@ -1866,8 +1865,10 @@ switch (Menu)
                         }
 
                         break;
-                       
+
                         #endregion
+                        break;
+                    default:return;
                 }
 
                 break;
