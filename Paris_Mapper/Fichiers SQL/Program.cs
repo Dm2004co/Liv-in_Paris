@@ -732,6 +732,7 @@ switch (Menu)
                                     m.Client(id_1, e_mail);
                                 }
                                 bool maj_adresse_client = false;
+                                maj_adresse_client = Convert.ToBoolean(Console.ReadLine());
                                 if(maj_adresse_client == true)
                                 {
                                     m.Client_1();
@@ -795,9 +796,30 @@ switch (Menu)
                                 {
                                     m.Cuisto(id_2, e_mail_1);
                                 }
+                                bool maj_adresse_cuisto = false;
+                                maj_adresse_cuisto = Convert.ToBoolean(Console.ReadLine());
+                                if (maj_adresse_cuisto == true)
+                                {
+                                    m.Cuisto_1();
+                                }
                                 break;
                             case 2:
                                 Console.WriteLine("Table : Adresse");
+                                Console.WriteLine("Identifiant : ");
+                                int id_a = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("ID_Client : ");
+                                int id_c = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("ID_Cuisto : ");
+                                int id_cui = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("Ville: ");
+                                string ville = Console.ReadLine();
+                                Console.WriteLine("Region :");
+                                string region = Console.ReadLine();
+                                string commune = Console.ReadLine();
+                                string lieu = Console.ReadLine();
+                                int num = Convert.ToInt32(Console.ReadLine());
+                                int code = Convert.ToInt32(Console.ReadLine());
+                                int id_m = Convert.ToInt32(Console.ReadLine());
                                 break;
                             case 3:
                                 Console.WriteLine("Table : Commandes");
@@ -839,25 +861,36 @@ switch (Menu)
                                 int clients = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine("Nombre de Clients :");
                                 int nb_clients = Convert.ToInt32(Console.ReadLine());
+                                bool rollback_client = false;
                                 switch (clients)
                                 {
                                     case 0:
                                         try
                                         {
+                                          
+                                            if(nb_clients > 0)
+                                            {
+                                                for (int y = 0; y < nb_clients; y++)
+                                                {
+                                                    Console.WriteLine();
+                                                    SqlTransaction insertion_client = connection.BeginTransaction();
+                                                    insertion_client.Save("Debut insertion client");
+                                                    Console.WriteLine("Insertion de tuples sans un numero de telephone et d'adresse email");
+                                                    Console.WriteLine("Identifiant : ");
+                                                    int d = Convert.ToInt32(Console.ReadLine());
+                                                    insertion_client.Save("SVG id_client");
+                                                    Console.WriteLine("Prenom : ");
+                                                    string prenom = Console.ReadLine();
+                                                    insertion_client.Save("SVG prenom_client");
+                                                    Console.WriteLine("Nom : ");
+                                                    string nom = Console.ReadLine();
+                                                    insertion_client.Save("SVG nom_client");
+                                                    insert.Client_1(d, prenom, nom, insertion_client);
 
-                                            SqlTransaction insertion_client = connection.BeginTransaction();
-                                            insertion_client.Save("Debut insertion client");
-                                            Console.WriteLine("Insertion de tuples sans un numero de telephone et d'adresse email");
-                                            Console.WriteLine("Identifiant : ");
-                                            int d = Convert.ToInt32(Console.ReadLine());
-                                            insertion_client.Save("SVG id_client");
-                                            Console.WriteLine("Prenom : ");
-                                            string prenom = Console.ReadLine();
-                                            insertion_client.Save("SVG prenom_client");
-                                            Console.WriteLine("Nom : ");
-                                            string nom = Console.ReadLine();
-                                            insertion_client.Save("SVG nom_client");
-                                            insert.Client_1(d, prenom, nom, insertion_client);
+                                                }
+                                            }
+                                            
+
                                            
                                         }
                                         catch (SqlException ex)
@@ -869,26 +902,33 @@ switch (Menu)
                                     case 1:
                                          try
                                         {
-                                            SqlTransaction insertion_client_1 = connection.BeginTransaction();
-                                            insertion_client_1.Save("Debut d'insertion du client");
-                                            Console.WriteLine("Insertion de tous les tuples(id,prenom,nom,telephone,email)");
-                                            Console.WriteLine("Identifiant : ");
-                                            int id_1 = Convert.ToInt32(Console.ReadLine());
-                                            insertion_client_1.Save("SVG id_client");
-                                            Console.WriteLine("Prenom : ");
-                                            string prenom_1 = Console.ReadLine();
-                                            insertion_client_1.Save("SVG prenom_client ");
-                                            Console.WriteLine("Nom : ");
-                                            string nom_1 = Console.ReadLine();
-                                            insertion_client_1.Save("SVG nom_client");
-                                            Console.WriteLine("Telephone: ");
-                                            string tel = Console.ReadLine();
-                                            insertion_client_1.Save("SVG tel_client ");
-                                            Console.WriteLine("Email :");
-                                            string email = Console.ReadLine();
-                                            insertion_client_1.Save("SVG email_client");
-                                            insert.Client(id_1, prenom_1, nom_1, tel, email, insertion_client_1);
+                                            if(nb_clients > 0)
+                                            {
+                                                for(int cl2 =  0;  cl2 < nb_clients; cl2++)
+                                                {
+                                                    SqlTransaction insertion_client_1 = connection.BeginTransaction();
+                                                    insertion_client_1.Save("Debut d'insertion du client");
+                                                    Console.WriteLine("Insertion de tous les tuples(id,prenom,nom,telephone,email)");
+                                                    Console.WriteLine("Identifiant : ");
+                                                    int id_1 = Convert.ToInt32(Console.ReadLine());
+                                                    insertion_client_1.Save("SVG id_client");
+                                                    Console.WriteLine("Prenom : ");
+                                                    string prenom_1 = Console.ReadLine();
+                                                    insertion_client_1.Save("SVG prenom_client ");
+                                                    Console.WriteLine("Nom : ");
+                                                    string nom_1 = Console.ReadLine();
+                                                    insertion_client_1.Save("SVG nom_client");
+                                                    Console.WriteLine("Telephone: ");
+                                                    string tel = Console.ReadLine();
+                                                    insertion_client_1.Save("SVG tel_client ");
+                                                    Console.WriteLine("Email :");
+                                                    string email = Console.ReadLine();
+                                                    insertion_client_1.Save("SVG email_client");
+                                                    insert.Client(id_1, prenom_1, nom_1, tel, email, insertion_client_1);
 
+                                                }
+                                            }
+                                            
                                             
                                         }
                                          catch(SqlException ex)
@@ -904,6 +944,7 @@ switch (Menu)
                                 int cuist = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine("Nombre de Cuistos :");
                                 int nb_cuistos = Convert.ToInt32(Console.ReadLine());
+                                bool rollback_cuisto = false;
                                 switch (cuist)
                                 {
                                     case 0:
@@ -971,6 +1012,7 @@ switch (Menu)
                                 Console.WriteLine("Nombre d'Adresse(s) de Cuisto");
                                 int b = Convert.ToInt32(Console.ReadLine());
                                 int nb_adresse_cuisto = b;
+                                bool rollback_adresse = false;
                                 switch (adresse)
                                 {
                                     case 0:
@@ -1208,6 +1250,7 @@ switch (Menu)
                             case 3:
                                 #region App
                                 string nom_menu = "";
+                                bool rollback_app = false;
                                 Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
                                 int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
@@ -1266,6 +1309,7 @@ switch (Menu)
 
 
                                 #endregion
+                                bool rollback_commandes = false;
                                 SqlTransaction Commandes = connection.BeginTransaction();
                                 Commandes.Save("Debut de la Commande");
                                 int nombre_commandes = 0;
@@ -1764,6 +1808,7 @@ switch (Menu)
                                         }
 
                                         #region Catalogue
+                                        bool rollback_cat = false;
                                         try
                                         {
                                             SqlTransaction heritage = connection.BeginTransaction();

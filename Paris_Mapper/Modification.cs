@@ -28,6 +28,7 @@ using System.Collections;
 using Org.BouncyCastle.Tls.Crypto;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System.Net;
 
 namespace Paris_Mapper
 {
@@ -234,9 +235,117 @@ namespace Paris_Mapper
                 connection.Close();
             }
         }
-        #region Adresse
-        public void Adresse(int id_a)
+        public void Cuisto_1()
         {
+
+            string q = "UPDATE Cuisto\r\nSET Adresse = CONCAT_WS(',',a.Numero,a.Lieu,a.Code_Postal,a.Ville,a.Region) FROM Adresse_Cuisto a\r\nWHERE Cuisto.ID_Cuisto = a.ID_Cuisto;";
+            SqlCommand c = new SqlCommand(q, connection);
+
+            try
+            {
+                c.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                return;
+            }
+            finally
+            {
+                c.Dispose();
+            }
+        }
+        #region Adresse
+        public void Adresse(int id_a, int c = 0, int cui = 0, string ville = null, string region = null, string commune = null, int dept = 0 , int code = 0 , string lieu = null ,int id_metro = 0)
+        {
+            SqlCommand b = connection.CreateCommand();
+            SqlParameter p = new SqlParameter();
+            p.DbType = DbType.Int32;
+            p.Value = id_a;
+            p.ParameterName = "@Id";
+            SqlParameter m = new SqlParameter();
+            m.Value = c;
+            m.ParameterName = "@ID_Client";
+            m.DbType = DbType.Int32;
+            SqlParameter o = new SqlParameter();
+            o.Value = cui;
+            o.ParameterName = "@ID_Cuisto";
+            o.DbType = DbType.Int32;
+            SqlParameter q = new SqlParameter();
+            q.Value = ville;
+            q.ParameterName = "@Ville";
+            q.DbType = DbType.String;
+            SqlParameter r = new SqlParameter();
+            r.Value = region;
+            r.ParameterName = "@Region";
+            r.DbType = DbType.String;
+            SqlParameter a = new SqlParameter("@Commune", DbType.String);
+            a.Value = commune;
+            SqlParameter com = new SqlParameter("@Dept", DbType.Int32);
+            com.Value = commune;
+            SqlParameter d = new SqlParameter("@Code_Postal", DbType.Int32);
+            d.Value = code;
+            SqlParameter e = new SqlParameter("@Lieu", DbType.String);
+            e.Value = lieu;
+            SqlParameter f = new SqlParameter("@ID_Métro", DbType.Int32);
+            f.Value = id_metro;
+            string query = "UPDATE Adresse SET ";
+            if (c != null)
+            {
+                query += "ID_Client = '@ID_Client'";
+                b.Parameters.Add(m);
+            }
+            if (cui != null)
+            {
+                query += "ID_Cuisto = '@ID_Cuisto'";
+                b.Parameters.Add(o);
+            }
+            if (ville != null)
+            {
+                query += "Ville = '@Ville'";
+                b.Parameters.Add(q);
+            }
+            if (region != null)
+            {
+
+                query += "Region = '@Region'";
+                b.Parameters.Add(r);
+            }
+            if (commune != null)
+            {
+
+                query += "Commune = '@Commune'";
+                b.Parameters.Add(a);
+            }
+            if (dept != 0)
+            {
+
+                query += "Dept = '@Dept'";
+                b.Parameters.Add(com);
+            }
+            if (code != null)
+            {
+
+                query += "Code_Postal = '@Code_Postal'";
+                b.Parameters.Add(d);
+            }
+            if (lieu != null)
+            {
+
+                query += "Lieu = '@Lieu'";
+                b.Parameters.Add(e);
+            }
+            if (id_metro != 0)
+            {
+                query += "ID_Metro = '@ID_Metro'";
+                b.Parameters.Add(f);
+            }
+            query += "WHERE Id = @Id";
+            b.CommandText = query;
+            b.CommandType = CommandType.Text;
+            b.Parameters.Add(p);
+
+
 
         }
         #endregion
