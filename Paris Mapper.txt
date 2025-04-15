@@ -1,0 +1,56 @@
+Paris Mapper 
+Menu : Lien l = new Lien();
+Graphe g = new Graphe(l.AreteList);
+Noeud n = new Noeud();
+Console.WriteLine("Entrer  : 0,pour les propriete \n 1,pour les algo de recherche \n 2,pour les 2 Modes  \n 3,pour la coloration du graphe \n 4,pour le PCC et son implementation");
+int i = Convert.ToInt32(Console.ReadLine());
+switch(i)
+{
+    case 0:Console.WriteLine("Propriete du graphe");
+
+        break;
+    case 1:Console.WriteLine("Algorithme de recherche");
+
+
+
+        break;
+    case 2:Console.WriteLine("Modes : Liste d'adjacence et Matrice d'adjacence");
+            Console.WriteLine("Matrice d'Adjacence : ");
+            g.Afficher();
+
+        break;
+    case 3:Console.WriteLine("Coloration du graphe");
+
+
+        break;
+    case 4:Console.WriteLine("Problème du PCC et Implémentation");
+        break;
+}
+
+Algorithme de coloration : 
+- Welsh Powell
+Welsh-Powell (graphe G)
+ Liste des sommets classés dans l’ordre décroissant de leur
+degré
+Couleur courante = 0
+TANT QUE FAIRE
+Incrémenter la couleur courante
+Colorier le premier sommet de avec la couleur courante
+Éliminer de 
+ = liste des voisins de
+POUR TOUT dans faire
+SI ALORS
+Colorier avec la couleur courante
+Ajouter les voisins de à
+FIN SI
+FIN POUR
+Éliminer les sommets coloriés de
+FIN TANT QUE
+
+
+
+Algorithme de PCC : 
+- Dijistra : 
+
+- Bellman Ford : 
+- Floyd Marshall : 

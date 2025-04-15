@@ -1,0 +1,14 @@
+SELECT *  FROM Ingredient;
+SELECT * FROM Volume;
+SELECT * FROM Client,Cuisto;
+SELECT * FROM Client;
+SELECT * FROM Cuisto;
+SELECT * FROM Commandes;
+SELECT * FROM Contenu_du_Menu;
+SELECT * FROM Entree;
+SELECT * FROM Plat;
+SELECT * FROM Dessert ;
+SELECT * FROM Adresse;
+SELECT * FROM Catalogue;
+SELECT Correspondance FROM Metro ;
+SELECT * FROM Application_Site;

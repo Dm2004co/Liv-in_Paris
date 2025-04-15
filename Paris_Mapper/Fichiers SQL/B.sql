@@ -1,0 +1,1 @@
+SELECT AVG((Longitude*PI())/180),AVG((Latitude*PI())/180) FROM Metro;

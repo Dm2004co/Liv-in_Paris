@@ -1,0 +1,17 @@
+﻿<Window x:Class="Application_Liv_in_Paris.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Application_Liv_in_Paris"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="900" Width="1250">
+    <Grid RenderTransformOrigin="0.518,0.639">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="436*"/>
+            
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="10"/>
+
+    </Grid>
+</Window>
