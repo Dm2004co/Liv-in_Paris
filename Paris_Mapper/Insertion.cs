@@ -88,6 +88,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -102,7 +103,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
 
 
@@ -140,6 +141,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -152,7 +154,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
 
 
@@ -204,6 +206,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
             }
 
@@ -216,7 +219,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
 
             }
 
@@ -252,6 +255,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -265,15 +269,16 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
 
         }
         #endregion
         #region Adresse
-        public void Adresse_Client(int id_client, string ville, int numero, string lieu,int code_postal, int metro , SqlTransaction t)
+        public void Adresse_Client(int id,int id_client, string ville, int numero, string lieu,int code_postal, int metro , SqlTransaction t)
         {
-
+            SqlParameter ad = new SqlParameter("@Id", DbType.Int32);
+            ad.Value = id;
             SqlParameter m = new SqlParameter();
             m.Value = id_client;
             m.ParameterName = "@ID_Client";
@@ -294,20 +299,24 @@ namespace Paris_Mapper
             a.Value = metro;
             SqlParameter b = new SqlParameter("@Code_Postal", DbType.Int32);
             b.Value = code_postal;
-            string query = "INSERT INTO Adresse(ID_Client,Ville,Numero,Lieu,Code_Postal,ID_Métro) VALUES(@ID_Client,@Ville,@Numero,@Lieu,@Code_Postal,@ID_Métro);";
+            string query = "INSERT INTO Adresse(Id,ID_Client,Ville,Numero,Lieu,Code_Postal,ID_Métro) VALUES(@Id,@ID_Client,@Ville,@Numero,@Lieu,@Code_Postal,@ID_Métro);";
             SqlCommand c = new SqlCommand(query, connection) ;
             c.CommandText = query;
+            c.Parameters.Add(ad);
             c.Parameters.Add(m);
             c.Parameters.Add(o);
+            c.Parameters.Add(q); 
             c.Parameters.Add(r);
-            c.Parameters.Add(q);
-            c.Parameters.Add(b);
             c.Parameters.Add(a);
+            c.Parameters.Add(b);
+           
+            
             c.Transaction = t;
             try
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
             }
 
@@ -321,13 +330,14 @@ namespace Paris_Mapper
             {
                 c.Dispose();
                 ;
-
+                t.Dispose();
             }
 
         }
-        public void Adresse_Cuisto(int id_cuisto, string ville, int numero, string lieu, int code , int metro,SqlTransaction t)
+        public void Adresse_Cuisto(int id ,int id_cuisto, string ville, int numero, string lieu, int code , int metro,SqlTransaction t)
         {
-
+            SqlParameter ad = new SqlParameter("@Id", DbType.Int32);
+            ad.Value = id;
             SqlParameter m = new SqlParameter();
             m.Value = id_cuisto;
             m.ParameterName = "@ID_Cuisto";
@@ -348,18 +358,23 @@ namespace Paris_Mapper
             a.Value = metro;
             SqlParameter b = new SqlParameter("@Code_Postal", DbType.Int32);
             b.Value = code;
-            string query = "INSERT INTO Adresse(ID_Cuisto,Ville,Numero,Lieu,Code_Postal,ID_Métro) VALUES(@ID_Cuisto,@Ville,@Numero,@Lieu,@Code_Postal,@ID_Métro);";
+            string query = "INSERT INTO Adresse(Id,ID_Cuisto,Ville,Numero,Lieu,Code_Postal,ID_Métro) VALUES(@Id,@ID_Cuisto,@Ville,@Numero,@Lieu,@Code_Postal,@ID_Métro);";
             SqlCommand c = connection.CreateCommand();
             c.CommandText = query;
+            c.Parameters.Add(ad);
             c.Parameters.Add(m);
             c.Parameters.Add(o);
-            c.Parameters.Add(r);
             c.Parameters.Add(q);
+            c.Parameters.Add(r);
+            c.Parameters.Add(a);
+            c.Parameters.Add(b);
+            
             c.Transaction = t;
             try
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
             }
 
@@ -372,14 +387,15 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
 
             }
 
         }
-        public void Adresse_Client_1(int id_client, string ville, int numero, string lieu, int metro, string region, int code, int dept, string commune ,SqlTransaction t)
+        public void Adresse_Client_1(int id , int id_client, string ville, int numero, string lieu, int metro, string region, int code, int dept, string commune ,SqlTransaction t)
         {
-
+            SqlParameter ad = new SqlParameter("@Id", DbType.Int32);
+            ad.Value = id;
             SqlParameter m = new SqlParameter();
             m.Value = id_client;
             m.ParameterName = "@ID_Client";
@@ -406,23 +422,26 @@ namespace Paris_Mapper
             SqlParameter e = new SqlParameter("@ID_Métro", DbType.Int32);
             e.Value = metro;
 
-            string query = "INSERT INTO Adresse(ID_Client,Ville,Numero,Lieu,ID_Métro,Region,Code_Postal,Dept,Commune) VALUES(@ID_Client,@Ville,@Numero,@Lieu,@ID_Métro,@Region,@Code_Postal,@Dept,@Commune);";
+            string query = "INSERT INTO Adresse(Id,ID_Client,Ville,Numero,Lieu,ID_Métro,Region,Code_Postal,Dept,Commune) VALUES(@Id,@ID_Client,@Ville,@Numero,@Lieu,@ID_Métro,@Region,@Code_Postal,@Dept,@Commune);";
             SqlCommand command = connection.CreateCommand();
             command.CommandText = query;
+            command.Parameters.Add(ad);
             command.Parameters.Add(m);
             command.Parameters.Add(o);
-            command.Parameters.Add(r);
             command.Parameters.Add(q);
-            command.Parameters.Add(d);
-            command.Parameters.Add(c);
-            command.Parameters.Add(b);
+            command.Parameters.Add(r);
             command.Parameters.Add(a);
+            command.Parameters.Add(b);
+            command.Parameters.Add(c);
+            command.Parameters.Add(d);
             command.Parameters.Add(e);
+          
             command.Transaction = t;
             try
             {
 
                 command.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
             }
 
@@ -435,13 +454,14 @@ namespace Paris_Mapper
             finally
             {
                 command.Dispose();
-                ;
+                t.Dispose();
 
             }
         }
-            public void Adresse_Cuisto_1(int id_cuisto, string ville, int numero, string lieu, int metro, string region, int code, int dept, string commune, SqlTransaction t)
+            public void Adresse_Cuisto_1(int id, int id_cuisto, string ville, int numero, string lieu, int metro, string region, int code, int dept, string commune, SqlTransaction t)
         {
-
+            SqlParameter ad = new SqlParameter("@Id", DbType.Int32);
+            ad.Value = id;
             SqlParameter m = new SqlParameter();
             m.Value = id_cuisto;
             m.ParameterName = "@ID_Cuisto";
@@ -468,23 +488,25 @@ namespace Paris_Mapper
             SqlParameter e = new SqlParameter("@ID_Métro", DbType.Int32);
             e.Value = metro;
 
-            string query = "INSERT INTO Adresse(ID_Cuisto,Ville,Numero,Lieu,ID_Métro,Region,Code_Postal,Dept,Commune) VALUES(@ID_Cuisto,@Ville,@Numero,@Lieu,@ID_Métro,@Region,@Code_Postal,@Dept,@Commune);";
+            string query = "INSERT INTO Adresse(Id,ID_Cuisto,Ville,Numero,Lieu,ID_Métro,Region,Code_Postal,Dept,Commune) VALUES(@Id,@ID_Cuisto,@Ville,@Numero,@Lieu,@ID_Métro,@Region,@Code_Postal,@Dept,@Commune);";
             SqlCommand command = connection.CreateCommand();
             command.CommandText = query;
+            command.Parameters.Add(ad);
             command.Parameters.Add(m);
             command.Parameters.Add(o);
-            command.Parameters.Add(r);
             command.Parameters.Add(q);
-            command.Parameters.Add(d);
-            command.Parameters.Add(c);
-            command.Parameters.Add(b);
+            command.Parameters.Add(r);
             command.Parameters.Add(a);
+            command.Parameters.Add(b);
+            command.Parameters.Add(c);
+            command.Parameters.Add(d);
             command.Parameters.Add(e);
             command.Transaction = t;
             try
             {
 
                 command.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
             }
 
@@ -497,7 +519,7 @@ namespace Paris_Mapper
             finally
             {
                 command.Dispose();
-                ;
+                t.Dispose();
 
             }
 
@@ -660,6 +682,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -674,7 +697,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
 
 
@@ -716,6 +739,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -730,7 +754,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
 
 
@@ -774,6 +798,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -786,7 +811,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
         }
 
@@ -815,6 +840,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -827,7 +853,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
         }
 
@@ -858,6 +884,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -872,7 +899,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
         }
 
@@ -896,6 +923,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
+                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
@@ -908,7 +936,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                ;
+                t.Dispose();
             }
         }
 

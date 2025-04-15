@@ -333,7 +333,7 @@ namespace Paris_Mapper
         #region Cuisinier
         public void Cuisinier()
         {
-            Console.WriteLine("Requetes : \n\t 0 : Lecture de la table C \n\t 1 : Profil du Cuisto  \n\t 2 : Plat du Jour \n\t 3 : Adresse des cuisiniers \n\t 4 : Profil du Client \n\t 5 : Comptes Clients ");
+            Console.WriteLine("Requetes : \n\t 0 : Lecture de la table Cuisto \n\t 1 : Profil du Cuisto  \n\t 2 : Plat du Jour \n\t 3 : Adresse des cuisiniers \n\t 4 :  \n\t 5 : ");
             int cui = Convert.ToInt32(Console.ReadLine());
             switch(cui)
             {
@@ -352,6 +352,7 @@ namespace Paris_Mapper
                     break;
                 case 3:
                     Console.WriteLine("Selection : Adresse des cuisiniers");
+                    Adresse_Cuisto();
                     break;
                 case 4:
                     Console.WriteLine("Selection : ");
@@ -453,14 +454,52 @@ namespace Paris_Mapper
                 return;
             }
         }
+       public void Adresse_Cuisto()
+        {
+            try
+            {
 
 
+                string query = "select * from Adresse_Cuisto;";
+                SqlCommand c = new SqlCommand(query, connection);
+                SqlDataReader read = c.ExecuteReader();
+                string[] valueString = new string[read.FieldCount];
+
+                while (read.Read())
 
 
+                {
+
+                    int Numero = (int)read["Numero"];
+                    string Lieu = (string)read["Lieu"];
+                    string Ville = (string)read["Ville"];
+                    int Code_Postal = (int)read["Code_Postal"];
+                    string Region = (string)read["Region"];
+
+                    //DateTime mylastupdate = (DateTime)read["mydate"];
+                    Console.WriteLine($" {Numero} , {Lieu} , {Ville},{Code_Postal},{Region}");
+                    for (int i = 0; i < read.FieldCount; i++)
+                    {
+                        valueString[i] = read.GetValue(i).ToString();
+                    }
+
+                    Console.WriteLine();
+
+                }
+
+                read.Close();
+
+
+            }
+
+            catch (SqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                return;
+            }
+        }
         #endregion
-
-
-
+        #region Statistiques
         public void Stats()
             {
             Console.WriteLine("Requetes : 0 : Nombre de Livraisons par cuisiniers \n\t 1 : Commandes selon une période de temps \n\t 2 : Moyenne des prix des commandes \n\t 3 :  Moyenne des comptes clients");
@@ -677,7 +716,7 @@ namespace Paris_Mapper
         {
 
         }
-       
+        #endregion
         public void Autres()
             {
 

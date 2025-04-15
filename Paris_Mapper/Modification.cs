@@ -124,9 +124,29 @@ namespace Paris_Mapper
             {
                 b.Dispose();
              
-                connection.Close();
+                
             }
 
+        }
+        public void Client_1()
+        {
+            
+            string q = "UPDATE Client\r\nSET Adresse = CONCAT_WS(',',a.Numero,a.Lieu,a.Code_Postal,a.Ville,a.Region) FROM Adresse_Client a\r\nWHERE Client.ID_Client = a.ID_Client;";
+            SqlCommand c = new SqlCommand(q, connection);
+            
+            try
+            {
+                c.ExecuteNonQuery();
+            }
+            catch(SqlException ex)
+            {
+                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                return;
+            }
+            finally
+            {
+                c.Dispose();
+            }
         }
         #endregion
         #region Cuisinier

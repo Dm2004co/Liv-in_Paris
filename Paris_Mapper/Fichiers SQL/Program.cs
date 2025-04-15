@@ -731,8 +731,13 @@ switch (Menu)
                                 {
                                     m.Client(id_1, e_mail);
                                 }
-
+                                bool maj_adresse_client = false;
+                                if(maj_adresse_client == true)
+                                {
+                                    m.Client_1();
+                                }
                                 break;
+
                             case 1:
                                 Console.WriteLine("Table : Cuisinier");
                                 Console.WriteLine("Modificaton de tuples(id,prenom,nom,telephone,email) au choix");
@@ -824,6 +829,7 @@ switch (Menu)
                     #region Insertion
                     case 2:
                         Insertion insert = new Insertion(connexion,connection);
+                        
                         Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes  ");
                         int table = Convert.ToInt32(Console.ReadLine());
                         switch (table)
@@ -831,29 +837,33 @@ switch (Menu)
                             case 0:
                                 Console.WriteLine("Table : Client \n\t 0 : Tuples(id,prenom,nom) \n\t 1 : Tuples(id,prenom,nom,telephone,email) ");
                                 int clients = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("Nombre de Clients :");
+                                int nb_clients = Convert.ToInt32(Console.ReadLine());
                                 switch (clients)
                                 {
                                     case 0:
                                         try
                                         {
+
                                             SqlTransaction insertion_client = connection.BeginTransaction();
                                             insertion_client.Save("Debut insertion client");
                                             Console.WriteLine("Insertion de tuples sans un numero de telephone et d'adresse email");
                                             Console.WriteLine("Identifiant : ");
                                             int d = Convert.ToInt32(Console.ReadLine());
-                                            insertion_client.Save("SVG identifiant du client");
+                                            insertion_client.Save("SVG id_client");
                                             Console.WriteLine("Prenom : ");
                                             string prenom = Console.ReadLine();
-                                            insertion_client.Save("SVG prenom du client");
+                                            insertion_client.Save("SVG prenom_client");
                                             Console.WriteLine("Nom : ");
                                             string nom = Console.ReadLine();
-                                            insertion_client.Save("SVG nom du client");
+                                            insertion_client.Save("SVG nom_client");
                                             insert.Client_1(d, prenom, nom, insertion_client);
-                                            insertion_client.Commit();
+                                           
                                         }
-                                        catch(SqlException ex)
+                                        catch (SqlException ex)
                                         {
-
+                                            Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                            return;
                                         }
                                         break;
                                     case 1:
@@ -864,26 +874,27 @@ switch (Menu)
                                             Console.WriteLine("Insertion de tous les tuples(id,prenom,nom,telephone,email)");
                                             Console.WriteLine("Identifiant : ");
                                             int id_1 = Convert.ToInt32(Console.ReadLine());
-                                            insertion_client_1.Save("SVG identifiant du client");
+                                            insertion_client_1.Save("SVG id_client");
                                             Console.WriteLine("Prenom : ");
                                             string prenom_1 = Console.ReadLine();
-                                            insertion_client_1.Save("SVG prenom du client ");
+                                            insertion_client_1.Save("SVG prenom_client ");
                                             Console.WriteLine("Nom : ");
                                             string nom_1 = Console.ReadLine();
-                                            insertion_client_1.Save("SVG nom du client");
+                                            insertion_client_1.Save("SVG nom_client");
                                             Console.WriteLine("Telephone: ");
                                             string tel = Console.ReadLine();
-                                            insertion_client_1.Save("SVG telephone du client ");
+                                            insertion_client_1.Save("SVG tel_client ");
                                             Console.WriteLine("Email :");
                                             string email = Console.ReadLine();
-                                            insertion_client_1.Save("SVG email du client");
+                                            insertion_client_1.Save("SVG email_client");
                                             insert.Client(id_1, prenom_1, nom_1, tel, email, insertion_client_1);
 
-                                            insertion_client_1.Commit();
+                                            
                                         }
-                                        catch(SqlException ex)
-                                        {
-                                            Console.WriteLine("");
+                                         catch(SqlException ex)
+            {
+                                            Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                            return;
                                         }
                                         break;
                                 }
@@ -891,6 +902,8 @@ switch (Menu)
                             case 1:
                                 Console.WriteLine("Table : Cuisinier \n\t 0 : Tuples(id,prenom,nom) \n\t 1 : Tuples(id,prenom,nom,telephone,email) ");
                                 int cuist = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("Nombre de Cuistos :");
+                                int nb_cuistos = Convert.ToInt32(Console.ReadLine());
                                 switch (cuist)
                                 {
                                     case 0:
@@ -901,48 +914,50 @@ switch (Menu)
                                             Console.WriteLine("Insertion de tuples sans un numero de telephone et d'adresse email");
                                             Console.WriteLine("Identifiant : ");
                                             int id = Convert.ToInt32(Console.ReadLine());
-                                            insertion_cuisto.Save("SVG identifiant du cuisinier");
+                                            insertion_cuisto.Save("SVG id_cuisinier");
                                             Console.WriteLine("Prenom : ");
                                             string prenom = Console.ReadLine();
-                                            insertion_cuisto.Save("Savegarde prenom du cuisinier");
+                                            insertion_cuisto.Save("SVG prenom_cuisinier");
                                             Console.WriteLine("Nom : ");
                                             string nom = Console.ReadLine();
                                             insert.Cuisinier_1(id, prenom, nom, insertion_cuisto);
-                                            insertion_cuisto.Save("SVG du nom du cuisinier");
-                                            insertion_cuisto.Commit();
+                                            insertion_cuisto.Save("SVG nom_cuisinier");
+                                           
                                         }
-                                       catch(SqlException ex)
+                                        catch (SqlException ex)
                                         {
-                                            Console.WriteLine("");
+                                            Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                            return;
                                         }
                                         break;
                                     case 1:
                                         try
                                         {
                                             SqlTransaction insertion_cuisto_1 = connection.BeginTransaction();
-                                            insertion_cuisto_1.Save("Debut insertion cuisinier");
+                                            insertion_cuisto_1.Save("Debut");
                                             Console.WriteLine("Insertion de tous les tuples(id,prenom,nom,telephone,email)");
                                             Console.WriteLine("Identifiant : ");
                                             int id_1 = Convert.ToInt32(Console.ReadLine());
-                                            insertion_cuisto_1.Save("SVG identifiant du cuisineir");
+                                            insertion_cuisto_1.Save("SVG id_cuisineir");
                                             Console.WriteLine("Prenom : ");
                                             string prenom_1 = Console.ReadLine();
-                                            insertion_cuisto_1.Save("SVG prenom du cuisinier");
+                                            insertion_cuisto_1.Save("SVG prenom_cuisinier");
                                             Console.WriteLine("Nom : ");
                                             string nom_1 = Console.ReadLine();
-                                            insertion_cuisto_1.Save("SVG nom du cuisinier");
+                                            insertion_cuisto_1.Save("SVG nom_cuisinier");
                                             Console.WriteLine("Telephone: ");
                                             string tel = Console.ReadLine();
-                                            insertion_cuisto_1.Save("SVG du numero de telephone du cuisiner");
+                                            insertion_cuisto_1.Save("SVG numero_cuisiner");
                                             Console.WriteLine("Email :");
                                             string email = Console.ReadLine();
-                                            insertion_cuisto_1.Save("SVG email du cuisinier");
+                                            insertion_cuisto_1.Save("SVG email_cuisinier");
                                             insert.Cuisinier(id_1, prenom_1, nom_1, tel, email, insertion_cuisto_1);
-                                            insertion_cuisto_1.Commit();
+                                        
                                         }
-                                        catch(SqlException ex)
+                                        catch (SqlException ex)
                                         {
-                                            Console.WriteLine();
+                                            Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                            return;
                                         }
                                         break;
                                 }
@@ -950,6 +965,12 @@ switch (Menu)
                             case 2:
                                 Console.WriteLine("Table : Adresse \n\t 0 : Tuples(id,ville,numero,lieu dit,id_metro) \n\t 1 : Tuples(id,ville,numero,lieu dit,id_metro,region,code postal,dept,commune)");
                                 int adresse = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("Nombre d'Adresse(s) de Client");
+                                int a = Convert.ToInt32(Console.ReadLine());
+                                int nb_adresse_client = a;
+                                Console.WriteLine("Nombre d'Adresse(s) de Cuisto");
+                                int b = Convert.ToInt32(Console.ReadLine());
+                                int nb_adresse_cuisto = b;
                                 switch (adresse)
                                 {
                                     case 0:
@@ -958,78 +979,107 @@ switch (Menu)
                                         bool cuisto_1 = false;
                                         
                                             Console.WriteLine("Selection : Client \n\t True \n\t False");
-                                            client_1 = Convert.ToBoolean(Console.ReadLine());
-                                        
-                                       
+                                            if(nb_adresse_client > 0)
+                                            {
+                                                client_1 = true;
+                                                
+                                            }
+                                            Console.WriteLine(client_1);
                                             Console.WriteLine("Selection : Cuisto \n\t True \n\t False");
-                                            cuisto_1 = Convert.ToBoolean(Console.ReadLine());
-                                        
+                                            if (nb_adresse_cuisto > 0)
+                                            {
+                                                cuisto_1 = true;
+                                                
+                                            }
+                                        Console.WriteLine(cuisto_1);
+
                                         if (client_1 == true)
                                         {
                                            try
                                             {
-                                                SqlTransaction insertion_adresse = connection.BeginTransaction();
-                                                insertion_adresse.Save("Debut insertion adresse_client");
-                                                Console.WriteLine("Insertion de tuples(id,ville,numero,lieu dit,id_metro)");
-                                                Console.WriteLine("Identifiant : ");
-                                                int u1 = Convert.ToInt32(Console.ReadLine());
-                                                insertion_adresse.Save("SVG identifiant_client");
-                                                Console.WriteLine("Ville : ");
-                                                string ville_2 = Console.ReadLine();
-                                                insertion_adresse.Save("SVG ville_client");
-                                                Console.WriteLine("Lieu dit : ");
-                                                string lieu_2 = Console.ReadLine();
-                                                insertion_adresse.Save("SVG lieu_client");
-                                                Console.WriteLine("Numero : ");
-                                                int numero_1 = Convert.ToInt32(Console.ReadLine());
-                                                insertion_adresse.Save("SVG numero_client");
-                                                Console.WriteLine("ID_Metro : ");
-                                                int metro_2 = Convert.ToInt32(Console.ReadLine());
-                                                insertion_adresse.Save("SVG identifiant_métro ");
-                                                Console.WriteLine("Code Postal : ");
-                                                int code_p_c = Convert.ToInt32(Console.ReadLine());
-                                                insertion_adresse.Save("SVG code_postal");
-                                                insertion_adresse.Commit();
-                                                insert.Adresse_Client(u1, ville_2, numero_1, lieu_2, code_p_c, metro_2, insertion_adresse);
+                                                if(nb_adresse_client > 0)
+                                                {
+                                                    for (int cl = 0; cl < nb_adresse_client; cl++)
+                                                    {
+                                                        Console.WriteLine();
+                                                        SqlTransaction insertion_adresse = connection.BeginTransaction();
+                                                        insertion_adresse.Save("Debut insertion adresse_client");
+                                                        Console.WriteLine("Insertion de tuples(id,ville,numero,lieu dit,id_metro)");
+                                                        Console.WriteLine("Identifiant : ");
+                                                        int id_ad = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("Identifiant Client  : ");
+                                                        int u1 = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_adresse.Save("SVG id_client");
+                                                        Console.WriteLine("Ville : ");
+                                                        string ville_2 = Console.ReadLine();
+                                                        insertion_adresse.Save("SVG ville_client");
+                                                        Console.WriteLine("Lieu dit : ");
+                                                        string lieu_2 = Console.ReadLine();
+                                                        insertion_adresse.Save("SVG lieu_client");
+                                                        Console.WriteLine("Numero : ");
+                                                        int numero_1 = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_adresse.Save("SVG numero_client");
+                                                        Console.WriteLine("ID_Metro : ");
+                                                        int metro_2 = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_adresse.Save("SVG id_métro ");
+                                                        Console.WriteLine("Code Postal : ");
+                                                        int code_p_c = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_adresse.Save("SVG code_postal");
+                                                        insert.Adresse_Client(id_ad, u1, ville_2, numero_1, lieu_2, code_p_c, metro_2, insertion_adresse);
+
+                                                    }
+                                                }
+                                                
                                                 
                                             }
-                                            catch(SqlException ex)
+                                            catch (SqlException ex)
                                             {
-                                                Console.WriteLine("");
+                                                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                                return;
                                             }
                                         }
                                         if (cuisto_1 == true)
                                         {
                                             try
                                             {
-                                                SqlTransaction insertion_adresse_1 = connection.BeginTransaction();
-                                                insertion_adresse_1.Save("Debut insertion adresse_cuisinier");
-                                                Console.WriteLine("Insertion de tuples(id,ville,numero,lieu dit,id_metro)");
-                                                Console.WriteLine("Identifiant : ");
-                                                int id_cui = Convert.ToInt32(Console.ReadLine());
-                                                insertion_adresse_1.Save("SVG identifiant_cuisinier");
-                                                Console.WriteLine("Ville : ");
-                                                string ville = Console.ReadLine();
-                                                insertion_adresse_1.Save("SVG ville_cuisinier");
-                                                Console.WriteLine("Lieu dit : ");
-                                                string lieu = Console.ReadLine();
-                                                insertion_adresse_1.Save("SVG du lieu_cuisinier");
-                                                Console.WriteLine("Numero : ");
-                                                int numero = Convert.ToInt32(Console.ReadLine());
-                                                insertion_adresse_1.Save("SVG  numero  telephone");
-                                                Console.WriteLine("ID_Metro : ");
-                                                int metro = Convert.ToInt32(Console.ReadLine());
-                                                insertion_adresse_1.Save("SVG de l'identifiant  métro");
-                                                Console.WriteLine("Code Postal : ");
-                                                int code_cuisto = Convert.ToInt32("SVG  code ");
-                                                insertion_adresse_1.Commit();
-                                                insert.Adresse_Cuisto(id_cui, ville, numero, lieu, code_cuisto, metro, insertion_adresse_1);
+                                                if(nb_adresse_cuisto > 0)
+                                                {
+                                                    for(int cuistos = 0; cuistos < nb_adresse_cuisto;cuistos++)
+                                                    {
+                                                        Console.WriteLine();
+                                                        SqlTransaction insertion_adresse_1 = connection.BeginTransaction();
+                                                        insertion_adresse_1.Save("Debut");
+                                                        Console.WriteLine("Insertion de tuples(id,ville,numero,lieu dit,id_metro)");
+                                                        Console.WriteLine("Identifiant : ");
+                                                        int id_a = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("Identifiant Cuisto: ");
+                                                        int id_cui = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_adresse_1.Save("SVG id_cuisinier");
+                                                        Console.WriteLine("Ville : ");
+                                                        string ville = Console.ReadLine();
+                                                        insertion_adresse_1.Save("SVG ville_cuisinier");
+                                                        Console.WriteLine("Lieu dit : ");
+                                                        string lieu = Console.ReadLine();
+                                                        insertion_adresse_1.Save("SVG lieu_cuisinier");
+                                                        Console.WriteLine("Numero : ");
+                                                        int numero = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_adresse_1.Save("SVG numero");
+                                                        Console.WriteLine("ID_Metro : ");
+                                                        int metro = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_adresse_1.Save("SVG id_métro");
+                                                        Console.WriteLine("Code Postal : ");
+                                                        int code_cuisto = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_adresse_1.Save("SVG code ");
+                                                        insert.Adresse_Cuisto(id_a, id_cui, ville, numero, lieu, code_cuisto, metro, insertion_adresse_1);
 
+                                                    }
+                                                }
                                                 
                                             }
-                                            catch(SqlException ex)
+                                            catch (SqlException ex)
                                             {
-                                                Console.WriteLine();
+                                                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                                return;
                                             }
                                         }
 
@@ -1037,88 +1087,116 @@ switch (Menu)
                                     case 1:
                                         bool client_2 = false;
                                         bool cuisto_2 = false;
-                                       
-                                            Console.WriteLine("Selection : Client \n\t True \n\t False");
-                                            client_2 = Convert.ToBoolean(Console.ReadLine());
-                                        
-                                        
-                                            Console.WriteLine("Selection : Cuisto \n\t True \n\t False");
-                                            cuisto_2 = Convert.ToBoolean(Console.ReadLine());
-                                        
+
+                                        Console.WriteLine("Selection : Client \n\t True \n\t False");
+                                        if (nb_adresse_client > 0)
+                                        {
+                                            client_2 = true;
+
+                                        }
+                                        Console.WriteLine(client_2);
+                                        Console.WriteLine("Selection : Cuisto \n\t True \n\t False");
+                                        if (nb_adresse_cuisto > 0)
+                                        {
+                                            cuisto_2 = true;
+
+                                        }
+                                        Console.WriteLine(cuisto_2);
+
                                         if (!client_2)
                                         {
                                            try
                                             {
-                                                SqlTransaction insertion_c = connection.BeginTransaction();
-                                                insertion_c.Save("Debut insertion adresse_client");
-                                                Console.WriteLine("Identifiant :");
-                                                int id_c = Convert.ToInt32(Console.ReadLine());
-                                                insertion_c.Save("SVG de l'identifiant  client");
-                                                Console.WriteLine("Ville :");
-                                                string ville_1 = Console.ReadLine();
-                                                insertion_c.Save("SVG ville_client");
-                                                Console.WriteLine("Lieu dit : ");
-                                                string lieu_1 = Console.ReadLine();
-                                                insertion_c.Save("SVG lieu dit_client");
-                                                Console.WriteLine("Numéro  : ");
-                                                int num = Convert.ToInt32(Console.ReadLine());
-                                                insertion_c.Save("SVG numero");
-                                                Console.WriteLine("ID_Metro  : ");
-                                                int metro_1 = Convert.ToInt32(Console.ReadLine());
-                                                insertion_c.Save("SVG id_métro");
-                                                Console.WriteLine("Code Postal : ");
-                                                int code = Convert.ToInt32(Console.ReadLine());
-                                                insertion_c.Save("SVG code postal");
-                                                Console.WriteLine("Departement : ");
-                                                int dept = Convert.ToInt32(Console.ReadLine());
-                                                insertion_c.Save("SVG departement ");
-                                                Console.WriteLine("Commune : ");
-                                                string commune = Console.ReadLine();
-                                                insertion_c.Save("SVG commune");
-                                                Console.WriteLine("Region : ");
-                                                string region = Console.ReadLine();
-                                                insertion_c.Save("SVG region");
-                                                insertion_c.Commit();
-                                                insert.Adresse_Client_1(id_c, ville_1, num, lieu_1, metro_1, region, code, dept, commune, insertion_c);
+                                                if(nb_adresse_client > 0)
+                                                {
+                                                    for (int cl1 = 0; cl1 < nb_adresse_client; cl1++)
+                                                    {
+                                                        Console.WriteLine();
+                                                        SqlTransaction insertion_c = connection.BeginTransaction();
+                                                        insertion_c.Save("Debut insertion adresse_client");
+                                                        Console.WriteLine("Identifiant :");
+                                                        int id_adresse = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("Identifiant Client :");
+                                                        int id_c = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_c.Save("SVG id_client");
+                                                        Console.WriteLine("Ville :");
+                                                        string ville_1 = Console.ReadLine();
+                                                        insertion_c.Save("SVG ville_client");
+                                                        Console.WriteLine("Lieu dit : ");
+                                                        string lieu_1 = Console.ReadLine();
+                                                        insertion_c.Save("SVG lieu dit_client");
+                                                        Console.WriteLine("Numéro  : ");
+                                                        int num = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_c.Save("SVG numero");
+                                                        Console.WriteLine("ID_Metro  : ");
+                                                        int metro_1 = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_c.Save("SVG id_métro");
+                                                        Console.WriteLine("Code Postal : ");
+                                                        int code = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_c.Save("SVG code postal");
+                                                        Console.WriteLine("Departement : ");
+                                                        int dept = Convert.ToInt32(Console.ReadLine());
+                                                        insertion_c.Save("SVG departement ");
+                                                        Console.WriteLine("Commune : ");
+                                                        string commune = Console.ReadLine();
+                                                        insertion_c.Save("SVG commune");
+                                                        Console.WriteLine("Region : ");
+                                                        string region = Console.ReadLine();
+                                                        insertion_c.Save("SVG region");
+                                                        insert.Adresse_Client_1(id_adresse, id_c, ville_1, num, lieu_1, metro_1, region, code, dept, commune, insertion_c);
 
+                                                    }
+                                                }
+                                                
                                                 
                                             }
-                                            catch(SqlException ex)
+                                            catch (SqlException ex)
                                             {
-                                                Console.WriteLine();
+                                                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                                return;
                                             }
                                         }
                                         if (!cuisto_2)
                                         {
                                           try
                                             {
-                                                SqlTransaction insertion_cui = connection.BeginTransaction();
-                                                Console.WriteLine("Insertion de tous les tuples(id,ville,numero,lieu dit,id_metro,region,code postal,dept,commune)");
-                                                Console.WriteLine("Identifiant :");
-                                                int id_cui = Convert.ToInt32(Console.ReadLine());
-                                                Console.WriteLine("Ville :");
-                                                string ville_2 = Console.ReadLine();
-                                                Console.WriteLine("Lieu dit : ");
-                                                string lieu_2 = Console.ReadLine();
-                                                Console.WriteLine("Numéro  : ");
-                                                int num_1 = Convert.ToInt32(Console.ReadLine());
-                                                Console.WriteLine("ID_Metro  : ");
-                                                int metro_2 = Convert.ToInt32(Console.ReadLine());
-                                                Console.WriteLine("Code Postal : ");
-                                                int code_1 = Convert.ToInt32(Console.ReadLine());
-                                                Console.WriteLine("Departement : ");
-                                                int dept_1 = Convert.ToInt32(Console.ReadLine());
-                                                Console.WriteLine("Commune : ");
-                                                string commune_1 = Console.ReadLine();
-                                                Console.WriteLine("Region : ");
-                                                string region_1 = Console.ReadLine();
-                                                insertion_cui.Commit();
-                                                insert.Adresse_Cuisto_1(id_cui, ville_2, num_1, lieu_2, metro_2, region_1, code_1, dept_1, commune_1, insertion_cui);
-                                                
+                                                if(nb_adresse_cuisto > 0)
+                                                {
+                                                    for(int cuistos1 = 0; cuistos1 < nb_adresse_cuisto; cuistos1++)
+                                                    {
+                                                        Console.WriteLine();
+                                                        SqlTransaction insertion_cui = connection.BeginTransaction();
+                                                        Console.WriteLine("Insertion de tous les tuples(id,ville,numero,lieu dit,id_metro,region,code postal,dept,commune)");
+                                                        Console.WriteLine("Identifiant :");
+                                                        int id_adresse_cui = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("Identifiant Cuisto :");
+                                                        int id_cui = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("Ville :");
+                                                        string ville_2 = Console.ReadLine();
+                                                        Console.WriteLine("Lieu dit : ");
+                                                        string lieu_2 = Console.ReadLine();
+                                                        Console.WriteLine("Numéro  : ");
+                                                        int num_1 = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("ID_Metro  : ");
+                                                        int metro_2 = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("Code Postal : ");
+                                                        int code_1 = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("Departement : ");
+                                                        int dept_1 = Convert.ToInt32(Console.ReadLine());
+                                                        Console.WriteLine("Commune : ");
+                                                        string commune_1 = Console.ReadLine();
+                                                        Console.WriteLine("Region : ");
+                                                        string region_1 = Console.ReadLine();
+                                                        insert.Adresse_Cuisto_1(id_adresse_cui, id_cui, ville_2, num_1, lieu_2, metro_2, region_1, code_1, dept_1, commune_1, insertion_cui);
+
+                                                    }
+                                                }
+                                               
                                             }
-                                            catch(SqlException ex)
+                                            catch (SqlException ex)
                                             {
-                                                Console.WriteLine();
+                                                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                                return;
                                             }
                                         }
 
@@ -1130,44 +1208,60 @@ switch (Menu)
                             case 3:
                                 #region App
                                 string nom_menu = "";
-                            try
+                                Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
+                                int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
+                                int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
+                                int id_app = 1;
+                                try
                                 {
-                                    SqlTransaction inscription_appli = connection.BeginTransaction();
-                                    string inscription_cuisto_debut = " Debut Inscription_Cuisinier";
-                                    inscription_appli.Save(inscription_cuisto_debut);
-                                    int id_app = 1;
-                                    Console.WriteLine("Table : Application_Site");
-                                    Console.WriteLine("Mot de passe : ");
-                                    string mot_de_passse = Console.ReadLine();
-                                    inscription_appli.Save($" SVG Mdp_cuisinier");
-                                    Console.WriteLine("Identifiant  Cuisinier :");
-                                    int id_cuisto = Convert.ToInt32(Console.ReadLine());
-                                    inscription_appli.Save($" SVG Identifiant_Cuisinier");
-                                    Console.WriteLine("Nom  Menu : ");
-                                    nom_menu = Console.ReadLine();
-                                    inscription_appli.Save($" SVG Nom  Menu ");
-                                    insert.App(id_app, nom_menu, id_cuisto, mot_de_passse, inscription_appli);
-                                    id_app++;
-                                    string inscription_cuisto_fin = "Fin Inscription_Cuisinier";
-                                    inscription_appli.Save(inscription_cuisto_fin);
-                                    string inscription_client_debut = "Debut Inscription_Client";
-                                    inscription_appli.Save(inscription_client_debut);
-                                    Console.WriteLine("Table : Application_Site");
-                                    Console.WriteLine("Mot de passe : ");
-                                    string mot_de_passe = Console.ReadLine();
-                                    inscription_appli.Save($" SVG Mdp_client");
-                                    Console.WriteLine("Identifiant  Client :");
-                                    int id_cl = Convert.ToInt32(Console.ReadLine());
-                                    string inscription_client_Fin = " Fin Inscription Client";
-                                    inscription_appli.Save(inscription_client_Fin);
-                                    inscription_appli.Commit();
-                                    insert.App_Client(id_app, id_cl, mot_de_passe, inscription_appli);
-                                    id_app++;
+                                    if(nb_inscription_cuisto > 0)
+                                    {
+                                        for (int nombre = 0; nombre < nb_inscription_cuisto;nombre++)
+                                        {
+                                            SqlTransaction inscription_appli_cuisto = connection.BeginTransaction();
+                                            string inscription_cuisto_debut = " Debut Inscription_Cuisinier";
+                                            inscription_appli_cuisto.Save(inscription_cuisto_debut);
+                                            Console.WriteLine("Table : Application_Site");
+                                            Console.WriteLine("Mot de passe : ");
+                                            string mot_de_passse = Console.ReadLine();
+                                            inscription_appli_cuisto.Save($" SVG Mdp_cuisinier");
+                                            Console.WriteLine("Identifiant  Cuisinier :");
+                                            int id_cuisto = Convert.ToInt32(Console.ReadLine());
+                                            inscription_appli_cuisto.Save($" SVG Id_Cuisinier");
+                                            Console.WriteLine("Nom  Menu : ");
+                                            nom_menu = Console.ReadLine();
+                                            inscription_appli_cuisto.Save($" SVG Nom Menu ");
+                                            insert.App(id_app, nom_menu, id_cuisto, mot_de_passse, inscription_appli_cuisto);
+                                            id_app++;
+                                           
+                                        }
+                                    }
+                                    
+                                    if(nb_inscription_client > 0)
+                                    {
+                                        for(int nb_c = 0; nb_c < nb_inscription_client; nb_c++)
+                                        {
+                                            SqlTransaction inscription_appli_client = connection.BeginTransaction();
+                                            string inscription_client_debut = "Debut Inscription_Client";
+                                            inscription_appli_client.Save(inscription_client_debut);
+                                            Console.WriteLine("Table : Application_Site");
+                                            Console.WriteLine("Mot de passe : ");
+                                            string mot_de_passe = Console.ReadLine();
+                                            inscription_appli_client.Save($" SVG Mdp_client");
+                                            Console.WriteLine("Identifiant Client :");
+                                            int id_cl = Convert.ToInt32(Console.ReadLine());
+                                            insert.App_Client(id_app, id_cl, mot_de_passe, inscription_appli_client);
+                                            id_app++;
+                                        }
+                                    }
+                                    
 
                                 }
-                                catch(SqlException ex)
+                                catch (SqlException ex)
                                 {
-
+                                    Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                    return;
                                 }
 
 
@@ -1184,13 +1278,10 @@ switch (Menu)
                                     Console.WriteLine("Etape 1 : Creation de repas(entree,plat,dessert)");
                                     #region Repas
                                     int total = 0;
-
                                     bool plat = false;
-
                                     Console.WriteLine("Selection : Plat \n\t True \n\t False");
                                     plat = Convert.ToBoolean(Console.ReadLine());
                                     string path_plat = "C:\\Users\\Darrell Messi\\source\\repos\\Liv'in_Paris\\Paris_Mapper\\Plat.txt";
-
                                     if (plat == true)
                                     {
                                         Console.WriteLine("Table : Plat");
@@ -1588,11 +1679,12 @@ switch (Menu)
                                             Console.WriteLine("Nom du Menu : ");
                                             //nom_menu = Console.ReadLine();
                                             insert.Contenu_du_Menu(nom_menu, menu);
-                                            menu.Commit();
+                                           
                                         }
-                                        catch(SqlException ex)
+                                        catch (SqlException ex)
                                         {
-
+                                            Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                            return;
                                         }
                                         Console.WriteLine();
                                     }
@@ -1632,7 +1724,7 @@ switch (Menu)
                                         id_C = Convert.ToInt32(Console.ReadLine());
                                         Console.WriteLine("Identifiant Cuisinier : ");
                                         id_cuisinier = Convert.ToInt32(Console.ReadLine());
-                                        Console.WriteLine("Identifiant de la Commande : ");
+                                        Console.WriteLine("Identifiant Commande : ");
                                         id_com = commande + 1;
                                         insert.Catalogue(id_C, id_cuisinier, id_com,cat);
 
@@ -1659,38 +1751,40 @@ switch (Menu)
                                             decimal prix_unitaire = Convert.ToDecimal(Console.ReadLine());
                                             Console.WriteLine("Regime alimentaire : ");
                                             string regime = Console.ReadLine();
-                                            Commandes.Commit();
+                                           
                                             insert.Commandes(id_com, id_C, id_cuisinier, nombre, nom_menu, pays, depart, arrivee, prix_unitaire, regime, Commandes);
 
                                           
                                             
                                         }
-                                        catch
+                                        catch (SqlException ex)
                                         {
-                                            Console.WriteLine();
+                                            Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                            return;
                                         }
-                                       
+
                                         #region Catalogue
-                                      try
+                                        try
                                         {
                                             SqlTransaction heritage = connection.BeginTransaction();
-                                            heritage.Save("Debut de l'insertion dans le Catalogue");
+                                            heritage.Save("Debut insertion_Catalogue");
                                             Console.WriteLine("Identifiant  Client : ");
                                             id_C = Convert.ToInt32(Console.ReadLine());
-                                            heritage.Save($"Client : {id_C}");
-                                            Console.WriteLine("Identifiant  Cuisinier : ");
+                                            heritage.Save($"SVG Id_Client");
+                                            Console.WriteLine("Identifiant Cuisinier : ");
                                             id_cuisinier = Convert.ToInt32(Console.ReadLine());
                                             heritage.Save($"Cuisinier : {id_cuisinier}");
-                                            Console.WriteLine("Identifiant de la Commande : ");
+                                            Console.WriteLine("Identifiant Commande : ");
                                             id_com = commande + 1;
-                                            heritage.Save("Fin de l'insertion dans le Catalogue");
-                                            heritage.Commit();
+                                            heritage.Save("Fin insertion_Catalogue");
+                                            
                                             insert.Catalogue(id_C, id_cuisinier, id_com, heritage);
                                            
                                         }
-                                        catch(SqlException ex)
+                                        catch (SqlException ex)
                                         {
-                                            Console.WriteLine("");
+                                            Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                            return;
                                         }
                                         #endregion
 
