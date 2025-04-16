@@ -1255,7 +1255,55 @@ switch (Menu)
                                 int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
                                 int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
+                                int Nb_Appli()
+                                {
+
+                                    string q = "SELECT COUNT(*) FROM Application_Site";
+                                    SqlCommand c = new SqlCommand(q, connection);
+                                    int n = 0;
+                                    try
+                                    {
+
+
+                                        SqlDataReader read = c.ExecuteReader();
+                                        string[] valueString = new string[read.FieldCount];
+
+
+                                        while (read.Read())
+                                        {
+
+                                            for (int i = 0; i < read.FieldCount; i++)
+                                            {
+
+                                                valueString[i] = read.GetValue(i).ToString();
+                                                n = Convert.ToInt32(valueString[0]);
+
+
+                                            }
+
+
+                                        }
+
+                                        read.Close();
+                                    }
+
+                                    catch (SqlException e)
+                                    {
+                                        Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                        return 0;
+                                    }
+
+
+                                    return n;
+                                }
                                 int id_app = 1;
+                                int n_appli = Nb_Appli();
+                                if(n_appli > 1)
+                                {
+                                    id_app = n_appli;
+                                }
+                                
+                                
                                 try
                                 {
                                     if(nb_inscription_cuisto > 0)
@@ -1322,6 +1370,134 @@ switch (Menu)
                                     Console.WriteLine("Etape 1 : Creation de repas(entree,plat,dessert)");
                                     #region Repas
                                     int total = 0;
+                                    int id = 0;
+                                    int nb_entree = Nb_Entree();
+                                    int nb_plat = Nb_Plat();
+                                    int nb_dessert =Nb_Dessert();
+
+                                    int Nb_Entree()
+                                    {
+
+                                        string q = "SELECT COUNT(*) FROM Entree";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        int n = 0;
+                                        try
+                                        {
+
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
+                                            {
+
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
+
+
+                                            }
+
+                                            read.Close();
+                                        }
+
+                                        catch (SqlException e)
+                                        {
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
+                                        }
+
+
+                                        return n;
+                                    }
+                                    int Nb_Plat()
+                                    {
+
+                                        string q = "SELECT COUNT(*) FROM Plat";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        int n = 0;
+                                        try
+                                        {
+
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
+                                            {
+
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
+
+
+                                            }
+
+                                            read.Close();
+                                        }
+
+                                        catch (SqlException e)
+                                        {
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
+                                        }
+
+
+                                        return n;
+                                    }
+                                    int Nb_Dessert()
+                                    {
+
+                                        string q = "SELECT COUNT(*) FROM Dessert";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        int n = 0;
+                                        try
+                                        {
+
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
+                                            {
+
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
+
+
+                                            }
+
+                                            read.Close();
+                                        }
+
+                                        catch (SqlException e)
+                                        {
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
+                                        }
+
+
+                                        return n;
+                                    }
                                     bool plat = false;
                                     Console.WriteLine("Selection : Plat \n\t True \n\t False");
                                     plat = Convert.ToBoolean(Console.ReadLine());
@@ -1348,7 +1524,7 @@ switch (Menu)
 
                                             w.Write(nom_plat + "|");
 
-                                            int id = z + 1;
+                                            id = id + z + 1;
                                             total = id;
                                             w.Write(Convert.ToString(id) + "|");
                                             I();
@@ -1393,7 +1569,7 @@ switch (Menu)
                                                     w.Write(Convert.ToString(ID_2) + "|");
                                                     Console.WriteLine("Ingredient : ");
                                                     string ingredient_2 = Console.ReadLine();
-                                                    Console.WriteLine("Quantite :");
+                                                    Console.WriteLine("Quantite/Portions :");
                                                     int q2 = Convert.ToInt32(Console.ReadLine());
                                                     bool choix = false;
                                                     Console.WriteLine("Choix d'insertion de date :  \n\t True : Insertion manuelle \n\t False : Insertion aléatoire");
@@ -1476,7 +1652,7 @@ switch (Menu)
                                         for (int z = 0; z < n1; z++)
                                         {
                                             w_dessert.Write(nom_dessert + "|");
-                                            int id = z + 1;
+                                            id =  id  + z + 1;
                                             total += id;
                                             w_dessert.Write(Convert.ToString(id) + "|");
                                             I();
@@ -1602,7 +1778,7 @@ switch (Menu)
                                         for (int z = 0; z < n2; z++)
                                         {
                                             w_entree.Write(nom_entree + "|");
-                                            int id = z + 1;
+                                             id = z + 1;
                                             total += id;
                                             w_entree.Write(Convert.ToString(id) + "|");
                                             I();
