@@ -8,15 +8,16 @@ namespace Paris_Mapper
 {
     class Serialisation_Cuisto
     {
-
+        int id;
         private string nom;
         private string prenom;
         string email;
         string telephone;
         string adresse;
 
-        public Serialisation_Cuisto(string nom, string prenom, string email, string telephone, string adresse)
+        public Serialisation_Cuisto(int id,string nom, string prenom, string email, string telephone, string adresse)
         {
+            this.id = id;
             this.nom = nom;
             this.prenom = prenom;
             this.email = email;
@@ -27,7 +28,11 @@ namespace Paris_Mapper
         {
 
         }
-
+        public int ID
+        {
+            get { return id; }
+            set { id = value; }
+        }
         public string Nom
 
         {

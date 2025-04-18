@@ -114,24 +114,21 @@ namespace Paris_Mapper
                         {
                             Floyd[i, j] = graphe.Matrice_ADJ[i, j];
                         }
-                        else
-                        {
-                            Floyd[i, j] = graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j];
-                        }
+                        
+
                         if (graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j] != 0 && graphe.Matrice_ADJ[i, j] == 0)
                         {
                             Floyd[i, j] = graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j];
                         }
-                        else
-                        {
-                            Floyd[i, j] = graphe.Matrice_ADJ[i, j];
-                        }
+                       
+
                         if (graphe.Matrice_ADJ[i, j] != 0 && graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j] != 0)
                         {
                             Floyd[i, j] = Math.Min(graphe.Matrice_ADJ[i, j], graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j]);
 
                         }
                         
+
 
                     }
                 }
@@ -263,7 +260,7 @@ namespace Paris_Mapper
                                     {
                                         voisin.Pred[voisin.ID] = new List<T>();
 
-                                        if (!graphe.Egale(voisin, Noeud_v[i]) && Occurence(Noeud_v, voisin) < 1)
+                                        if (!voisin.ID.Equals(Noeud_v[i].ID) && Occurence(Noeud_v, voisin) < 1)
                                         {
                                             voisin.Couleur = Color.Yellow;
                                             voisin.date_Dec = voisin.Decouverte();

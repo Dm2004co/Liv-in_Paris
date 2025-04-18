@@ -2102,7 +2102,7 @@ switch (Menu)
                 nb = Nombre_Client();
                 Client.Capacity = nb;
                 
-                    string q = "SELECT Prenom,Nom,Telephone,Email,Adresse FROM Client";
+                    string q = "SELECT ID_Client,Prenom,Nom,Telephone,Email,Adresse FROM Client";
                     SqlCommand commandes = new SqlCommand(q, connection);
 
                     try
@@ -2123,7 +2123,7 @@ switch (Menu)
                                     Console.WriteLine();
 
                                 }
-                                Client.Add(new Serialisation_Client(valueString[0], valueString[1], valueString[2], valueString[3], valueString[4]));
+                                Client.Add(new Serialisation_Client(Convert.ToInt32(valueString[0]), valueString[1], valueString[2], valueString[3], valueString[4], valueString[5]));
                                 
 
 
@@ -2233,7 +2233,7 @@ switch (Menu)
                 nb_1 = Nombre_Cuisto();
                 Cuisto.Capacity = nb_1;
 
-                string q1 = "SELECT Prenom,Nom,Telephone,Email,Adresse FROM Cuisto";
+                string q1 = "SELECT ID_Cuisto,Prenom,Nom,Telephone,Email,Adresse FROM Cuisto";
                 SqlCommand commandes_1 = new SqlCommand(q1, connection);
 
                 try
@@ -2254,7 +2254,7 @@ switch (Menu)
                             Console.WriteLine();
 
                         }
-                        Cuisto.Add(new Serialisation_Cuisto(valueString[0], valueString[1], valueString[2], valueString[3], valueString[4]));
+                        Cuisto.Add(new Serialisation_Cuisto(Convert.ToInt32(valueString[0]), valueString[1], valueString[2], valueString[3], valueString[4], valueString[5]));
 
 
                     }

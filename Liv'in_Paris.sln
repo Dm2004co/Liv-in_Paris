@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paris_Mapper", "Paris_Mapper\Paris_Mapper.csproj", "{16B8060D-A016-408B-AA56-DA9CC1F61CC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD9", "..\TD9\TD9.csproj", "{02885F29-A30F-2CB2-2D70-4794DEE8EED5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autres", "..\TD9\Autres.csproj", "{02885F29-A30F-2CB2-2D70-4794DEE8EED5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application Liv'in Paris", "Application Liv'in Paris\Application Liv'in Paris.csproj", "{EE72FD4B-F5B7-4ABB-9AD3-B440F0F53D0D}"
 EndProject
