@@ -47,9 +47,8 @@ namespace Paris_Mapper
         }
         public int ID
         {
-
-            get { return ID; }
-            set { ID = value; }
+            get { return this.id; }
+            set { this.id = value; }
         }
         public string Nom
 

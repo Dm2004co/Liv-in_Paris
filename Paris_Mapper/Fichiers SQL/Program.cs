@@ -2181,6 +2181,7 @@ switch (Menu)
                 }
                 jreader.Close();
                 reader.Close();
+                Console.WriteLine("Appuyer sur espace pour continuer");
                 Console.ReadLine();
                 #endregion
                 #region Serialisation_Cuisto
