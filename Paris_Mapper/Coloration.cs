@@ -35,138 +35,119 @@ namespace Paris_Mapper
         {
             nombre_chromatique = 0;
         }
-        public void Welsh_Powell()
+        public int Nombre_Chromatique
         {
-            List<Noeud<T>> S = new List<Noeud<T>>();
-            foreach (var s in graphe.Noeuds)
+            get { return nombre_chromatique; }
+        }
+     
+        public List<Noeud<T>> Welsh_Powell()
+        {
+            List<Noeud<T>> S = graphe.Noeuds;
+            graphe.Tri_Decroissant(S);
+
+            int index_couleur = 0;
+            List<Noeud<T>> noeud_c = new List<Noeud<T>>();
+
+            foreach (Noeud<T> noeud in S)
             {
-                    
-                    int ID = graphe.Conversion(s.ID);
-                    Noeud<T> n = new Noeud<T>();
-                    Acces_Noeud(ID);
-                    S.Add(n);
-                    void Acces_Noeud(int id)
-                    {
-                        string connexion = "Data Source=(localdb)\\ProjectModels;Initial Catalog=Paris;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-                        SqlConnection connection = new SqlConnection(connexion);
-                        connection.Open();
-                        SqlParameter p = new SqlParameter();
-                        p.Value = id;
-                        p.ParameterName = "@ID_Metro";
-                        p.DbType = DbType.Int32;
-                        string q = "SELECT * FROM Metro WHERE ID_Metro = @ID_Metro";
-                        SqlCommand c = new SqlCommand(q, connection);
-                        c.Parameters.Add(p);
-                        try
-                        {
+                if (noeud_c.Contains(noeud)) continue;
 
-                            SqlDataReader read = c.ExecuteReader();
-                            string[] valueString = new string[read.FieldCount];
+                noeud.Couleur = Couleur[index_couleur];
+                noeud_c.Add(noeud);
 
-                            {
-                                while (read.Read())
-
-
-                                {
-                                    
-                                    double val = 0;
-                                    double val1 = 0;
-                                    n.Degre = n.Calcul_Degre();
-                                    for (int i = 0; i < read.FieldCount; i++)
-                                    {
-
-                                        valueString[i] = read.GetValue(i).ToString();
-
-                                        if (i == 1)
-                                        {
-                                            decimal ligne_1 = Convert.ToDecimal(valueString[1]);
-                                            n.Numero_2_ligne = Convert.ToDouble(ligne_1);
-                                        }
-                                        if (i == 2)
-                                        {
-                                            for (int cor = 0; cor < n.Correspondance.Count; cor++)
-                                            {
-                                                n.Correspondance[cor] = valueString[2][cor].ToString();
-                                            }
-
-                                        }
-                                        if (i == 3)
-                                        {
-                                            n.Station = valueString[3];
-                                        }
-                                        if (i == 4)
-                                        {
-                                            val = Convert.ToDouble(valueString[4]);
-
-                                        }
-                                        if (i == 5)
-                                        {
-                                            val1 = Convert.ToDouble(valueString[5]);
-                                        }
-
-                                        if (i == 6)
-                                        {
-                                            n.Commune = valueString[6];
-                                        }
-                                        if (i == 7)
-                                        {
-                                            n.Code_Postal = Convert.ToInt32(valueString[7]);
-                                        }
-
-                                    }
-                                    n.Coordonnees = Tuple.Create(val, val1);
-
-                                    Console.WriteLine();
-
-                                }
-
-
-                            }
-
-                            read.Close();
-                        }
-                        catch (SqlException e)
-                        {
-                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                            return;
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
-
-
-                    }
-
-                
-
-            }
-            graphe.Tri_Decroissant(graphe.Noeuds);
-            int couleur = -1;
-            while (S.Count > 0)
-            {
-                couleur++;
-                S[couleur].Couleur = Couleur[couleur];
-                S.RemoveAt(0);
-                //Noeud x = new Noeud();
-                foreach (var noeud in S)
+                for (int j = 0; j < S.Count; j++)
                 {
-                    foreach (var key in graphe.Succ.Keys)
+                    Noeud<T> autre = S[j];
+                    if (noeud_c.Contains(autre)) continue;
+
+                    bool noeud_c_adjacent = false;
+                    foreach (var n in noeud_c)
                     {
-                        foreach (var sommet in graphe.Succ[key])
+                        if (Est_Adjacent(noeud.ID, autre.ID))
                         {
-                            if (!sommet.Equals(noeud.ID))
-                            {
-                                noeud.Couleur = Couleur[couleur];
-
-
-                            }
+                            noeud_c_adjacent = true;
+                            break;
                         }
+                    }
+                    if (!noeud_c_adjacent)
+                    {
+                        autre.Couleur = Couleur[index_couleur];
+                        noeud_c.Add(autre);
                     }
                 }
+                index_couleur++;
+                if (index_couleur >= Couleur.Count) break;
+
             }
+            nombre_chromatique = index_couleur;
+            return noeud_c;
         }
 
+        private bool Est_Adjacent(T n1, T n2)
+        {
+
+            if (graphe.Succ.ContainsKey(n1) && graphe.Succ[n2].Contains(n1))
+            {
+                return true;
+            }
+            if (graphe.Succ.ContainsKey(n2) && graphe.Succ[n2].Contains(n1))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void Affichage(List<Noeud<T>> Welsh)
+        {
+            Console.WriteLine();
+            string[] orden = new string[13];
+            foreach (Noeud<T> n in Welsh)
+            {
+                string s1 = "";
+                string s = "";
+                for (int i = 0; i < 13; i++)
+                {
+                    orden[0] = Convert.ToString($"ID = {n.ID}");
+                    orden[1] = Convert.ToString($"Coordonnees = {n.Coordonnees}");
+                    orden[2] = Convert.ToString($"Ligne = {n.Numero_2_ligne}");
+                    orden[3] = Convert.ToString($"Code Postal : {n.Code_Postal}");
+                    orden[4] = Convert.ToString($"Commune : {n.Commune}");
+                    foreach (var cor in n.Correspondance)
+                    {
+                        orden[4] = Convert.ToString($"Correspondance de {n.Station} : {cor}");
+                    }
+                    orden[5] = Convert.ToString(n.Couleur);
+                    orden[6] = Convert.ToString(n.date_Dec);
+                    orden[7] = Convert.ToString(n.date_Fin);
+                    orden[8] = Convert.ToString($"Niveau = {n.Niveau}");
+                    orden[9] = Convert.ToString($"Degre = {n.Degre}");
+                    foreach (var p in n.Pred.Values)
+                    {
+                        foreach (var pred in p)
+                        {
+                            s += Convert.ToString(pred + "|");
+
+                        }
+
+                    }
+                    orden[10] = Convert.ToString($"Predecesseurs de {n.Station} sont : {s}");
+                    foreach (var suc in n.Succ.Values)
+                    {
+                        foreach (var succ in suc)
+                        {
+
+                            s1 += Convert.ToString(succ + "|");
+
+                        }
+                    }
+                    orden[11] = Convert.ToString($"Sucesseurs de {n.Station} sont : {s1}");
+
+                    Console.WriteLine($"Proprietes de {n.Station}  : {orden[i]}");
+                }
+                Console.WriteLine();
+            }
+
+        }
 
     }
 }

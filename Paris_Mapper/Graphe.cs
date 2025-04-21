@@ -56,9 +56,16 @@ namespace Paris_Mapper
         /// <summary>,T
         /// Representation planaire
         /// </summary>
+        /// 
+        public bool Biparti
+        {
+            get { return this.biparti; }
+            set { this.biparti = value; }
+        }
         public bool Planaire
         {
             get { return this.planaire; }
+            set { this.planaire = value; }
         }
         /// <summary>
         /// Liste des sommets du graphe 

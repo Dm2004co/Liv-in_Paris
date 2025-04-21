@@ -49,7 +49,7 @@ switch (Menu)
 
         Console.Title = "Projet d'analyse des stations de Metro : Liv'in Paris";
         Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
-        Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : Modes : (Matrices et Listes)  \n 3 : Coloration du graphe \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
+        Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : Modes : (Matrices et Listes)  \n 3 : Coloration du graphe et proprietes du graphe(planaire,biparti) \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
         int i = Convert.ToInt32(Console.ReadLine());
         switch (i)
         {
@@ -311,7 +311,31 @@ switch (Menu)
                 break;
             case 3:
                 Coloration<int> color = new Coloration<int>();
-                color.Welsh_Powell();
+                color.Affichage(color.Welsh_Powell());
+                Console.WriteLine("Proprietes : \n\t 0 : Biparti \n\t 1 : Planaire");
+                int prop = Convert.ToInt32(Console.ReadLine());
+                switch (prop)
+                {
+                    case 0:
+                        Console.WriteLine("Planaire :");
+                        if (color.Nombre_Chromatique <= 4)
+                        {
+                            graphe.Planaire = true;
+                            Console.WriteLine(graphe.Planaire);
+                        }
+                        break;
+                    case 1:
+                        Console.WriteLine("Biparti :");
+                        if (color.Nombre_Chromatique == 2)
+                        {
+                            graphe.Biparti = true;
+                            Console.WriteLine(graphe.Biparti);
+                        }
+                        break;
+
+                }
+
+                Console.WriteLine($"Nombre chromatique : {color.Nombre_Chromatique}");
                 break;
             case 4:
                 PCC<int> pcc = new PCC<int>();
