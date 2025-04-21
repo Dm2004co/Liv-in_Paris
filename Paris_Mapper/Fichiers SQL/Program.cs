@@ -974,19 +974,26 @@ switch (Menu)
                                     case 0:
                                       try
                                         {
-                                            SqlTransaction insertion_cuisto = connection.BeginTransaction();
-                                            insertion_cuisto.Save("Debut d'insertion du cuisinier");
-                                            Console.WriteLine("Insertion de tuples sans un numero de telephone et d'adresse email");
-                                            Console.WriteLine("Identifiant : ");
-                                            int id = Convert.ToInt32(Console.ReadLine());
-                                            insertion_cuisto.Save("SVG id_cuisinier");
-                                            Console.WriteLine("Prenom : ");
-                                            string prenom = Console.ReadLine();
-                                            insertion_cuisto.Save("SVG prenom_cuisinier");
-                                            Console.WriteLine("Nom : ");
-                                            string nom = Console.ReadLine();
-                                            insert.Cuisinier_1(id, prenom, nom, insertion_cuisto);
-                                            insertion_cuisto.Save("SVG nom_cuisinier");
+                                            if(nb_cuistos > 0)
+                                            {
+                                                for(int cui1 = 0;  cui1 < nb_cuistos; cui1++)
+                                                {
+                                                    SqlTransaction insertion_cuisto = connection.BeginTransaction();
+                                                    insertion_cuisto.Save("Debut d'insertion du cuisinier");
+                                                    Console.WriteLine("Insertion de tuples sans un numero de telephone et d'adresse email");
+                                                    Console.WriteLine("Identifiant : ");
+                                                    int id = Convert.ToInt32(Console.ReadLine());
+                                                    insertion_cuisto.Save("SVG id_cuisinier");
+                                                    Console.WriteLine("Prenom : ");
+                                                    string prenom = Console.ReadLine();
+                                                    insertion_cuisto.Save("SVG prenom_cuisinier");
+                                                    Console.WriteLine("Nom : ");
+                                                    string nom = Console.ReadLine();
+                                                    insert.Cuisinier_1(id, prenom, nom, insertion_cuisto);
+                                                }
+                                            }
+                                            
+                                            
                                            
                                         }
                                         catch (SqlException ex)
@@ -998,25 +1005,32 @@ switch (Menu)
                                     case 1:
                                         try
                                         {
-                                            SqlTransaction insertion_cuisto_1 = connection.BeginTransaction();
-                                            insertion_cuisto_1.Save("Debut");
-                                            Console.WriteLine("Insertion de tous les tuples(id,prenom,nom,telephone,email)");
-                                            Console.WriteLine("Identifiant : ");
-                                            int id_1 = Convert.ToInt32(Console.ReadLine());
-                                            insertion_cuisto_1.Save("SVG id_cuisineir");
-                                            Console.WriteLine("Prenom : ");
-                                            string prenom_1 = Console.ReadLine();
-                                            insertion_cuisto_1.Save("SVG prenom_cuisinier");
-                                            Console.WriteLine("Nom : ");
-                                            string nom_1 = Console.ReadLine();
-                                            insertion_cuisto_1.Save("SVG nom_cuisinier");
-                                            Console.WriteLine("Telephone: ");
-                                            string tel = Console.ReadLine();
-                                            insertion_cuisto_1.Save("SVG numero_cuisiner");
-                                            Console.WriteLine("Email :");
-                                            string email = Console.ReadLine();
-                                            insertion_cuisto_1.Save("SVG email_cuisinier");
-                                            insert.Cuisinier(id_1, prenom_1, nom_1, tel, email, insertion_cuisto_1);
+                                            if(nb_cuistos > 0)
+                                            {
+                                                for(int cui2 = 0;  cui2 < nb_cuistos; cui2++)
+                                                {
+                                                    SqlTransaction insertion_cuisto_1 = connection.BeginTransaction();
+                                                    insertion_cuisto_1.Save("Debut");
+                                                    Console.WriteLine("Insertion de tous les tuples(id,prenom,nom,telephone,email)");
+                                                    Console.WriteLine("Identifiant : ");
+                                                    int id_1 = Convert.ToInt32(Console.ReadLine());
+                                                    insertion_cuisto_1.Save("SVG id_cuisineir");
+                                                    Console.WriteLine("Prenom : ");
+                                                    string prenom_1 = Console.ReadLine();
+                                                    insertion_cuisto_1.Save("SVG prenom_cuisinier");
+                                                    Console.WriteLine("Nom : ");
+                                                    string nom_1 = Console.ReadLine();
+                                                    insertion_cuisto_1.Save("SVG nom_cuisinier");
+                                                    Console.WriteLine("Telephone: ");
+                                                    string tel = Console.ReadLine();
+                                                    insertion_cuisto_1.Save("SVG numero_cuisiner");
+                                                    Console.WriteLine("Email :");
+                                                    string email = Console.ReadLine();
+                                                    insertion_cuisto_1.Save("SVG email_cuisinier");
+                                                    insert.Cuisinier(id_1, prenom_1, nom_1, tel, email, insertion_cuisto_1);
+                                                }
+                                            }
+                                           
                                         
                                         }
                                         catch (SqlException ex)
@@ -1057,7 +1071,7 @@ switch (Menu)
                                                 cuisto_1 = true;
                                                 
                                             }
-                                        Console.WriteLine(cuisto_1);
+                                            Console.WriteLine(cuisto_1);
 
                                         if (client_1 == true)
                                         {
@@ -1393,58 +1407,21 @@ switch (Menu)
                                      Commandes.Save("Etape 1");
                                     Console.WriteLine("Etape 1 : Creation de repas(entree,plat,dessert)");
                                     #region Repas
+                                    #region Plat
+                                    SqlTransaction plat = connection.BeginTransaction();
+                                    bool rollback_plat = false;
                                     int total = 0;
                                     int id = 0;
-                                    int nb_entree = Nb_Entree();
-                                    int nb_plat = Nb_Plat();
-                                    int nb_dessert =Nb_Dessert();
-
-                                    int Nb_Entree()
-                                    {
-
-                                        string q = "SELECT COUNT(*) FROM Entree";
-                                        SqlCommand c = new SqlCommand(q, connection);
-                                        int n = 0;
-                                        try
-                                        {
-
-
-                                            SqlDataReader read = c.ExecuteReader();
-                                            string[] valueString = new string[read.FieldCount];
-
-
-                                            while (read.Read())
-                                            {
-
-                                                for (int i = 0; i < read.FieldCount; i++)
-                                                {
-
-                                                    valueString[i] = read.GetValue(i).ToString();
-                                                    n = Convert.ToInt32(valueString[0]);
-
-
-                                                }
-
-
-                                            }
-
-                                            read.Close();
-                                        }
-
-                                        catch (SqlException e)
-                                        {
-                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                                            return 0;
-                                        }
-
-
-                                        return n;
-                                    }
-                                    int Nb_Plat()
+                                    
+                                    int nb_plat = Nb_Plat(plat);
+                                    
+                                   
+                                    int Nb_Plat(SqlTransaction t)
                                     {
 
                                         string q = "SELECT COUNT(*) FROM Plat";
                                         SqlCommand c = new SqlCommand(q, connection);
+                                        c.Transaction = t;
                                         int n = 0;
                                         try
                                         {
@@ -1481,52 +1458,12 @@ switch (Menu)
 
                                         return n;
                                     }
-                                    int Nb_Dessert()
-                                    {
-
-                                        string q = "SELECT COUNT(*) FROM Dessert";
-                                        SqlCommand c = new SqlCommand(q, connection);
-                                        int n = 0;
-                                        try
-                                        {
-
-
-                                            SqlDataReader read = c.ExecuteReader();
-                                            string[] valueString = new string[read.FieldCount];
-
-
-                                            while (read.Read())
-                                            {
-
-                                                for (int i = 0; i < read.FieldCount; i++)
-                                                {
-
-                                                    valueString[i] = read.GetValue(i).ToString();
-                                                    n = Convert.ToInt32(valueString[0]);
-
-
-                                                }
-
-
-                                            }
-
-                                            read.Close();
-                                        }
-
-                                        catch (SqlException e)
-                                        {
-                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                                            return 0;
-                                        }
-
-
-                                        return n;
-                                    }
-                                    bool plat = false;
+                                    
+                                    bool plat1 = false;
                                     Console.WriteLine("Selection : Plat \n\t True \n\t False");
-                                    plat = Convert.ToBoolean(Console.ReadLine());
+                                    plat1 = Convert.ToBoolean(Console.ReadLine());
                                     string path_plat = "C:\\Users\\Darrell Messi\\source\\repos\\Liv'in_Paris\\Paris_Mapper\\Plat.txt";
-                                    if (plat == true)
+                                    if (plat1 == true)
                                     {
                                         Console.WriteLine("Table : Plat");
                                         StreamWriter w = new StreamWriter(path_plat);
@@ -1548,7 +1485,7 @@ switch (Menu)
 
                                             w.Write(nom_plat + "|");
 
-                                            id = id + z + 1;
+                                            id = nb_plat + z + 1;
                                             total = id;
                                             w.Write(Convert.ToString(id) + "|");
                                             I();
@@ -1652,17 +1589,63 @@ switch (Menu)
 
                                     }
                                     Commandes.Save("SVG plat");
-                                    bool dessert = false;
+                                    #endregion
+                                    #region Dessert
+                                    bool dessert1 = false;
+                                    bool rollback_dessert = false;
                                     Console.WriteLine("Selection : Dessert \n\t True \n\t False");
-                                    dessert = Convert.ToBoolean(Console.ReadLine());
+                                    dessert1 = Convert.ToBoolean(Console.ReadLine());
                                     string path_dessert = "C:\\Users\\Darrell Messi\\source\\repos\\Liv'in_Paris\\Paris_Mapper\\Dessert.txt";
+                                    SqlTransaction dessert = connection.BeginTransaction();
+                                    int Nb_Dessert(SqlTransaction t)
+                                    {
 
-                                    if (dessert == true)
+                                        string q = "SELECT COUNT(*) FROM Dessert";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        c.Transaction = t;
+                                        int n = 0;
+                                        try
+                                        {
+
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
+                                            {
+
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
+
+
+                                            }
+
+                                            read.Close();
+                                        }
+
+                                        catch (SqlException e)
+                                        {
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
+                                        }
+
+
+                                        return n;
+                                    }
+                                    if (dessert1 == true)
                                     {
                                         Console.WriteLine("Table : Dessert");
                                         StreamWriter w_dessert = new StreamWriter(path_dessert);
                                         Console.WriteLine("Nom  Dessert : ");
                                         string nom_dessert = "";
+                                        int nb_dessert = Nb_Dessert(dessert);
                                         while (nom_dessert == string.Empty)
                                         {
                                             nom_dessert = Console.ReadLine();
@@ -1676,7 +1659,7 @@ switch (Menu)
                                         for (int z = 0; z < n1; z++)
                                         {
                                             w_dessert.Write(nom_dessert + "|");
-                                            id =  id  + z + 1;
+                                            id =  nb_dessert  + z + 1;
                                             total += id;
                                             w_dessert.Write(Convert.ToString(id) + "|");
                                             I();
@@ -1778,12 +1761,58 @@ switch (Menu)
                                     }
 
                                     Commandes.Save("SVG dessert");
-                                    bool entree = false;
+                                    #endregion
+                                    #region Entree
+                                    bool entree1 = false;
+                                    bool rollback_entree = false;
                                     Console.WriteLine("Selection : Entree \n\t True \n\t False");
-                                    entree = Convert.ToBoolean(Console.ReadLine());
+                                    entree1 = Convert.ToBoolean(Console.ReadLine());
                                     string path_entree = "C:\\Users\\Darrell Messi\\source\\repos\\Liv'in_Paris\\Paris_Mapper\\Entree.txt";
+                                    SqlTransaction entree = connection.BeginTransaction();
+                                    int nb_entree = Nb_Entree(entree);
+                                    int Nb_Entree(SqlTransaction entree)
+                                    {
 
-                                    if (entree == true)
+                                        string q = "SELECT COUNT(*) FROM Entree";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        c.Transaction = entree;
+                                        int n = 0;
+                                        try
+                                        {
+
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
+                                            {
+
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
+
+
+                                            }
+
+                                            read.Close();
+                                        }
+
+                                        catch (SqlException e)
+                                        {
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
+                                        }
+
+
+                                        return n;
+                                    }
+                                    if (entree1 == true)
                                     {
                                         StreamWriter w_entree = new StreamWriter(path_entree);
                                         Console.WriteLine("Table : Entree");
@@ -1802,7 +1831,7 @@ switch (Menu)
                                         for (int z = 0; z < n2; z++)
                                         {
                                             w_entree.Write(nom_entree + "|");
-                                             id = z + 1;
+                                             id = nb_entree + z + 1;
                                             total += id;
                                             w_entree.Write(Convert.ToString(id) + "|");
                                             I();
@@ -1909,11 +1938,12 @@ switch (Menu)
                                     insert.Lecture_2_Fichier_Dessert(path_dessert);
                                     Commandes.Save("SVG entree");
                                     #endregion
+                                    #endregion
                                     Commandes.Save("Etape 2");
                                     Console.WriteLine("Etape 2 : Creation du menu grace aux repas");
                                     //string nom_menu = "";
                                     #region Menu
-                                    if (plat == true || dessert == true || entree == true)
+                                    if (plat1 == true || dessert1 == true || entree1 == true)
                                     {
                                         
                                         try
@@ -1960,7 +1990,11 @@ switch (Menu)
                                         Console.WriteLine("Nombre de Personnes : ");
                                         int nombre = Convert.ToInt32(Console.ReadLine());
                                         Commandes.Save("SVG Nombre de Personnes");
-                                        insert.Commandes_1(id_com, id_C, id_cuisinier, nombre, nom_menu,Commandes);
+                                        Console.WriteLine("Prix Unitaire : ");
+                                        decimal prix = Convert.ToInt32(Console.ReadLine());
+                                        Console.WriteLine("Calcul du prix de la commande :");
+                                        f.Prix_C(nombre, prix);
+                                        insert.Commandes_1(id_com, id_C, id_cuisinier, nombre,prix, nom_menu,Commandes);
                                         #region Catalogue
                                         SqlTransaction cat = connection.BeginTransaction();
                                         Console.WriteLine("Identifiant Client : ");
@@ -1986,15 +2020,45 @@ switch (Menu)
                                             int nombre = Convert.ToInt32(Console.ReadLine());
                                             Console.WriteLine("Pays d'orgine :");
                                             string pays = Console.ReadLine();
-                                            Console.WriteLine("Date de depart : ");
-                                            DateTime depart = DateTime.Parse(Console.ReadLine());
-                                            Console.WriteLine("Date d'arrivee : ");
-                                            DateTime arrivee = DateTime.Parse(Console.ReadLine());
+                                            bool jour = false;
+                                            DateTime depart = DateTime.Now;
+                                            DateTime arrivee = DateTime.Now;
+                                            if (!jour)
+                                            {
+                                                Console.WriteLine("Date de depart : ");
+                                                depart = DateTime.Today;
+                                                Console.WriteLine("Date d'arrivee : ");
+                                                bool gestion_aleatoire = false;
+                                                if(!gestion_aleatoire)
+                                                {
+                                                    Console.WriteLine("Temps d'arrivee(en minutes) : ");
+                                                    Random t = new Random();
+                                                    int temps = Convert.ToInt32(t.Next(1, 1441));
+                                                    Console.WriteLine("Date d'arrivee : ");
+                                                    arrivee = depart.AddMinutes(temps);
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Temps d'arrivee(en minutes) : ");
+                                                    int temps = Convert.ToInt32(Console.ReadLine());
+                                                    Console.WriteLine("Date d'arrivee : ");
+                                                    arrivee = depart.AddMinutes(temps);
+                                                }
+                                                    
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Date de depart : ");
+                                                 depart = DateTime.Parse(Console.ReadLine());
+                                                Console.WriteLine("Date d'arrivee : ");
+                                                 arrivee = DateTime.Parse(Console.ReadLine());
+                                            }
+                                              
                                             Console.WriteLine("Prix par personne : ");
                                             decimal prix_unitaire = Convert.ToDecimal(Console.ReadLine());
                                             Console.WriteLine("Regime alimentaire : ");
                                             string regime = Console.ReadLine();
-                                           
+                                            f.Prix_C(nombre,prix_unitaire);
                                             insert.Commandes(id_com, id_C, id_cuisinier, nombre, nom_menu, pays, depart, arrivee, prix_unitaire, regime, Commandes);
 
                                           
@@ -2050,8 +2114,8 @@ switch (Menu)
                                     #endregion
                                 
                                    
-                                    f.Prix_C();
-                                    //f.Creation_Adresse(4,4,"k");
+                                   
+                                    
                                     f.Plat_du_Jour();
 
                                 }

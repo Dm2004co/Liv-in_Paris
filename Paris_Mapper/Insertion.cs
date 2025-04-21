@@ -704,7 +704,7 @@ namespace Paris_Mapper
 
         }
 
-        public void Commandes_1(int id ,int nb,int id_client , int id_cuisto,string menu, SqlTransaction t)
+        public void Commandes_1(int id ,int nb,int id_client , int id_cuisto,decimal prix,string menu, SqlTransaction t)
         {
             SqlParameter com = new SqlParameter();
             com.DbType = DbType.Int32;
@@ -722,6 +722,8 @@ namespace Paris_Mapper
             p.DbType = DbType.Int32;
             p.Value = nb;
             p.ParameterName = "@Nombre_de_Personnes";
+            SqlParameter pri = new SqlParameter("@Prix_Unitaire", DbType.Decimal);
+            pri.Value = prix;
             SqlParameter m = new SqlParameter();
             m.Value = menu;
             m.ParameterName = "@Nom_Menu";
@@ -734,6 +736,7 @@ namespace Paris_Mapper
             c.Parameters.Add(a);
             c.Parameters.Add(m);
             c.Parameters.Add(com);
+            c.Parameters.Add(pri);
             c.Transaction = t;
             try
             {

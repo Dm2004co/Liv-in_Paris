@@ -431,7 +431,7 @@ namespace Paris_Mapper
                     string Nom = (string)read["Nom"];
                     string Telephone = (string)read["Telephone"];
                     string Email = (string)read["Email"];
-                    //string Adresse = (string)read["Adresse"];
+                    string Adresse = (string)read["Adresse"];
                     //DateTime mylastupdate = (DateTime)read["mydate"];
                     Console.WriteLine($" {Prenom} , {Nom} , {Telephone} , {Email} ");
                     for (int i = 0; i < read.FieldCount; i++)
