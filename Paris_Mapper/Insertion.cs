@@ -926,7 +926,7 @@ namespace Paris_Mapper
             {
 
                 c.ExecuteNonQuery();
-                t.Commit();
+                
                 Console.Write("Insertion réussite");
 
             }
@@ -939,7 +939,7 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                t.Dispose();
+               
             }
         }
 
@@ -1133,7 +1133,7 @@ namespace Paris_Mapper
 
         #region Ingredient
 
-        public void Ingredient(int id, string ingredient,int quantite)
+        public void Ingredient(int id, string ingredient,int quantite,SqlTransaction t)
         {
             SqlParameter p = new SqlParameter();
             p.DbType = DbType.Int32;
@@ -1156,7 +1156,7 @@ namespace Paris_Mapper
             c.Parameters.Add(p);
             c.Parameters.Add(m);
             c.Parameters.Add(o);
-
+            c.Transaction = t;
 
             try
             {
@@ -1177,7 +1177,7 @@ namespace Paris_Mapper
                 
             }
         }
-        public void Ingredient(int id, string ingredient, int quantite,DateTime fabrication , DateTime peremption)
+        public void Ingredient(int id, string ingredient, int quantite,DateTime fabrication , DateTime peremption , SqlTransaction t)
         {
             SqlParameter p = new SqlParameter();
             p.DbType = DbType.Int32;
@@ -1209,7 +1209,7 @@ namespace Paris_Mapper
             c.Parameters.Add(o);
             c.Parameters.Add(fab);
             c.Parameters.Add(per);
-
+            c.Transaction = t;
 
             try
             {
@@ -1231,17 +1231,18 @@ namespace Paris_Mapper
 
             }
         }
-        public void Lecture_Ingredient_1()
+        public void Lecture_Ingredient_1(SqlTransaction t)
         {
             try
             {
 
 
-                string selecton_ing = "SELECT * FROM Ingredient ;";
+                string selecton_ing = "SELECT * FROM Ingredient ;";  
                 SqlCommand command2 = new SqlCommand(selecton_ing, connection);
+                command2.Transaction = t;
                 SqlDataReader read = command2.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+              
 
                 while (read.Read())
 
@@ -1277,7 +1278,7 @@ namespace Paris_Mapper
             }
 
         }
-        public void Lecture_Ingredient()
+        public void Lecture_Ingredient(SqlTransaction t)
         {
             try
             {
@@ -1285,9 +1286,10 @@ namespace Paris_Mapper
 
                 string selecton_ing = "SELECT * FROM Ingredient ;";
                 SqlCommand command2 = new SqlCommand(selecton_ing, connection);
+                command2.Transaction = t;
                 SqlDataReader read = command2.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+               
 
                 while (read.Read())
 
@@ -1328,7 +1330,7 @@ namespace Paris_Mapper
 
         #region Volume
 
-        public void Volume(int id,  decimal volume , string unite)
+        public void Volume(int id,  decimal volume , string unite, SqlTransaction t)
         {
             SqlParameter p = new SqlParameter();
             p.DbType = DbType.Int32;
@@ -1350,7 +1352,7 @@ namespace Paris_Mapper
             c.Parameters.Add(p);
             c.Parameters.Add(m);
             c.Parameters.Add(o);
-
+            c.Transaction = t;
             try
             {
 
@@ -1371,7 +1373,7 @@ namespace Paris_Mapper
             }
 
         }
-        public void Lecture_Volume()
+        public void Lecture_Volume(SqlTransaction t)
         {
             try
             {
@@ -1379,9 +1381,10 @@ namespace Paris_Mapper
 
                 string selecton_ing = "SELECT * FROM Volume;";
                 SqlCommand command2 = new SqlCommand(selecton_ing, connection);
+                command2.Transaction = t;
                 SqlDataReader read = command2.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                
 
                 while (read.Read())
 

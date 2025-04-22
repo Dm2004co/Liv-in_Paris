@@ -1289,108 +1289,117 @@ switch (Menu)
                                 #region App
                                 string nom_menu = "";
                                 bool rollback_app = false;
-                                Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
-                                int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
-                                Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
-                                int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
-                                int Nb_Appli()
+                                bool inscription = false;
+                                Console.WriteLine("Inscription : \n\t True \n\t False");
+                                inscription = Convert.ToBoolean(Console.ReadLine());
+                                if(inscription)
                                 {
-
-                                    string q = "SELECT COUNT(*) FROM Application_Site";
-                                    SqlCommand c = new SqlCommand(q, connection);
-                                    int n = 0;
-                                    try
+                                    Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
+                                    int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
+                                    Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
+                                    int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
+                                    int Nb_Appli()
                                     {
 
-
-                                        SqlDataReader read = c.ExecuteReader();
-                                        string[] valueString = new string[read.FieldCount];
-
-
-                                        while (read.Read())
+                                        string q = "SELECT COUNT(*) FROM Application_Site";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        int n = 0;
+                                        try
                                         {
 
-                                            for (int i = 0; i < read.FieldCount; i++)
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
                                             {
 
-                                                valueString[i] = read.GetValue(i).ToString();
-                                                n = Convert.ToInt32(valueString[0]);
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
 
 
                                             }
 
-
+                                            read.Close();
                                         }
 
-                                        read.Close();
-                                    }
-
-                                    catch (SqlException e)
-                                    {
-                                        Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                                        return 0;
-                                    }
-
-
-                                    return n;
-                                }
-                                int id_app = 1;
-                                int n_appli = Nb_Appli();
-                                if(n_appli > 1)
-                                {
-                                    id_app = n_appli;
-                                }
-                                
-                                
-                                try
-                                {
-                                    if(nb_inscription_cuisto > 0)
-                                    {
-                                        for (int nombre = 0; nombre < nb_inscription_cuisto;nombre++)
+                                        catch (SqlException e)
                                         {
-                                            SqlTransaction inscription_appli_cuisto = connection.BeginTransaction();
-                                            string inscription_cuisto_debut = " Debut Inscription_Cuisinier";
-                                            inscription_appli_cuisto.Save(inscription_cuisto_debut);
-                                            Console.WriteLine("Table : Application_Site");
-                                            Console.WriteLine("Mot de passe : ");
-                                            string mot_de_passse = Console.ReadLine();
-                                            inscription_appli_cuisto.Save($" SVG Mdp_cuisinier");
-                                            Console.WriteLine("Identifiant  Cuisinier :");
-                                            int id_cuisto = Convert.ToInt32(Console.ReadLine());
-                                            inscription_appli_cuisto.Save($" SVG Id_Cuisinier");
-                                            Console.WriteLine("Nom  Menu : ");
-                                            nom_menu = Console.ReadLine();
-                                            inscription_appli_cuisto.Save($" SVG Nom Menu ");
-                                            insert.App(id_app, nom_menu, id_cuisto, mot_de_passse, inscription_appli_cuisto);
-                                            id_app++;
-                                           
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
                                         }
-                                    }
-                                    
-                                    if(nb_inscription_client > 0)
-                                    {
-                                        for(int nb_c = 0; nb_c < nb_inscription_client; nb_c++)
-                                        {
-                                            SqlTransaction inscription_appli_client = connection.BeginTransaction();
-                                            string inscription_client_debut = "Debut Inscription_Client";
-                                            inscription_appli_client.Save(inscription_client_debut);
-                                            Console.WriteLine("Table : Application_Site");
-                                            Console.WriteLine("Mot de passe : ");
-                                            string mot_de_passe = Console.ReadLine();
-                                            inscription_appli_client.Save($" SVG Mdp_client");
-                                            Console.WriteLine("Identifiant Client :");
-                                            int id_cl = Convert.ToInt32(Console.ReadLine());
-                                            insert.App_Client(id_app, id_cl, mot_de_passe, inscription_appli_client);
-                                            id_app++;
-                                        }
-                                    }
-                                    
 
-                                }
-                                catch (SqlException ex)
-                                {
-                                    Console.WriteLine(" ErreurConnexion : " + ex.ToString());
-                                    return;
+
+                                        return n;
+                                    }
+                                    int id_app = 1;
+                                    int n_appli = Nb_Appli();
+                                    if (n_appli > 1)
+                                    {
+                                        id_app = n_appli;
+                                    }
+
+
+                                    try
+                                    {
+                                        if (nb_inscription_cuisto > 0)
+                                        {
+                                            for (int nombre = 0; nombre < nb_inscription_cuisto; nombre++)
+                                            {
+                                                SqlTransaction inscription_appli_cuisto = connection.BeginTransaction();
+                                                string inscription_cuisto_debut = " Debut Inscription_Cuisinier";
+                                                inscription_appli_cuisto.Save(inscription_cuisto_debut);
+                                                Console.WriteLine("Table : Application_Site");
+                                                Console.WriteLine("Mot de passe : ");
+                                                string mot_de_passse = Console.ReadLine();
+                                                inscription_appli_cuisto.Save($" SVG Mdp_cuisinier");
+                                                Console.WriteLine("Identifiant  Cuisinier :");
+                                                int id_cuisto = Convert.ToInt32(Console.ReadLine());
+                                                inscription_appli_cuisto.Save($" SVG Id_Cuisinier");
+                                                Console.WriteLine("Nom  Menu : ");
+                                                nom_menu = Console.ReadLine();
+                                                inscription_appli_cuisto.Save($" SVG Nom Menu ");
+                                                insert.App(id_app, nom_menu, id_cuisto, mot_de_passse, inscription_appli_cuisto);
+                                                id_app++;
+                                                Console.WriteLine();
+
+                                            }
+                                        }
+
+                                        if (nb_inscription_client > 0)
+                                        {
+                                            for (int nb_c = 0; nb_c < nb_inscription_client; nb_c++)
+                                            {
+                                                SqlTransaction inscription_appli_client = connection.BeginTransaction();
+                                                string inscription_client_debut = "Debut Inscription_Client";
+                                                inscription_appli_client.Save(inscription_client_debut);
+                                                Console.WriteLine("Table : Application_Site");
+                                                Console.WriteLine("Mot de passe : ");
+                                                string mot_de_passe = Console.ReadLine();
+                                                inscription_appli_client.Save($" SVG Mdp_client");
+                                                Console.WriteLine("Identifiant Client :");
+                                                int id_cl = Convert.ToInt32(Console.ReadLine());
+                                                insert.App_Client(id_app, id_cl, mot_de_passe, inscription_appli_client);
+                                                id_app++;
+                                                Console.WriteLine();
+                                            }
+                                        }
+
+
+                                    }
+                                    catch (SqlException ex)
+                                    {
+                                        Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                        return;
+                                    }
+
                                 }
 
 
@@ -1408,12 +1417,12 @@ switch (Menu)
                                     Console.WriteLine("Etape 1 : Creation de repas(entree,plat,dessert)");
                                     #region Repas
                                     #region Plat
-                                    SqlTransaction plat = connection.BeginTransaction();
+                                    
                                     bool rollback_plat = false;
                                     int total = 0;
                                     int id = 0;
                                     
-                                    int nb_plat = Nb_Plat(plat);
+                                    int nb_plat = Nb_Plat(Commandes);
                                     
                                    
                                     int Nb_Plat(SqlTransaction t)
@@ -1495,15 +1504,15 @@ switch (Menu)
                                             w.WriteLine();
                                             if (date_plat == false)
                                             {
-                                                insert.Lecture_Ingredient();
+                                                insert.Lecture_Ingredient(Commandes);
 
-                                                insert.Lecture_Volume();
+                                                insert.Lecture_Volume(Commandes);
                                             }
                                             else
                                             {
-                                                insert.Lecture_Ingredient_1();
+                                                insert.Lecture_Ingredient_1(Commandes);
 
-                                                insert.Lecture_Volume();
+                                                insert.Lecture_Volume(Commandes);
                                             }
                                             void V()
                                             {
@@ -1516,7 +1525,7 @@ switch (Menu)
                                                 decimal volume = Convert.ToDecimal(Console.ReadLine());
                                                 Console.WriteLine("Unite de mesure :");
                                                 string unite_2 = Console.ReadLine();
-                                                insert.Volume(id_v, volume, unite_2);
+                                                insert.Volume(id_v, volume, unite_2,Commandes);
                                             }
                                             void I()
                                             {
@@ -1541,12 +1550,12 @@ switch (Menu)
                                                         DateTime fabrication = DateTime.Parse(Console.ReadLine());
                                                         Console.WriteLine("Date de peremption : ");
                                                         DateTime peremption = DateTime.Parse(Console.ReadLine());
-                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication, peremption);
+                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication, peremption,Commandes);
                                                     }
                                                     else
                                                     {
                                                         Random r = new Random();
-                                                        int alea = r.Next(1, 366);
+                                                        int alea = r.Next(-366, 0);
                                                         int alea1 = r.Next(1, 366);
                                                         DateTime d = DateTime.Today;
                                                         DateTime fabrication_1 = d.AddDays(alea);
@@ -1562,7 +1571,7 @@ switch (Menu)
                                                         Console.WriteLine(fabrication_1);
                                                         Console.WriteLine("Date de peremption : ");
                                                         Console.WriteLine(peremption_1);
-                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication_1, peremption_1);
+                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication_1, peremption_1,Commandes);
                                                     }
 
 
@@ -1579,7 +1588,7 @@ switch (Menu)
                                                     string ingredient = Console.ReadLine();
                                                     Console.WriteLine("Quantite :");
                                                     int q = Convert.ToInt32(Console.ReadLine());
-                                                    insert.Ingredient(ID, ingredient, q);
+                                                    insert.Ingredient(ID, ingredient, q,Commandes);
                                                 }
 
                                             }
@@ -1596,7 +1605,7 @@ switch (Menu)
                                     Console.WriteLine("Selection : Dessert \n\t True \n\t False");
                                     dessert1 = Convert.ToBoolean(Console.ReadLine());
                                     string path_dessert = "C:\\Users\\Darrell Messi\\source\\repos\\Liv'in_Paris\\Paris_Mapper\\Dessert.txt";
-                                    SqlTransaction dessert = connection.BeginTransaction();
+                                    
                                     int Nb_Dessert(SqlTransaction t)
                                     {
 
@@ -1645,7 +1654,7 @@ switch (Menu)
                                         StreamWriter w_dessert = new StreamWriter(path_dessert);
                                         Console.WriteLine("Nom  Dessert : ");
                                         string nom_dessert = "";
-                                        int nb_dessert = Nb_Dessert(dessert);
+                                        int nb_dessert = Nb_Dessert(Commandes);
                                         while (nom_dessert == string.Empty)
                                         {
                                             nom_dessert = Console.ReadLine();
@@ -1669,15 +1678,15 @@ switch (Menu)
                                             w_dessert.WriteLine();
                                             if (date == false)
                                             {
-                                                insert.Lecture_Ingredient();
+                                                insert.Lecture_Ingredient(Commandes);
 
-                                                insert.Lecture_Volume();
+                                                insert.Lecture_Volume(Commandes);
                                             }
                                             else
                                             {
-                                                insert.Lecture_Ingredient_1();
+                                                insert.Lecture_Ingredient_1(Commandes);
 
-                                                insert.Lecture_Volume();
+                                                insert.Lecture_Volume(Commandes);
                                             }
                                             void V()
                                             {
@@ -1690,7 +1699,7 @@ switch (Menu)
                                                 decimal volume = Convert.ToDecimal(Console.ReadLine());
                                                 Console.WriteLine("Unite de mesure :");
                                                 string unite_1 = Console.ReadLine();
-                                                insert.Volume(id_v, volume, unite_1);
+                                                insert.Volume(id_v, volume, unite_1,Commandes);
                                             }
                                             void I()
                                             {
@@ -1714,12 +1723,12 @@ switch (Menu)
                                                         DateTime fabrication = DateTime.Parse(Console.ReadLine());
                                                         Console.WriteLine("Date de peremption : ");
                                                         DateTime peremption = DateTime.Parse(Console.ReadLine());
-                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication, peremption);
+                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication, peremption,Commandes);
                                                     }
                                                     else
                                                     {
                                                         Random r = new Random();
-                                                        int alea = r.Next(1, 366);
+                                                        int alea = r.Next(-366, 0);
                                                         int alea1 = r.Next(1, 366);
                                                         DateTime d = DateTime.Today;
                                                         DateTime fabrication_1 = d.AddDays(alea);
@@ -1737,7 +1746,7 @@ switch (Menu)
                                                         Console.WriteLine(fabrication_1);
                                                         Console.WriteLine("Date de peremption : ");
                                                         Console.WriteLine(peremption_1);
-                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication_1, peremption_1);
+                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication_1, peremption_1,Commandes);
                                                     }
                                                 }
                                                 else
@@ -1751,7 +1760,7 @@ switch (Menu)
                                                     string ingredient = Console.ReadLine();
                                                     Console.WriteLine("Quantite :");
                                                     int q = Convert.ToInt32(Console.ReadLine());
-                                                    insert.Ingredient(ID, ingredient, q);
+                                                    insert.Ingredient(ID, ingredient, q,Commandes);
                                                 }
 
                                             }
@@ -1768,8 +1777,8 @@ switch (Menu)
                                     Console.WriteLine("Selection : Entree \n\t True \n\t False");
                                     entree1 = Convert.ToBoolean(Console.ReadLine());
                                     string path_entree = "C:\\Users\\Darrell Messi\\source\\repos\\Liv'in_Paris\\Paris_Mapper\\Entree.txt";
-                                    SqlTransaction entree = connection.BeginTransaction();
-                                    int nb_entree = Nb_Entree(entree);
+                                    
+                                    int nb_entree = Nb_Entree(Commandes);
                                     int Nb_Entree(SqlTransaction entree)
                                     {
 
@@ -1841,15 +1850,15 @@ switch (Menu)
                                             w_entree.WriteLine();
                                             if (date_entree == false)
                                             {
-                                                insert.Lecture_Ingredient();
+                                                insert.Lecture_Ingredient(Commandes);
 
-                                                insert.Lecture_Volume();
+                                                insert.Lecture_Volume(Commandes);
                                             }
                                             else
                                             {
-                                                insert.Lecture_Ingredient_1();
+                                                insert.Lecture_Ingredient_1(Commandes);
 
-                                                insert.Lecture_Volume();
+                                                insert.Lecture_Volume(Commandes);
                                             }
 
                                             void V()
@@ -1863,7 +1872,7 @@ switch (Menu)
                                                 decimal volume = Convert.ToDecimal(Console.ReadLine());
                                                 Console.WriteLine("Unite de mesure :");
                                                 string unite = Console.ReadLine();
-                                                insert.Volume(id_v, volume, unite);
+                                                insert.Volume(id_v, volume, unite,Commandes);
                                             }
                                             void I()
                                             {
@@ -1887,12 +1896,12 @@ switch (Menu)
                                                         DateTime fabrication = DateTime.Parse(Console.ReadLine());
                                                         Console.WriteLine("Date de peremption : ");
                                                         DateTime peremption = DateTime.Parse(Console.ReadLine());
-                                                        insert.Ingredient(ID_1, ingredient_1, q1, fabrication, peremption);
+                                                        insert.Ingredient(ID_1, ingredient_1, q1, fabrication, peremption,Commandes);
                                                     }
                                                     else
                                                     {
                                                         Random r = new Random();
-                                                        int alea = r.Next(1, 366);
+                                                        int alea = r.Next(-366, 0);
                                                         int alea1 = r.Next(1, 366);
                                                         DateTime d = DateTime.Today;
                                                         DateTime fabrication_1 = d.AddDays(alea);
@@ -1909,7 +1918,7 @@ switch (Menu)
                                                         Console.WriteLine(fabrication_1);
                                                         Console.WriteLine("Date de peremption : ");
                                                         Console.WriteLine(peremption_1);
-                                                        insert.Ingredient(ID_1, ingredient_1, q1, fabrication_1, peremption_1);
+                                                        insert.Ingredient(ID_1, ingredient_1, q1, fabrication_1, peremption_1,Commandes);
                                                     }
                                                 }
                                                 else
@@ -1923,7 +1932,7 @@ switch (Menu)
                                                     string ingredient = Console.ReadLine();
                                                     Console.WriteLine("Quantite :");
                                                     int q = Convert.ToInt32(Console.ReadLine());
-                                                    insert.Ingredient(ID, ingredient, q);
+                                                    insert.Ingredient(ID, ingredient, q,Commandes);
                                                 }
 
 
@@ -1932,14 +1941,19 @@ switch (Menu)
                                         w_entree.Close();
 
                                     }
-                                 
+                                    
+                                    
+                                    Commandes.Save("SVG entree");
+                                    Commandes.Commit();
                                     insert.Lecture_2_Fichier(path_entree);
                                     insert.Lecture_2_Fichier_Plat(path_plat);
                                     insert.Lecture_2_Fichier_Dessert(path_dessert);
-                                    Commandes.Save("SVG entree");
+
                                     #endregion
                                     #endregion
-                                    Commandes.Save("Etape 2");
+                                    SqlTransaction Commandes1 = connection.BeginTransaction();
+                                    Commandes1.Save("Etape 2");
+                                    
                                     Console.WriteLine("Etape 2 : Creation du menu grace aux repas");
                                     //string nom_menu = "";
                                     #region Menu
@@ -1948,11 +1962,11 @@ switch (Menu)
                                         
                                         try
                                         {
-                                            SqlTransaction menu = connection.BeginTransaction();
+                                            
                                             Console.WriteLine("Table : Contenu du Menu");
                                             Console.WriteLine("Nom du Menu : ");
                                             //nom_menu = Console.ReadLine();
-                                            insert.Contenu_du_Menu(nom_menu, menu);
+                                            insert.Contenu_du_Menu(nom_menu, Commandes1);
                                            
                                         }
                                         catch (SqlException ex)
@@ -1965,7 +1979,7 @@ switch (Menu)
 
                                     #endregion
                                     #region Commande
-                                    Commandes.Save("Etape 3");
+                                    Commandes1.Save("Etape 3");
                              
                                     Console.WriteLine("Etape 3 : Finalisation de la commande ");
                                     Console.WriteLine("Table : Commandes \n\t True : Tuples(Client,Cuisto,Nombre de Personnes, Date de depart , Date d'arrivee,Pays d'origine,Prix par personne ,Regime alimentaire) \n\t False : Tuples(Client,Cuisto,Nombre)");
@@ -1983,18 +1997,18 @@ switch (Menu)
                                        
                                         Console.WriteLine("Identifiant Client : ");
                                          id_C = Convert.ToInt32(Console.ReadLine());
-                                        Commandes.Save("SVG Client");
+                                        Commandes1.Save("SVG Client");
                                         Console.WriteLine("Identifiant Cuisinier : ");
                                         id_cuisinier = Convert.ToInt32(Console.ReadLine());
-                                        Commandes.Save("SVG Cuisinier");
+                                        Commandes1.Save("SVG Cuisinier");
                                         Console.WriteLine("Nombre de Personnes : ");
                                         int nombre = Convert.ToInt32(Console.ReadLine());
-                                        Commandes.Save("SVG Nombre de Personnes");
+                                        Commandes1.Save("SVG Nombre de Personnes");
                                         Console.WriteLine("Prix Unitaire : ");
-                                        decimal prix = Convert.ToInt32(Console.ReadLine());
+                                        decimal prix = Convert.ToDecimal(Console.ReadLine());
                                         Console.WriteLine("Calcul du prix de la commande :");
-                                        f.Prix_C(nombre, prix);
-                                        insert.Commandes_1(id_com, id_C, id_cuisinier, nombre,prix, nom_menu,Commandes);
+                                        f.Prix_C(nombre, prix,Commandes1);
+                                        insert.Commandes_1(id_com, id_C, id_cuisinier, nombre,prix, nom_menu,Commandes1);
                                         #region Catalogue
                                         SqlTransaction cat = connection.BeginTransaction();
                                         Console.WriteLine("Identifiant Client : ");
@@ -2058,8 +2072,8 @@ switch (Menu)
                                             decimal prix_unitaire = Convert.ToDecimal(Console.ReadLine());
                                             Console.WriteLine("Regime alimentaire : ");
                                             string regime = Console.ReadLine();
-                                            f.Prix_C(nombre,prix_unitaire);
-                                            insert.Commandes(id_com, id_C, id_cuisinier, nombre, nom_menu, pays, depart, arrivee, prix_unitaire, regime, Commandes);
+                                            f.Prix_C(nombre,prix_unitaire,Commandes1);
+                                            insert.Commandes(id_com, id_C, id_cuisinier, nombre, nom_menu, pays, depart, arrivee, prix_unitaire, regime, Commandes1);
 
                                           
                                             
@@ -2097,26 +2111,27 @@ switch (Menu)
                                         #endregion
 
                                     }
-
                                     
+                                  
 
 
 
 
 
 
-                                    
-                                   
+
+
+
 
 
 
                                     #endregion
                                     #endregion
-                                
-                                   
-                                   
-                                    
-                                    f.Plat_du_Jour();
+
+
+
+
+                                    //f.Plat_du_Jour();
 
                                 }
 
