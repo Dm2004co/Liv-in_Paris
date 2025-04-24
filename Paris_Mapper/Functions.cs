@@ -67,16 +67,12 @@ namespace Paris_Mapper
         public void Prix_C(int nombre , decimal prix, SqlTransaction t)
         {
 
-           // SqlParameter r = new SqlParameter("@return_value",DbType.Decimal);
-            SqlParameter p = new SqlParameter("@Prix_Uni", DbType.Decimal);
-            p.Value = prix;
-            SqlParameter n = new SqlParameter("@Nombre_de_Personne", DbType.Int32);
-            n.Value = nombre;
-            string q = "DECLARE\t@return_value Decimal(5, 3)\r\n\r\nEXEC\t@return_value = [dbo].[Prix_C]\r\n\t\t@Nombre_de_Personnes = @Nombre_de_Personne ,\r\n\t\t@Prix_Unitaire = @Prix_Uni\r\n\r\nSELECT\t@return_value as 'Prix de la Commande'\r\n\r\nGO";
+           
+           
+            string q = $"DECLARE\t@return_value Decimal(5, 3)\r\n\r\nEXEC\t@return_value = [dbo].[Prix_C]\r\n\t\t@Nombre_de_Personnes = {nombre} ,\r\n\t\t@Prix_Unitaire = {prix}\r\n\r\nSELECT\t@return_value as 'Prix de la Commande'";
             SqlCommand c = new SqlCommand(q, connection);
-            //c.Parameters.Add(r);
-            c.Parameters.Add(p);
-            c.Parameters.Add(n);
+            
+           
             c.Transaction = t;
             try
             {

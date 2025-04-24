@@ -1982,7 +1982,7 @@ switch (Menu)
                                     Commandes1.Save("Etape 3");
                              
                                     Console.WriteLine("Etape 3 : Finalisation de la commande ");
-                                    Console.WriteLine("Table : Commandes \n\t True : Tuples(Client,Cuisto,Nombre de Personnes, Date de depart , Date d'arrivee,Pays d'origine,Prix par personne ,Regime alimentaire) \n\t False : Tuples(Client,Cuisto,Nombre)");
+                                    Console.WriteLine("Table : Commandes \n\t True : Tuples(Client,Cuisto,Nombre de Personnes, Date de depart , Date d'arrivee,Pays d'origine,Prix par personne ,Regime alimentaire) \n\t False : Tuples(Client,Cuisto,Nombre,Prix Unitaire)");
 
 
                                     bool com = false;
@@ -2007,7 +2007,7 @@ switch (Menu)
                                         Console.WriteLine("Prix Unitaire : ");
                                         decimal prix = Convert.ToDecimal(Console.ReadLine());
                                         Console.WriteLine("Calcul du prix de la commande :");
-                                        f.Prix_C(nombre, prix,Commandes1);
+                                        // f.Prix_C(nombre, prix,Commandes1);
                                         insert.Commandes_1(id_com, id_C, id_cuisinier, nombre,prix, nom_menu,Commandes1);
                                         #region Catalogue
                                         SqlTransaction cat = connection.BeginTransaction();

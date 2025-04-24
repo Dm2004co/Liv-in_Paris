@@ -6,12 +6,5 @@
         xmlns:local="clr-namespace:Application_Liv_in_Paris"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1250">
-    <Grid RenderTransformOrigin="0.518,0.639">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="436*"/>
-            
-        </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="10"/>
-
-    </Grid>
+    <WebBrowser x:Name="Liv_in_Paris" Cursor="Arrow" Margin="-136,0,8,0" Grid.ColumnSpan="3"/>
 </Window>
