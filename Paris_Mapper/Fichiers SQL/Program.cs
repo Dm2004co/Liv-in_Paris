@@ -125,6 +125,7 @@ switch (Menu)
                     case 5:
                         Console.WriteLine($"Taille du graphe (E) : {graphe.Aretes.Count}");
                         break;
+                    default: return; 
 
                 }
 
@@ -395,6 +396,7 @@ switch (Menu)
                                         Console.WriteLine("Selection : Noeuds visités ");
                                         Recherche_Noeud();
                                         break;
+                                    default: return;
 
                                 }
                                 void Recherche()
@@ -414,6 +416,7 @@ switch (Menu)
                                     pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Recherche_Chemin(arrivee, depart).Item3);
                                 }
                                 break;
+                            default: return; 
 
 
                         }
@@ -460,6 +463,7 @@ switch (Menu)
                                 }
 
                                 break;
+                            default: return;
                             case 2:
                                 Console.WriteLine("Selection : PCC (Floyd) \n\t Ordre de visite (0) \n\t Noeuds visités (1)");
                                 int fl = Convert.ToInt32(Console.ReadLine());
@@ -473,10 +477,11 @@ switch (Menu)
                                         Console.WriteLine("Selection : Noeuds visités");
                                         Floyd_Noeud();
                                         break;
+                                    default: return;
                                 }
 
                                 break;
-
+                            
                         }
 
 
@@ -506,12 +511,14 @@ switch (Menu)
 
 
                         break;
+                    default: return;
 
                 }
                 break;
             case 5:
                 // Dessin dessin = new Dessin();
                 break;
+                default : return;
 
 
         }
@@ -606,6 +613,7 @@ switch (Menu)
                                 break;
                             case 6:
                                 break;
+                            default: return;
 
                         }
                         #endregion
@@ -688,6 +696,7 @@ switch (Menu)
                                 break;
                             case 11:
                                 break;
+                            default: return;
                         }
                         #endregion
                         break;
@@ -869,6 +878,7 @@ switch (Menu)
                                 break;
                             case 11:
                                 break;
+                            default: break;
                         }
                         #endregion
                         break;
@@ -2147,6 +2157,7 @@ switch (Menu)
 
                         #endregion
                         break;
+
                     default:return;
                 }
 
@@ -2417,9 +2428,13 @@ switch (Menu)
 
                #endregion
 
-
+   
                 
                 break;
+
+                default:
+                return;
+               
         }
         #endregion
         break;

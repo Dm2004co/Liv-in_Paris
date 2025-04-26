@@ -46,6 +46,7 @@ namespace Paris_Mapper
                 case 0: Console.WriteLine("Selection : Lecture de la table Client");
                     Lecture_Client();
                     break;
+                    
                 case 1: Console.WriteLine("Selection : Filtrage par ordre alphabétique");
                     Filtre_Nom_Client();
                     break;
@@ -63,6 +64,7 @@ namespace Paris_Mapper
                 case 5: Console.WriteLine("Selection : Comptes Clients");
                     Comptes_Clients();
                     break;
+                default: return;
             }
 
             void Filtre_Nom_Client()
