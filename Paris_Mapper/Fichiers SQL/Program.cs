@@ -45,8 +45,6 @@ switch (Menu)
     case 0: Console.WriteLine("Module : Graphes");
         Graphe<int> graphe = new Graphe<int>();
         Lien<int> l = new Lien<int>();
-
-
         Console.Title = "Projet d'analyse des stations de Metro : Liv'in Paris";
         Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
         Console.WriteLine("Entrer  :\n 0 : Propriétés \n 1 : Algorithmes de Parcours \n 2 : Modes : (Matrices et Listes)  \n 3 : Coloration du graphe et proprietes du graphe(planaire,biparti) \n 4 : PCC et son implementation \n 5 : Visualisation du graphe ");
@@ -68,10 +66,11 @@ switch (Menu)
 
                                 // Console.WriteLine($"\n Le graphe est connexe : {graphe.Connexe()}");
 
-                                break;
+                                break ;
                             case 1:
                                 Console.Write("");
                                 break;
+                            
                         }
                         break;
 
@@ -115,17 +114,52 @@ switch (Menu)
 
                     case 2:
                         Console.WriteLine($"Orientation du graphe (O)  : {graphe.Orientation} ");
-                        break;
+                       break;
                     case 3:
                         Console.WriteLine($"Pondération du graphe (W) : {graphe.Ponderation}");
                         break;
                     case 4:
                         Console.WriteLine($"Ordre du graphe (V) : {graphe.Sommet.Count}");
-                        break;
+                       break;
                     case 5:
                         Console.WriteLine($"Taille du graphe (E) : {graphe.Aretes.Count}");
-                        break;
-                    default: return; 
+                      break;
+                    default:
+                        bool quitter = false ; 
+                        if(quitter)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Entrer  :\n 0 : Connexité du graphe \n 1 : Detection de circuit  \n 2 : Orientation du graphe  \n 3 : Ponderation du graphe \n 4 : Ordre du graphe \n 5 : Taille du graphe");
+                            int c1 = Convert.ToInt32(Console.ReadLine());
+                            if(c1 == 0)
+                            {
+                                goto case 0;
+                            }
+                            if(c1 == 1)
+                            {
+                                goto case 1;
+                            }
+                            if(c1 == 2)
+                            {
+                                goto case 2;
+                            }
+                            if(c1 == 3)
+                            {
+                                goto case 3;
+                            }
+                            if (c1 == 4)
+                            {
+                                goto case 4;
+                            }
+                            if(c1 == 5)
+                            {
+                                goto case 5;
+                            }
+                            return;
+                        }
 
                 }
 
@@ -396,7 +430,7 @@ switch (Menu)
                                         Console.WriteLine("Selection : Noeuds visités ");
                                         Recherche_Noeud();
                                         break;
-                                    default: return;
+                                    
 
                                 }
                                 void Recherche()
@@ -416,8 +450,7 @@ switch (Menu)
                                     pcc.Affichage_Ordre_Dijkstra_Noeud(pcc.Recherche_Chemin(arrivee, depart).Item3);
                                 }
                                 break;
-                            default: return; 
-
+                          
 
                         }
 
@@ -463,7 +496,7 @@ switch (Menu)
                                 }
 
                                 break;
-                            default: return;
+                            
                             case 2:
                                 Console.WriteLine("Selection : PCC (Floyd) \n\t Ordre de visite (0) \n\t Noeuds visités (1)");
                                 int fl = Convert.ToInt32(Console.ReadLine());
@@ -477,7 +510,7 @@ switch (Menu)
                                         Console.WriteLine("Selection : Noeuds visités");
                                         Floyd_Noeud();
                                         break;
-                                    default: return;
+                                    
                                 }
 
                                 break;
@@ -511,16 +544,16 @@ switch (Menu)
 
 
                         break;
-                    default: return;
+                  
 
                 }
                 break;
             case 5:
                 // Dessin dessin = new Dessin();
                 break;
-                default : return;
+                
 
-
+              
         }
         break;
     #endregion
@@ -595,29 +628,57 @@ switch (Menu)
                             case 0:
                                 Console.WriteLine("Table : Client");
                                 r.Client();
-                                break;
+                                goto default;
                             case 1:
                                 Console.WriteLine("Table : Cuisinier");
                                 r.Cuisinier();
-                                break;
+                               goto default;
                             case 2:
                                 Console.WriteLine("Statistiques");
                                 r.Stats();
-                                break;
+                                goto default;
                             case 3:
                                 Console.WriteLine("Autres");
-                                break;
+                                goto default;
                             case 4:
-                                break;
+                                goto default;
                             case 5:
-                                break;
+                                goto default;
                             case 6:
-                                break;
-                            default: return;
+                                goto default;
+                            default: bool quitter1 = false;
+                                Console.WriteLine(" Table : 0 : Client \n\t 1 : Cuisinier \n\t 2 : Statistiques \n\t 3 : Autres ");
+                                int c1 = Convert.ToInt32(Console.ReadLine());
+                                if (c1 == 0)
+                                {
+                                    goto case 0;
+                                }
+                                if (c1 == 1)
+                                {
+                                    goto case 1;
+                                }
+                                if (c1 == 2)
+                                {
+                                    goto case 2;
+                                }
+                                if (c1 == 3)
+                                {
+                                    goto case 3;
+                                }
+                                if (c1 == 4)
+                                {
+                                    goto case 4;
+                                }
+                                if (c1 == 5)
+                                {
+                                    goto case 5;
+                                }
+                                return;
+
 
                         }
                         #endregion
-                        break;
+                       
                     #region Suppression
                     case 1:
                         Suppression s = new Suppression(connexion,connection);
@@ -644,12 +705,12 @@ switch (Menu)
                                 Console.WriteLine("Identifiant : ");
                                 int adresse = Convert.ToInt32(Console.ReadLine());
                                 s.Adresse(adresse);
-                                break;
+                                goto default ;
                             case 3:
                                 Console.WriteLine("Table : Commandes");
                                 int id_commande = Convert.ToInt32(Console.ReadLine());
                                 s.Commande(id_commande);
-                                break;
+                                goto default;
                             #region Repas
                             case 4:
                                 Console.WriteLine("Table : Plat");
@@ -675,28 +736,77 @@ switch (Menu)
                                 Console.WriteLine("Identifiant : ");
                                 int menu = Convert.ToInt32(Console.ReadLine());
                                 s.Menu(menu);
-                                break;
+                                goto default;
                             case 8:
                                 Console.WriteLine("Table : Application_Site");
                                 Console.WriteLine("Identifiant : ");
                                 int id_app = Convert.ToInt32(Console.ReadLine());
                                 s.Application(id_app);
-                                break;
+                                goto default;
                             case 9:
                                 Console.WriteLine("Table : Volume");
                                 Console.WriteLine("Identifiant : ");
                                 int id_volume = Convert.ToInt32(Console.ReadLine());
                                 s.Volume(id_volume);
-                                break;
+                                goto default;
                             case 10:
                                 Console.WriteLine("Table : Ingredient");
                                 Console.WriteLine("Identifiant : ");
                                 int id_ingredient = Convert.ToInt32(Console.ReadLine());
                                 s.Ingredient(id_ingredient);
-                                break;
+                                goto default;
                             case 11:
                                 break;
-                            default: return;
+                            default:
+                                bool quitter3 = false;
+                                Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes \n\t 4 : Plat \n\t 5 : Dessert \n\t 6 : Entree \n\t 7 : Contenu du Menu \n\t 8 : Application_Site \n\t 9 : Volume \n\t 10 : Ingredient");
+
+                                int c1 = Convert.ToInt32(Console.ReadLine());
+                                if (c1 == 0)
+                                {
+                                    goto case 0;
+                                }
+                                if (c1 == 1)
+                                {
+                                    goto case 1;
+                                }
+                                if (c1 == 2)
+                                {
+                                    goto case 2;
+                                }
+                                if (c1 == 3)
+                                {
+                                    goto case 3;
+                                }
+                                if (c1 == 4)
+                                {
+                                    goto case 4;
+                                }
+                                if (c1 == 5)
+                                {
+                                    goto case 5;
+                                }
+                                if(c1 == 6)
+                                {
+                                    goto case 6;
+                                }
+                                if(c1 == 7)
+                                {
+
+                                }
+                                if(c1 == 8)
+                                {
+                                    goto case 8;
+                                }
+                                if(c1 == 9)
+                                {
+                                    goto case 9;
+                                }
+                                if(c1 == 10)
+                                {
+                                    goto case 10;
+                                }
+                                break ;
                         }
                         #endregion
                         break;
@@ -770,7 +880,7 @@ switch (Menu)
                                 {
                                     m.Client_1();
                                 }
-                                break;
+                                goto default;
 
                             case 1:
                                 Console.WriteLine("Table : Cuisinier");
@@ -835,7 +945,7 @@ switch (Menu)
                                 {
                                     m.Cuisto_1();
                                 }
-                                break;
+                                goto default;
                             case 2:
                                 Console.WriteLine("Table : Adresse");
                                 Console.WriteLine("Identifiant : ");
@@ -853,32 +963,80 @@ switch (Menu)
                                 int num = Convert.ToInt32(Console.ReadLine());
                                 int code = Convert.ToInt32(Console.ReadLine());
                                 int id_m = Convert.ToInt32(Console.ReadLine());
-                                break;
+                               goto default;
                             case 3:
                                 Console.WriteLine("Table : Commandes");
-                                break;
+                               goto default;
                             case 4:
                                 Console.WriteLine("Table : Plat");
-                                break;
+                                goto default;
                             case 5:
                                 Console.WriteLine("Table : Dessert");
-                                break;
+                                goto default;
                             case 6:
                                 Console.WriteLine("Table : Entree");
-                                break;
+                                goto default;
                             case 7:
                                 Console.WriteLine("Table : Contenu du Menu");
-                                break;
+                                goto default;
                             case 8:
                                 Console.WriteLine("Table : Application_Site");
-                                break;
+                                goto default;
                             case 9:
                                 break;
                             case 10:
                                 break;
                             case 11:
                                 break;
-                            default: break;
+                            default:
+                                bool quitter2 = false;
+                                Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes \n\t 4 : Plat \n\t 5 : Dessert \n\t 6 : Entree \n\t 7 : Contenu du Menu \n\t 8 : Application_Site ");
+                                int c1 = Convert.ToInt32(Console.ReadLine());
+                                if (c1 == 0)
+                                {
+                                    goto case 0;
+                                }
+                                if (c1 == 1)
+                                {
+                                    goto case 1;
+                                }
+                                if (c1 == 2)
+                                {
+                                    goto case 2;
+                                }
+                                if (c1 == 3)
+                                {
+                                    goto case 3;
+                                }
+                                if (c1 == 4)
+                                {
+                                    goto case 4;
+                                }
+                                if (c1 == 5)
+                                {
+                                    goto case 5;
+                                }
+                                if (c1 == 6)
+                                {
+                                    goto case 6;
+                                }
+                                if (c1 == 7)
+                                {
+
+                                }
+                                if (c1 == 8)
+                                {
+                                    goto case 8;
+                                }
+                                if (c1 == 9)
+                                {
+                                    goto case 9;
+                                }
+                                if (c1 == 10)
+                                {
+                                    goto case 10;
+                                }
+                                return;
                         }
                         #endregion
                         break;
@@ -1050,7 +1208,7 @@ switch (Menu)
                                         }
                                         break;
                                 }
-                                break;
+                                goto default;
                             case 2:
                                 Console.WriteLine("Table : Adresse \n\t 0 : Tuples(id,ville,numero,lieu dit,id_metro) \n\t 1 : Tuples(id,ville,numero,lieu dit,id_metro,region,code postal,dept,commune)");
                                 int adresse = Convert.ToInt32(Console.ReadLine());
@@ -1290,8 +1448,9 @@ switch (Menu)
                                             }
                                         }
 
-                                        break;
-                                   
+                                        goto default;
+                                    default:
+                                        return;
                                 }
 
                                 break;
@@ -2145,20 +2304,23 @@ switch (Menu)
 
                                 }
 
-                                break;
-                    
-                                
-                                
+                                goto default;
 
+
+
+                            default:
+                                return;
 
                         }
 
                         break;
 
                         #endregion
-                        break;
+                       
 
-                    default:return;
+                    default:
+                        bool quitter = false;
+                        return;
                 }
 
                 break;
@@ -2430,14 +2592,15 @@ switch (Menu)
 
    
                 
-                break;
+                goto default;
 
                 default:
                 return;
                
         }
-        #endregion
-        break;
+    #endregion
+    default:
+        return;
         #endregion
 }
 
