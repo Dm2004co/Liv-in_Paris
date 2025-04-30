@@ -662,7 +662,7 @@ namespace Paris_Mapper
             s.Value = regime;
             s.ParameterName = "@Regime";
             s.DbType = DbType.String;
-            string query = "INSERT INTO Commandes(ID_Commandes,Nom_Menu,ID_Client,ID_Cuisto,Nb_de_Personnes,Pays_d_origine,Date_Depart,Date_Arrivee,Prix_Unitaire,Regime))" +
+            string query = "INSERT INTO Commande(ID_Commandes,Nom_Menu,ID_Client,ID_Cuisto,Nb_de_Personnes,Pays_d_origine,Date_Depart,Date_Arrivee,Prix_Unitaire,Regime))" +
                 "VALUES(@ID_Commandes,@Nom_Menu,@ID_Client,@ID_Cuisto,@Nombre_de_Personnes,@Pays_d_origine,@Date_Depart,@Date_Arrivee,@Prix_Unitaire,@Regime)\r\n;";
                 ;
             SqlCommand c = connection.CreateCommand();
@@ -728,7 +728,7 @@ namespace Paris_Mapper
             m.Value = menu;
             m.ParameterName = "@Nom_Menu";
             m.DbType = DbType.String;
-            string query = "INSERT INTO Commandes(ID_Commandes,Nom_Menu,ID_Client,ID_Cuisto,Nb_de_Personnes)\r\nVALUES (@ID_Commandes,@Nom_Menu,@ID_Client,@ID_Cuisto,@Nombre_de_Personnes);";
+            string query = "INSERT INTO Commande(ID_Commandes,Nom_Menu,ID_Client,ID_Cuisto,Nb_de_Personnes,Prix_Unitaire)\r\nVALUES (@ID_Commandes,@Nom_Menu,@ID_Client,@ID_Cuisto,@Nombre_de_Personnes,@Prix_Unitaire);";
             SqlCommand c = connection.CreateCommand();
             c.CommandText = query;
             c.Parameters.Add(p);
@@ -1237,7 +1237,7 @@ namespace Paris_Mapper
             {
 
 
-                string selecton_ing = "SELECT * FROM Ingredient ;";  
+                string selecton_ing = "SELECT * FROM Ingredient;";  
                 SqlCommand command2 = new SqlCommand(selecton_ing, connection);
                 command2.Transaction = t;
                 SqlDataReader read = command2.ExecuteReader();
@@ -1250,15 +1250,13 @@ namespace Paris_Mapper
                 {
                     int ID = (int)read["ID_Ingredient"];
                     string ingredient = (string)read["Ingredient"];
-                    int Q = (int)read["Quantite"];
                     DateTime f = (DateTime)read["Date_2_Fabrication"];
                     DateTime p = (DateTime)read["Date_2_Peremption"];
+                    int Q = (int)read["Quantite"];
                     Console.WriteLine($"{ID},{ingredient},{Q},{f},{p}");
                     string val = "";
                     for (int i = 0; i < read.FieldCount; i++)
                     {
-
-
                         valueString[i] = read.GetValue(i).ToString();
 
                     }
@@ -1417,6 +1415,11 @@ namespace Paris_Mapper
             }
 
         }
+        public void Lecture_Ingredient_Volume()
+        {
+
+        }
+
        public void Fermeture()
         { connection.Close(); }
 

@@ -64,7 +64,37 @@ namespace Paris_Mapper
                 case 5: Console.WriteLine("Selection : Comptes Clients");
                     Comptes_Clients();
                     break;
-                default: return;
+                default:
+                    bool quitter30 = false;
+                    if(quitter30)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        int cs = Convert.ToInt32(Console.ReadLine());
+                        if(cs == 1 )
+                        {
+                            goto case 1;
+                        }
+                        if(cs == 2 )
+                        {
+                            goto case 2;
+                        }
+                        if(cs == 3)
+                        {
+                            goto case 3;
+                        }
+                        if(cs == 4)
+                        {
+                            goto case 4;
+                        }
+                        if(cs == 5)
+                        {
+                            goto case 5;
+                        }
+                    }
+                    break;
             }
 
             void Filtre_Nom_Client()
@@ -97,7 +127,7 @@ namespace Paris_Mapper
                     }
 
                     read.Close();
-                    connection.Close();
+                  
 
                 }
 
@@ -359,6 +389,8 @@ namespace Paris_Mapper
                 case 4:
                     Console.WriteLine("Selection : ");
                     break;
+                
+                
             }
              
 
@@ -504,7 +536,7 @@ namespace Paris_Mapper
         #region Statistiques
         public void Stats()
             {
-            Console.WriteLine("Requetes : 0 : Nombre de Livraisons par cuisiniers \n\t 1 : Commandes selon une période de temps \n\t 2 : Moyenne des prix des commandes \n\t 3 :  Moyenne des comptes clients");
+            Console.WriteLine("Requetes : \n\t 0 : Nombre de Livraisons par cuisiniers \n\t 1 : Commandes selon une période de temps \n\t 2 : Moyenne des prix des commandes \n\t 3 :  Moyenne des comptes clients");
                 int stat = Convert.ToInt32(Console.ReadLine());
                 switch(stat)
                 {

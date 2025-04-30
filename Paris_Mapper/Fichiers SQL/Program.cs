@@ -551,8 +551,7 @@ switch (Menu)
             case 5:
                 // Dessin dessin = new Dessin();
                 break;
-             
-
+           
               
         }
         break;
@@ -613,7 +612,7 @@ switch (Menu)
             case 2:
                 Console.WriteLine("Interface Administrateur : ");
                 
-                Console.WriteLine("Modules : 0 : Requetes \n\t 1 : Suppression \n\t 2 : Insertion \n\t 3 : Modification ");
+                Console.WriteLine("Modules : \n\t 0 : Requetes \n\t 1 : Suppression \n\t 2 : Insertion \n\t 3 : Modification ");
 
                 int command = Convert.ToInt32(Console.ReadLine());
                 switch (command)
@@ -647,36 +646,45 @@ switch (Menu)
                             case 6:
                                 goto default;
                             default: bool quitter14 = false;
-                                Console.WriteLine(" Table : 0 : Client \n\t 1 : Cuisinier \n\t 2 : Statistiques \n\t 3 : Autres ");
-                                int c1 = Convert.ToInt32(Console.ReadLine());
-                                if (c1 == 0)
+                                if(quitter14)
                                 {
-                                    goto case 0;
+                                    break;
                                 }
-                                if (c1 == 1)
+                                else
                                 {
-                                    goto case 1;
+                                    Console.WriteLine(" Table : 0 : Client \n\t 1 : Cuisinier \n\t 2 : Statistiques \n\t 3 : Autres ");
+                                    int c1 = Convert.ToInt32(Console.ReadLine());
+                                    if (c1 == 0)
+                                    {
+                                        goto case 0;
+                                    }
+                                    if (c1 == 1)
+                                    {
+                                        goto case 1;
+                                    }
+                                    if (c1 == 2)
+                                    {
+                                        goto case 2;
+                                    }
+                                    if (c1 == 3)
+                                    {
+                                        goto case 3;
+                                    }
+                                    if (c1 == 4)
+                                    {
+                                        goto case 4;
+                                    }
+                                    if (c1 == 5)
+                                    {
+                                        goto case 5;
+                                    }
+                                    break;
+
                                 }
-                                if (c1 == 2)
-                                {
-                                    goto case 2;
-                                }
-                                if (c1 == 3)
-                                {
-                                    goto case 3;
-                                }
-                                if (c1 == 4)
-                                {
-                                    goto case 4;
-                                }
-                                if (c1 == 5)
-                                {
-                                    goto case 5;
-                                }
-                                return;
 
 
                         }
+                        break;
                         #endregion
                        
                     #region Suppression
@@ -759,53 +767,61 @@ switch (Menu)
                                 break;
                             default:
                                 bool quitter3 = false;
-                                Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes \n\t 4 : Plat \n\t 5 : Dessert \n\t 6 : Entree \n\t 7 : Contenu du Menu \n\t 8 : Application_Site \n\t 9 : Volume \n\t 10 : Ingredient");
+                                if(quitter3)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes \n\t 4 : Plat \n\t 5 : Dessert \n\t 6 : Entree \n\t 7 : Contenu du Menu \n\t 8 : Application_Site \n\t 9 : Volume \n\t 10 : Ingredient");
 
-                                int c1 = Convert.ToInt32(Console.ReadLine());
-                                if (c1 == 0)
-                                {
-                                    goto case 0;
-                                }
-                                if (c1 == 1)
-                                {
-                                    goto case 1;
-                                }
-                                if (c1 == 2)
-                                {
-                                    goto case 2;
-                                }
-                                if (c1 == 3)
-                                {
-                                    goto case 3;
-                                }
-                                if (c1 == 4)
-                                {
-                                    goto case 4;
-                                }
-                                if (c1 == 5)
-                                {
-                                    goto case 5;
-                                }
-                                if(c1 == 6)
-                                {
-                                    goto case 6;
-                                }
-                                if(c1 == 7)
-                                {
+                                    int c1 = Convert.ToInt32(Console.ReadLine());
+                                    if (c1 == 0)
+                                    {
+                                        goto case 0;
+                                    }
+                                    if (c1 == 1)
+                                    {
+                                        goto case 1;
+                                    }
+                                    if (c1 == 2)
+                                    {
+                                        goto case 2;
+                                    }
+                                    if (c1 == 3)
+                                    {
+                                        goto case 3;
+                                    }
+                                    if (c1 == 4)
+                                    {
+                                        goto case 4;
+                                    }
+                                    if (c1 == 5)
+                                    {
+                                        goto case 5;
+                                    }
+                                    if (c1 == 6)
+                                    {
+                                        goto case 6;
+                                    }
+                                    if (c1 == 7)
+                                    {
 
+                                    }
+                                    if (c1 == 8)
+                                    {
+                                        goto case 8;
+                                    }
+                                    if (c1 == 9)
+                                    {
+                                        goto case 9;
+                                    }
+                                    if (c1 == 10)
+                                    {
+                                        goto case 10;
+                                    }
                                 }
-                                if(c1 == 8)
-                                {
-                                    goto case 8;
-                                }
-                                if(c1 == 9)
-                                {
-                                    goto case 9;
-                                }
-                                if(c1 == 10)
-                                {
-                                    goto case 10;
-                                }
+                                    
                                 break ;
                         }
                         #endregion
@@ -1161,7 +1177,6 @@ switch (Menu)
                                                 }
                                             }
                                             
-                                            
                                            
                                         }
                                         catch (SqlException ex)
@@ -1450,7 +1465,7 @@ switch (Menu)
 
                                         goto default;
                                     default:
-                                        return;
+                                        break;
                                 }
 
                                 break;
@@ -1716,10 +1731,10 @@ switch (Menu)
                                                     if (choix == true)
                                                     {
                                                         Console.WriteLine("Date de fabrication : ");
-                                                        DateTime fabrication = DateTime.Parse(Console.ReadLine());
+                                                        DateTime fabrication1 = DateTime.Parse(Console.ReadLine());
                                                         Console.WriteLine("Date de peremption : ");
-                                                        DateTime peremption = DateTime.Parse(Console.ReadLine());
-                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication, peremption,Commandes);
+                                                        DateTime peremption1 = DateTime.Parse(Console.ReadLine());
+                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication1, peremption1,Commandes);
                                                     }
                                                     else
                                                     {
@@ -1727,20 +1742,15 @@ switch (Menu)
                                                         int alea = r.Next(-366, 0);
                                                         int alea1 = r.Next(1, 366);
                                                         DateTime d = DateTime.Today;
-                                                        DateTime fabrication_1 = d.AddDays(alea);
-                                                        DateTime peremption_1 = d.AddDays(alea1);
+                                                        DateTime fabrication_10 = d.AddDays(alea);
+                                                        DateTime peremption_10 = d.AddDays(alea1);
 
-                                                        if (peremption_1 < fabrication_1)
-                                                        {
-                                                            DateTime temp = peremption_1;
-                                                            peremption_1 = fabrication_1;
-                                                            fabrication_1 = temp;
-                                                        }
+                                                        
                                                         Console.WriteLine("Date de fabrication : ");
-                                                        Console.WriteLine(fabrication_1);
+                                                        Console.WriteLine(fabrication_10);
                                                         Console.WriteLine("Date de peremption : ");
-                                                        Console.WriteLine(peremption_1);
-                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication_1, peremption_1,Commandes);
+                                                        Console.WriteLine(peremption_10);
+                                                        insert.Ingredient(ID_2, ingredient_2, q2, fabrication_10, peremption_10,Commandes);
                                                     }
 
 
@@ -2076,13 +2086,6 @@ switch (Menu)
                                                         DateTime fabrication_1 = d.AddDays(alea);
                                                         DateTime peremption_1 = d.AddDays(alea1);
 
-
-                                                        if (peremption_1 < fabrication_1)
-                                                        {
-                                                            DateTime temp = peremption_1;
-                                                            peremption_1 = fabrication_1;
-                                                            fabrication_1 = temp;
-                                                        }
                                                         Console.WriteLine("Date de fabrication : ");
                                                         Console.WriteLine(fabrication_1);
                                                         Console.WriteLine("Date de peremption : ");
@@ -2175,15 +2178,16 @@ switch (Menu)
                                         Commandes1.Save("SVG Nombre de Personnes");
                                         Console.WriteLine("Prix Unitaire : ");
                                         decimal prix = Convert.ToDecimal(Console.ReadLine());
-                                        Console.WriteLine("Calcul du prix de la commande :");
-                                        // f.Prix_C(nombre, prix,Commandes1);
+                                        Console.WriteLine("Prix de la commande :");
+                                        decimal p = prix * nombre;
+                                        f.Prix_C(nombre, prix,Commandes1);
                                         insert.Commandes_1(id_com, id_C, id_cuisinier, nombre,prix, nom_menu,Commandes1);
                                         #region Catalogue
                                         SqlTransaction cat = connection.BeginTransaction();
                                         Console.WriteLine("Identifiant Client : ");
-                                        id_C = Convert.ToInt32(Console.ReadLine());
+                                        //id_C = Convert.ToInt32(Console.ReadLine());
                                         Console.WriteLine("Identifiant Cuisinier : ");
-                                        id_cuisinier = Convert.ToInt32(Console.ReadLine());
+                                       // id_cuisinier = Convert.ToInt32(Console.ReadLine());
                                         Console.WriteLine("Identifiant Commande : ");
                                         id_com = commande + 1;
                                         insert.Catalogue(id_C, id_cuisinier, id_com,cat);
@@ -2241,7 +2245,9 @@ switch (Menu)
                                             decimal prix_unitaire = Convert.ToDecimal(Console.ReadLine());
                                             Console.WriteLine("Regime alimentaire : ");
                                             string regime = Console.ReadLine();
-                                            f.Prix_C(nombre,prix_unitaire,Commandes1);
+                                            Console.WriteLine("Prix de la commande : ");
+                                            decimal p = prix_unitaire * nombre;
+                                           f.Prix_C(nombre,prix_unitaire,Commandes1);
                                             insert.Commandes(id_com, id_C, id_cuisinier, nombre, nom_menu, pays, depart, arrivee, prix_unitaire, regime, Commandes1);
 
                                           
@@ -2260,10 +2266,10 @@ switch (Menu)
                                             SqlTransaction heritage = connection.BeginTransaction();
                                             heritage.Save("Debut insertion_Catalogue");
                                             Console.WriteLine("Identifiant  Client : ");
-                                            id_C = Convert.ToInt32(Console.ReadLine());
+                                           // id_C = Convert.ToInt32(Console.ReadLine());
                                             heritage.Save($"SVG Id_Client");
                                             Console.WriteLine("Identifiant Cuisinier : ");
-                                            id_cuisinier = Convert.ToInt32(Console.ReadLine());
+                                           // id_cuisinier = Convert.ToInt32(Console.ReadLine());
                                             heritage.Save($"Cuisinier : {id_cuisinier}");
                                             Console.WriteLine("Identifiant Commande : ");
                                             id_com = commande + 1;
@@ -2309,14 +2315,40 @@ switch (Menu)
 
 
                             default:
-                                return;
+                                bool qui = false;
+                                if (qui)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes  ");
+                                    int cq = Convert.ToInt32(Console.ReadLine());
+                                    if (cq == 1)
+                                    {
+                                        goto case 1;
+                                    }
+                                    if (cq == 2)
+                                    {
+                                        goto case 2;
+                                    }
+                                    if (cq == 3)
+                                    {
+                                        goto case 3;
+                                    }
+
+                                }
+
+
+                                break;
+                                
 
                         }
 
                         break;
 
                         #endregion
-                       
+                    
 
                     default:
                         bool quitter16 = false;
@@ -2600,7 +2632,8 @@ switch (Menu)
 
                 #endregion
         }
-    
+        break;
         #endregion
 }
+
 
