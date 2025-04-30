@@ -551,7 +551,7 @@ switch (Menu)
             case 5:
                 // Dessin dessin = new Dessin();
                 break;
-                
+             
 
               
         }
@@ -606,7 +606,7 @@ switch (Menu)
                     
                 }*/
                 break;
-                break;
+              
                 #endregion
 
             #region Interface Administrateur
@@ -646,7 +646,7 @@ switch (Menu)
                                 goto default;
                             case 6:
                                 goto default;
-                            default: bool quitter1 = false;
+                            default: bool quitter14 = false;
                                 Console.WriteLine(" Table : 0 : Client \n\t 1 : Cuisinier \n\t 2 : Statistiques \n\t 3 : Autres ");
                                 int c1 = Convert.ToInt32(Console.ReadLine());
                                 if (c1 == 0)
@@ -2319,7 +2319,7 @@ switch (Menu)
                        
 
                     default:
-                        bool quitter = false;
+                        bool quitter16 = false;
                         return;
                 }
 
@@ -2596,11 +2596,11 @@ switch (Menu)
 
                 default:
                 return;
-               
+
+
+                #endregion
         }
-    #endregion
-    default:
-        return;
+    
         #endregion
 }
 
