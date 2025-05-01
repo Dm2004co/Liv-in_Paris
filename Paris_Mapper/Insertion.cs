@@ -863,7 +863,7 @@ namespace Paris_Mapper
         #endregion
 
         #region Catalogue
-        public void Catalogue(int id_c,int id_cui,int id_com,SqlTransaction t)
+        public void Catalogue(int catalogue, int id_c,int id_cui,int id_com,SqlTransaction t)
         {
             SqlParameter com = new SqlParameter();
             com.DbType = DbType.Int32;
@@ -877,11 +877,14 @@ namespace Paris_Mapper
             a.DbType = DbType.Int32;
             a.Value = id_cui;
             a.ParameterName = "@ID_Cuisto";
-            string q = "INSERT INTO Catalogue(ID_Client,ID_Cuisto,ID_Commandes)\r\nVALUES(@ID_Client,@ID_Cuisto,@ID_Commandes)";
+            SqlParameter cat = new SqlParameter("@ID_Catalogue", DbType.Int32);
+            cat.Value = catalogue;
+            string q = "INSERT INTO Catalogue(ID_Catalogue,ID_Client,ID_Cuisto,ID_Commandes)\r\nVALUES(@ID_Catalogue,@ID_Client,@ID_Cuisto,@ID_Commandes)";
             SqlCommand c = new SqlCommand(q, connection);
             c.Parameters.Add(j);
             c.Parameters.Add(a);
             c.Parameters.Add(com);
+            c.Parameters.Add(cat);
             c.Transaction = t;
             try
             {
@@ -1242,7 +1245,7 @@ namespace Paris_Mapper
                 command2.Transaction = t;
                 SqlDataReader read = command2.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-              
+                Console.WriteLine("ID | Ingredient | Quantite | Date de fabrication | Date de peremption");
 
                 while (read.Read())
 
@@ -1253,7 +1256,8 @@ namespace Paris_Mapper
                     DateTime f = (DateTime)read["Date_2_Fabrication"];
                     DateTime p = (DateTime)read["Date_2_Peremption"];
                     int Q = (int)read["Quantite"];
-                    Console.WriteLine($"{ID},{ingredient},{Q},{f},{p}");
+                    
+                    Console.WriteLine($"{ID} | {ingredient} | {Q} | {f} | {p}");
                     string val = "";
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -1287,7 +1291,7 @@ namespace Paris_Mapper
                 command2.Transaction = t;
                 SqlDataReader read = command2.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-               
+                Console.WriteLine("ID | Ingredient | Quantite");
 
                 while (read.Read())
 
@@ -1296,7 +1300,8 @@ namespace Paris_Mapper
                     int ID = (int)read["ID_Ingredient"];
                     string ingredient = (string)read["Ingredient"];
                     int Q = (int)read["Quantite"];
-                    Console.WriteLine($"{ID},{ingredient},{Q}");
+                   
+                    Console.WriteLine($"{ID} | {ingredient}| {Q}");
                     string val = "";
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -1382,18 +1387,20 @@ namespace Paris_Mapper
                 command2.Transaction = t;
                 SqlDataReader read = command2.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-                
+                Console.WriteLine("ID_V | Volume | Unite de mesure");
 
                 while (read.Read())
 
 
                 {
-                    int ID = (int)read["ID_Volume"];
+                   
+                    int ID_V = (int)read["ID_Volume"];
                     decimal volume = (decimal)read["Volume"];
                     string unite = (string)read["Unite_de_mesure"];
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    Console.WriteLine($"{ID},{volume},{unite}");
-                    string val = "";
+                    
+                    Console.WriteLine($"{ID_V} | {volume} | {unite}");
+                    
                     for (int i = 0; i < read.FieldCount; i++)
                     {
 
@@ -1415,12 +1422,58 @@ namespace Paris_Mapper
             }
 
         }
-        public void Lecture_Ingredient_Volume()
+        public void Lecture_Ingredient_Volume(SqlTransaction t)
         {
+
+            try
+            {
+
+
+                string selecton_ing = "SELECT * FROM Ingredient_Volume;";
+                SqlCommand command2 = new SqlCommand(selecton_ing, connection);
+                command2.Transaction = t;
+                SqlDataReader read = command2.ExecuteReader();
+                string[] valueString = new string[read.FieldCount];
+                Console.WriteLine("ID_Ingredient | Ingredient | Date de fabrication | Date de peremption | Quantite | ID_Volume | Volume | Unite de mesure");
+
+                while (read.Read())
+
+
+                {
+                    int ID_I = (int)read["ID_Ingredient"];
+                    string ingredient = (string)read["Ingredient"];
+                    DateTime f = (DateTime)read["Date_2_Fabrication"];
+                    DateTime p = (DateTime)read["Date_2_Peremption"];
+                    int Q = (int)read["Quantite"];
+                    int ID_V = (int)read["ID_Volume"];
+                    decimal volume = (decimal)read["Volume"];
+                    string unite = (string)read["Unite_de_mesure"];
+                    //DateTime mylastupdate = (DateTime)read["mydate"];
+                   
+                    Console.WriteLine($"{ID_I} | {ingredient} | {f} | {p} | {Q} | {ID_V} | {volume} | {unite}");
+                    for (int i = 0; i < read.FieldCount; i++)
+                    {
+
+
+                        valueString[i] = read.GetValue(i).ToString();
+
+                    }
+
+
+                }
+
+                read.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                return;
+            }
 
         }
 
-       public void Fermeture()
+        public void Fermeture()
         { connection.Close(); }
 
         #endregion

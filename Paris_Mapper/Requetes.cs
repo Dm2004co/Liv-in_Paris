@@ -107,6 +107,7 @@ namespace Paris_Mapper
                     SqlCommand c = new SqlCommand(query, connection);
                     SqlDataReader read = c.ExecuteReader();
                     string[] valueString = new string[read.FieldCount];
+                    Console.WriteLine("Prenom | Nom");
 
                     while (read.Read())
 
@@ -115,7 +116,8 @@ namespace Paris_Mapper
                         string Prenom = (string)read["Prenom"];
                         string Nom = (string)read["Nom"];
                         //DateTime mylastupdate = (DateTime)read["mydate"];
-                        Console.WriteLine($" {Prenom} , {Nom} ");
+                        
+                        Console.WriteLine($" {Prenom} | {Nom} ");
                         string val = "";
                         for (int i = 0; i < read.FieldCount; i++)
                         {
@@ -147,7 +149,7 @@ namespace Paris_Mapper
                     SqlCommand c = new SqlCommand(query, connection);
                     SqlDataReader read = c.ExecuteReader();
                     string[] valueString = new string[read.FieldCount];
-
+                    Console.WriteLine("ID_Client | Prenom | Nom | Telephone | Email");
                     while (read.Read())
 
 
@@ -158,7 +160,8 @@ namespace Paris_Mapper
                         string Telephone = (string)read["Telephone"];
                         string Email = (string)read["Email"];
                         //DateTime mylastupdate = (DateTime)read["mydate"];
-                        Console.WriteLine($"{ID_Client} , {Prenom} , {Nom} , {Telephone} , {Email} ");
+                        
+                        Console.WriteLine($"{ID_Client} | {Prenom} | {Nom} | {Telephone} | {Email} ");
                         for (int i = 0; i < read.FieldCount; i++)
                         {
                             valueString[i] = read.GetValue(i).ToString();
@@ -191,7 +194,7 @@ namespace Paris_Mapper
                     SqlCommand c = new SqlCommand(query, connection);
                     SqlDataReader read = c.ExecuteReader();
                     string[] valueString = new string[read.FieldCount];
-
+                    Console.WriteLine("Numero | Lieu | Ville | Code Postal | Region");
                     while (read.Read())
 
 
@@ -204,7 +207,8 @@ namespace Paris_Mapper
                         string Region = (string)read["Region"];
 
                         //DateTime mylastupdate = (DateTime)read["mydate"];
-                        Console.WriteLine($" {Numero} , {Lieu} , {Ville},{Code_Postal},{Region}");
+                       
+                        Console.WriteLine($" {Numero} | {Lieu} | {Ville} | {Code_Postal} | {Region}");
                         for (int i = 0; i < read.FieldCount; i++)
                         {
                             valueString[i] = read.GetValue(i).ToString();
@@ -237,7 +241,7 @@ namespace Paris_Mapper
 
                     SqlDataReader read = c.ExecuteReader();
                     string[] valueString = new string[read.FieldCount];
-
+                    Console.WriteLine("ID_Client | Prenom | Nom | Montant");
                     while (read.Read())
 
 
@@ -247,7 +251,8 @@ namespace Paris_Mapper
                         string Nom = (string)read["Nom"];
                         decimal Montant = (decimal)read["Montant"];
                         //DateTime mylastupdate = (DateTime)read["mydate"];
-                        Console.WriteLine($"{ID_Client},{Prenom},{Nom},{Montant} ");
+                        
+                        Console.WriteLine($"{ID_Client}| {Prenom}| {Nom}| {Montant} ");
                         for (int i = 0; i < read.FieldCount; i++)
                         {
                             valueString[i] = read.GetValue(i).ToString();
@@ -277,7 +282,7 @@ namespace Paris_Mapper
             {
 
 
-                string query = "select * from Profil_Client WHERE ID_Client = @ID_Client ;";
+                string query = "select * from Client WHERE ID_Client = @ID_Client ;";
                 SqlParameter p = new SqlParameter();
                 p.Value = id;
                 p.DbType = DbType.Int32;
@@ -286,7 +291,7 @@ namespace Paris_Mapper
                 c.Parameters.Add(p);
                 SqlDataReader read = c.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                Console.WriteLine("Prenom | Nom | Telephone | Email");
                 while (read.Read())
 
 
@@ -298,7 +303,8 @@ namespace Paris_Mapper
                     string Email = (string)read["Email"];
                     //string Adresse = (string)read["Adresse"];
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    Console.WriteLine($" {Prenom} , {Nom} , {Telephone} , {Email} ");
+                   
+                    Console.WriteLine($" {Prenom} | {Nom} | {Telephone} | {Email} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
                         valueString[i] = read.GetValue(i).ToString();
@@ -406,7 +412,7 @@ namespace Paris_Mapper
                 SqlCommand c = new SqlCommand(query, connection);
                 SqlDataReader read = c.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                Console.WriteLine("ID Cuisto | Prenom | Nom | Telephone | Email");
                 while (read.Read())
 
 
@@ -417,7 +423,8 @@ namespace Paris_Mapper
                     string Telephone = (string)read["Telephone"];
                     string Email = (string)read["Email"];
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    Console.WriteLine($"{ID_Cuisto} , {Prenom} , {Nom} , {Telephone} , {Email} ");
+                    
+                    Console.WriteLine($"{ID_Cuisto} | {Prenom} | {Nom} | {Telephone} | {Email} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
                         valueString[i] = read.GetValue(i).ToString();
@@ -446,7 +453,7 @@ namespace Paris_Mapper
             {
 
 
-                string query = "select * from Profil_Cuisto WHERE ID_Cuisto = @ID_Cuisto ;";
+                string query = "select * from Cuisto WHERE ID_Cuisto = @ID_Cuisto ;";
                 SqlParameter p = new SqlParameter();
                 p.Value = id;
                 p.DbType = DbType.Int32;
@@ -455,7 +462,7 @@ namespace Paris_Mapper
                 c.Parameters.Add(p);
                 SqlDataReader read = c.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                Console.WriteLine("Prenom | Nom | Telephone | Email");
                 while (read.Read())
 
 
@@ -467,7 +474,8 @@ namespace Paris_Mapper
                     string Email = (string)read["Email"];
                     string Adresse = (string)read["Adresse"];
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    Console.WriteLine($" {Prenom} , {Nom} , {Telephone} , {Email} ");
+                    
+                    Console.WriteLine($" {Prenom} | {Nom} | {Telephone} | {Email} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
                         valueString[i] = read.GetValue(i).ToString();
@@ -498,7 +506,7 @@ namespace Paris_Mapper
                 SqlCommand c = new SqlCommand(query, connection);
                 SqlDataReader read = c.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                Console.WriteLine(" Numero | Lieu | Ville | Code_Postal | Region");
                 while (read.Read())
 
 
@@ -511,7 +519,8 @@ namespace Paris_Mapper
                     string Region = (string)read["Region"];
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    Console.WriteLine($" {Numero} , {Lieu} , {Ville},{Code_Postal},{Region}");
+                    
+                    Console.WriteLine($" {Numero} | {Lieu} | {Ville} | {Code_Postal} | {Region}");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
                         valueString[i] = read.GetValue(i).ToString();
@@ -583,7 +592,7 @@ namespace Paris_Mapper
                 SqlCommand c = new SqlCommand(query, connection);
                 SqlDataReader read = c.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                Console.WriteLine("ID_Cuisto | Nombre | Nom | Prenom");
                 while (read.Read())
 
 
@@ -592,10 +601,11 @@ namespace Paris_Mapper
                     string Nom = (string)read["Nom"];
                     string Prenom = (string)read["Prenom"];
                     int Nombre = (int)read["Nombre_de_Livraisons"];
-                    
-                   
+
+
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    Console.WriteLine($"{ID_Cuisto} , {Nombre} , {Nom},{Prenom}");
+                    
+                    Console.WriteLine($"{ID_Cuisto} | {Nombre} | {Nom} | {Prenom}");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
                         valueString[i] = read.GetValue(i).ToString();
@@ -628,7 +638,7 @@ namespace Paris_Mapper
 
                 SqlDataReader read = c.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                Console.WriteLine("Moyenne des Comptes Clients");
                 while (read.Read())
 
 
@@ -637,6 +647,7 @@ namespace Paris_Mapper
 
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
+                    
                     Console.WriteLine($"{Compte} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -666,7 +677,7 @@ namespace Paris_Mapper
 
                 SqlDataReader read = c.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                Console.WriteLine("ID_Com | Moyenne des Prix ");
                 while (read.Read())
 
 
@@ -676,7 +687,8 @@ namespace Paris_Mapper
 
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    Console.WriteLine($"{Moy_Prix} ");
+                    
+                    Console.WriteLine($"{ID_Com} | {Moy_Prix} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
                         valueString[i] = read.GetValue(i).ToString();
@@ -705,7 +717,7 @@ namespace Paris_Mapper
 
                 SqlDataReader read = c.ExecuteReader();
                 string[] valueString = new string[read.FieldCount];
-
+                Console.WriteLine("ID_Com | Mois en cours");
                 while (read.Read())
 
 
@@ -715,7 +727,8 @@ namespace Paris_Mapper
 
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    Console.WriteLine($"{ID_Com} ,{Mois} ");
+                    
+                    Console.WriteLine($"{ID_Com} | {Mois} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
                         valueString[i] = read.GetValue(i).ToString();

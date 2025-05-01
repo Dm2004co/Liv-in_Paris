@@ -6,5 +6,9 @@
         xmlns:local="clr-namespace:Application_Liv_in_Paris"
         mc:Ignorable="d"
         Title="MainWindow" Height="841" Width="1282">
-    <WebBrowser x:Name="Liv_in_Paris" Cursor="Arrow" Margin="0,0,0,-6" Grid.ColumnSpan="3" RenderTransformOrigin="0.503,0.494"/>
+    <WebBrowser x:Name="Liv_in_Paris" Cursor="Arrow" Margin="0,0,0,-6" Grid.ColumnSpan="3" RenderTransformOrigin="0.503,0.494">
+        <WebBrowser.ContextMenu>
+            <ContextMenu/>
+        </WebBrowser.ContextMenu>
+    </WebBrowser>
 </Window>

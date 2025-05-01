@@ -1597,7 +1597,7 @@ switch (Menu)
                                 for (int commande = 0; commande < nombre_commandes; commande++)
                                 {
                                     #region Commandes
-                                     Commandes.Save("Etape 1");
+                                     //Commandes.Save("Etape 1");
                                     Console.WriteLine("Etape 1 : Creation de repas(entree,plat,dessert)");
                                     #region Repas
                                     #region Plat
@@ -1607,8 +1607,89 @@ switch (Menu)
                                     int id = 0;
                                     
                                     int nb_plat = Nb_Plat(Commandes);
-                                    
-                                   
+                                    int nb_ingredient = Nb_Ingredient(Commandes);
+                                    int nb_volume = Nb_Volume(Commandes);
+                                    int Nb_Ingredient(SqlTransaction t)
+                                    {
+                                        string q = "SELECT COUNT(*) FROM Ingredient";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        c.Transaction = t;
+                                        int n = 0;
+                                        try
+                                        {
+
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
+                                            {
+
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
+
+
+                                            }
+
+                                            read.Close();
+                                        }
+
+                                        catch (SqlException e)
+                                        {
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
+                                        }
+
+
+                                        return n;
+                                    }
+                                    int Nb_Volume(SqlTransaction t)
+                                    {
+                                        string q = "SELECT COUNT(*) FROM Volume";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        c.Transaction = t;
+                                        int n = 0;
+                                        try
+                                        {
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
+                                            {
+
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
+
+
+                                            }
+
+                                            read.Close();
+                                        }
+
+                                        catch (SqlException e)
+                                        {
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
+                                        }
+
+
+                                        return n;
+                                    }
                                     int Nb_Plat(SqlTransaction t)
                                     {
 
@@ -1694,15 +1775,13 @@ switch (Menu)
                                             }
                                             else
                                             {
-                                                insert.Lecture_Ingredient_1(Commandes);
-
-                                                insert.Lecture_Volume(Commandes);
+                                                insert.Lecture_Ingredient_Volume(Commandes);
                                             }
                                             void V()
                                             {
                                                 Console.WriteLine("Table : Volume");
                                                 Console.WriteLine("Identifiant :");
-                                                int id_v = total;
+                                                int id_v = nb_volume + 1;
                                                 Console.WriteLine(id_v);
                                                 w.Write(Convert.ToString(id_v) + "|");
                                                 Console.WriteLine("Volume(en decimal avec deux chiffres apres la virgule) :");
@@ -1718,7 +1797,7 @@ switch (Menu)
                                                 {
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
-                                                    int ID_2 = total;
+                                                    int ID_2 = nb_ingredient + 1 ;
                                                     Console.WriteLine(ID_2);
                                                     w.Write(Convert.ToString(ID_2) + "|");
                                                     Console.WriteLine("Ingredient : ");
@@ -1760,12 +1839,12 @@ switch (Menu)
                                                     Console.WriteLine();
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
-                                                    int ID = total;
+                                                    int ID = nb_ingredient + 1;
                                                     Console.WriteLine(ID);
                                                     w.Write(Convert.ToString(ID) + "|");
                                                     Console.WriteLine("Ingredient : ");
                                                     string ingredient = Console.ReadLine();
-                                                    Console.WriteLine("Quantite :");
+                                                    Console.WriteLine("Quantite/Portions :");
                                                     int q = Convert.ToInt32(Console.ReadLine());
                                                     insert.Ingredient(ID, ingredient, q,Commandes);
                                                 }
@@ -1785,6 +1864,7 @@ switch (Menu)
                                     dessert1 = Convert.ToBoolean(Console.ReadLine());
                                     string path_dessert = "C:\\Users\\Darrell Messi\\source\\repos\\Liv'in_Paris\\Paris_Mapper\\Dessert.txt";
                                     
+
                                     int Nb_Dessert(SqlTransaction t)
                                     {
 
@@ -1863,15 +1943,13 @@ switch (Menu)
                                             }
                                             else
                                             {
-                                                insert.Lecture_Ingredient_1(Commandes);
-
-                                                insert.Lecture_Volume(Commandes);
+                                                insert.Lecture_Ingredient_Volume(Commandes);
                                             }
                                             void V()
                                             {
                                                 Console.WriteLine("Table : Volume");
                                                 Console.WriteLine("Identifiant :");
-                                                int id_v = total;
+                                                int id_v = nb_volume + 1;
                                                 Console.WriteLine(id_v);
                                                 w_dessert.Write(Convert.ToString(id_v) + "|");
                                                 Console.WriteLine("Volume(en decimal avec deux chiffres apres la virgule) :");
@@ -1887,12 +1965,12 @@ switch (Menu)
                                                 {
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
-                                                    int ID_2 = total;
+                                                    int ID_2 = nb_ingredient + 1;
                                                     Console.WriteLine(ID_2);
                                                     w_dessert.Write(Convert.ToString(ID_2) + "|");
                                                     Console.WriteLine("Ingredient : ");
                                                     string ingredient_2 = Console.ReadLine();
-                                                    Console.WriteLine("Quantite :");
+                                                    Console.WriteLine("Quantite/Portions :");
                                                     int q2 = Convert.ToInt32(Console.ReadLine());
                                                     Console.WriteLine("Choix d'insertion de date :  \n\t True : Insertion manuelle \n\t False : Insertion aléatoire");
                                                     bool choix = Convert.ToBoolean(Console.ReadLine());
@@ -1932,12 +2010,12 @@ switch (Menu)
                                                 {
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
-                                                    int ID = total;
+                                                    int ID = nb_ingredient + 1;
                                                     Console.WriteLine(ID);
                                                     w_dessert.Write(Convert.ToString(ID) + "|");
                                                     Console.WriteLine("Ingredient : ");
                                                     string ingredient = Console.ReadLine();
-                                                    Console.WriteLine("Quantite :");
+                                                    Console.WriteLine("Quantite/Portions :");
                                                     int q = Convert.ToInt32(Console.ReadLine());
                                                     insert.Ingredient(ID, ingredient, q,Commandes);
                                                 }
@@ -1958,6 +2036,7 @@ switch (Menu)
                                     string path_entree = "C:\\Users\\Darrell Messi\\source\\repos\\Liv'in_Paris\\Paris_Mapper\\Entree.txt";
                                     
                                     int nb_entree = Nb_Entree(Commandes);
+                                    
                                     int Nb_Entree(SqlTransaction entree)
                                     {
 
@@ -2020,7 +2099,7 @@ switch (Menu)
                                         {
                                             w_entree.Write(nom_entree + "|");
                                              id = nb_entree + z + 1;
-                                            total += id;
+                                            
                                             w_entree.Write(Convert.ToString(id) + "|");
                                             I();
                                             Console.WriteLine();
@@ -2035,16 +2114,14 @@ switch (Menu)
                                             }
                                             else
                                             {
-                                                insert.Lecture_Ingredient_1(Commandes);
-
-                                                insert.Lecture_Volume(Commandes);
+                                                insert.Lecture_Ingredient_Volume(Commandes);
                                             }
 
                                             void V()
                                             {
                                                 Console.WriteLine("Table : Volume");
                                                 Console.WriteLine("Identifiant :");
-                                                int id_v = total;
+                                                int id_v = nb_volume + 1;
                                                 Console.WriteLine(id_v);
                                                 w_entree.Write(Convert.ToString(id_v) + "|");
                                                 Console.WriteLine("Volume(en decimal avec deux chiffres apres la virgule) :");
@@ -2060,12 +2137,12 @@ switch (Menu)
                                                 {
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
-                                                    int ID_1 = total;
+                                                    int ID_1 = nb_ingredient + 1;
                                                     Console.WriteLine(ID_1);
                                                     w_entree.Write(Convert.ToString(ID_1) + "|");
                                                     Console.WriteLine("Ingredient : ");
                                                     string ingredient_1 = Console.ReadLine();
-                                                    Console.WriteLine("Quantite :");
+                                                    Console.WriteLine("Quantite/Portions :");
                                                     int q1 = Convert.ToInt32(Console.ReadLine());
                                                     Console.WriteLine("Choix d'insertion de date :  \n\t True : Insertion manuelle \n\t False : Insertion aléatoire");
                                                     bool choix = Convert.ToBoolean(Console.ReadLine());
@@ -2097,12 +2174,12 @@ switch (Menu)
                                                 {
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
-                                                    int ID = total;
+                                                    int ID = nb_ingredient + 1;
                                                     Console.WriteLine(ID);
                                                     w_entree.Write(Convert.ToString(ID) + "|");
                                                     Console.WriteLine("Ingredient : ");
                                                     string ingredient = Console.ReadLine();
-                                                    Console.WriteLine("Quantite :");
+                                                    Console.WriteLine("Quantite/Portions :");
                                                     int q = Convert.ToInt32(Console.ReadLine());
                                                     insert.Ingredient(ID, ingredient, q,Commandes);
                                                 }
@@ -2152,7 +2229,55 @@ switch (Menu)
                                     #endregion
                                     #region Commande
                                     Commandes1.Save("Etape 3");
-                             
+                                    int nb_com = 0;
+                                    int Nb_Commande(SqlTransaction Commandes1)
+                                    {
+                                       
+
+                                            string q = "SELECT COUNT(*) FROM Commande";
+                                            SqlCommand c = new SqlCommand(q, connection);
+                                            c.Transaction = Commandes1;
+                                            int n = 0;
+                                            try
+                                            {
+
+
+                                                SqlDataReader read = c.ExecuteReader();
+                                                string[] valueString = new string[read.FieldCount];
+
+
+                                                while (read.Read())
+                                                {
+
+                                                    for (int i = 0; i < read.FieldCount; i++)
+                                                    {
+
+                                                        valueString[i] = read.GetValue(i).ToString();
+                                                        n = Convert.ToInt32(valueString[0]);
+
+
+                                                    }
+
+
+                                                }
+
+                                                read.Close();
+                                            }
+
+                                            catch (SqlException e)
+                                            {
+                                                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                                return 0;
+                                            }
+
+
+                                            return n;
+                                       
+                                    }
+                                    if(Nb_Commande(Commandes1) > 0)
+                                    {
+                                        nb_com = Nb_Commande(Commandes1);
+                                    }
                                     Console.WriteLine("Etape 3 : Finalisation de la commande ");
                                     Console.WriteLine("Table : Commandes \n\t True : Tuples(Client,Cuisto,Nombre de Personnes, Date de depart , Date d'arrivee,Pays d'origine,Prix par personne ,Regime alimentaire) \n\t False : Tuples(Client,Cuisto,Nombre,Prix Unitaire)");
 
@@ -2161,7 +2286,7 @@ switch (Menu)
                                         
                                     com = Convert.ToBoolean(Console.ReadLine());
                                     
-                                    int id_com = commande + 1;
+                                    int id_com = nb_com + 1;
                                     int id_C = 0;
                                     int id_cuisinier = 0;
                                     if (com == false)
@@ -2179,19 +2304,83 @@ switch (Menu)
                                         Console.WriteLine("Prix Unitaire : ");
                                         decimal prix = Convert.ToDecimal(Console.ReadLine());
                                         Console.WriteLine("Prix de la commande :");
-                                        decimal p = prix * nombre;
+                                        //decimal p = prix * nombre;
+                                        //Console.WriteLine(p);
                                         f.Prix_C(nombre, prix,Commandes1);
+                                        
+                                        if(nom_menu == string.Empty)
+                                        {
+                                            Console.WriteLine("Nom du Menu  : ");
+                                            nom_menu = Console.ReadLine();
+                                        }
                                         insert.Commandes_1(id_com, id_C, id_cuisinier, nombre,prix, nom_menu,Commandes1);
+                                        Console.WriteLine();
                                         #region Catalogue
                                         SqlTransaction cat = connection.BeginTransaction();
+                                        int nb_cat = 0;
+                                        int Nb_Catalogue(SqlTransaction Commandes1)
+                                        {
+
+
+                                            string q = "SELECT COUNT(*) FROM Catalogue";
+                                            SqlCommand c = new SqlCommand(q, connection);
+                                            c.Transaction = Commandes1;
+                                            int n = 0;
+                                            try
+                                            {
+
+
+                                                SqlDataReader read = c.ExecuteReader();
+                                                string[] valueString = new string[read.FieldCount];
+
+
+                                                while (read.Read())
+                                                {
+
+                                                    for (int i = 0; i < read.FieldCount; i++)
+                                                    {
+
+                                                        valueString[i] = read.GetValue(i).ToString();
+                                                        n = Convert.ToInt32(valueString[0]);
+
+
+                                                    }
+
+
+                                                }
+
+                                                read.Close();
+                                            }
+
+                                            catch (SqlException e)
+                                            {
+                                                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                                return 0;
+                                            }
+
+
+                                            return n;
+
+                                        }
+                                        if(Nb_Catalogue(cat) > 0)
+                                        {
+                                            nb_cat = Nb_Catalogue(cat);
+                                        }
                                         Console.WriteLine("Identifiant Client : ");
                                         //id_C = Convert.ToInt32(Console.ReadLine());
+                                        Console.WriteLine(id_C);
                                         Console.WriteLine("Identifiant Cuisinier : ");
-                                       // id_cuisinier = Convert.ToInt32(Console.ReadLine());
+                                        // id_cuisinier = Convert.ToInt32(Console.ReadLine());
+                                        Console.WriteLine(id_cuisinier);
                                         Console.WriteLine("Identifiant Commande : ");
-                                        id_com = commande + 1;
-                                        insert.Catalogue(id_C, id_cuisinier, id_com,cat);
-
+                                        id_com = nb_com + 1;
+                                        Console.WriteLine(id_com);
+                                        Console.WriteLine("Identifiant Catalogue : ");
+                                        int id_cat = nb_cat +  1;
+                                        Console.WriteLine(id_cat);
+                                        insert.Catalogue(id_cat,id_C, id_cuisinier, id_com,cat);
+                                        
+                                        Console.WriteLine();
                                         #endregion
                                     }
                                     else
@@ -2205,9 +2394,16 @@ switch (Menu)
                                              id_cuisinier = Convert.ToInt32(Console.ReadLine());
                                             Console.WriteLine("Nombre de Personnes : ");
                                             int nombre = Convert.ToInt32(Console.ReadLine());
+                                            if (nom_menu == string.Empty)
+                                            {
+                                                Console.WriteLine("Nom du Menu  : ");
+                                                nom_menu = Console.ReadLine();
+                                            }
                                             Console.WriteLine("Pays d'orgine :");
                                             string pays = Console.ReadLine();
                                             bool jour = false;
+                                            Console.WriteLine("Jour : ");
+                                            jour = Convert.ToBoolean(Console.ReadLine());
                                             DateTime depart = DateTime.Now;
                                             DateTime arrivee = DateTime.Now;
                                             if (!jour)
@@ -2216,7 +2412,8 @@ switch (Menu)
                                                 depart = DateTime.Today;
                                                 Console.WriteLine("Date d'arrivee : ");
                                                 bool gestion_aleatoire = false;
-                                                if(!gestion_aleatoire)
+                                                gestion_aleatoire = Convert.ToBoolean(Console.ReadLine());
+                                                if (!gestion_aleatoire)
                                                 {
                                                     Console.WriteLine("Temps d'arrivee(en minutes) : ");
                                                     Random t = new Random();
@@ -2246,10 +2443,12 @@ switch (Menu)
                                             Console.WriteLine("Regime alimentaire : ");
                                             string regime = Console.ReadLine();
                                             Console.WriteLine("Prix de la commande : ");
-                                            decimal p = prix_unitaire * nombre;
-                                           f.Prix_C(nombre,prix_unitaire,Commandes1);
+                                           // decimal p = prix_unitaire * nombre;
+                                            //Console.WriteLine(p);
+                                            f.Prix_C(nombre,prix_unitaire,Commandes1);
+                                            
                                             insert.Commandes(id_com, id_C, id_cuisinier, nombre, nom_menu, pays, depart, arrivee, prix_unitaire, regime, Commandes1);
-
+                                            Console.WriteLine();
                                           
                                             
                                         }
@@ -2264,19 +2463,73 @@ switch (Menu)
                                         try
                                         {
                                             SqlTransaction heritage = connection.BeginTransaction();
+                                            int nb_cat = 0;
+                                            int Nb_Catalogue(SqlTransaction heritage)
+                                            {
+
+
+                                                string q = "SELECT COUNT(*) FROM Catalogue";
+                                                SqlCommand c = new SqlCommand(q, connection);
+                                                c.Transaction = heritage;
+                                                int n = 0;
+                                                try
+                                                {
+
+
+                                                    SqlDataReader read = c.ExecuteReader();
+                                                    string[] valueString = new string[read.FieldCount];
+
+
+                                                    while (read.Read())
+                                                    {
+
+                                                        for (int i = 0; i < read.FieldCount; i++)
+                                                        {
+
+                                                            valueString[i] = read.GetValue(i).ToString();
+                                                            n = Convert.ToInt32(valueString[0]);
+
+
+                                                        }
+
+
+                                                    }
+
+                                                    read.Close();
+                                                }
+
+                                                catch (SqlException e)
+                                                {
+                                                    Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                                    return 0;
+                                                }
+
+
+                                                return n;
+
+                                            }
+                                            if (Nb_Catalogue(heritage) > 0)
+                                            {
+                                                nb_cat = Nb_Catalogue(heritage);
+                                            }
                                             heritage.Save("Debut insertion_Catalogue");
                                             Console.WriteLine("Identifiant  Client : ");
-                                           // id_C = Convert.ToInt32(Console.ReadLine());
+                                            // id_C = Convert.ToInt32(Console.ReadLine());
+                                            Console.WriteLine(id_C);
                                             heritage.Save($"SVG Id_Client");
                                             Console.WriteLine("Identifiant Cuisinier : ");
-                                           // id_cuisinier = Convert.ToInt32(Console.ReadLine());
-                                            heritage.Save($"Cuisinier : {id_cuisinier}");
-                                            Console.WriteLine("Identifiant Commande : ");
-                                            id_com = commande + 1;
-                                            heritage.Save("Fin insertion_Catalogue");
+                                            Console.WriteLine(id_cuisinier);
+                                            // id_cuisinier = Convert.ToInt32(Console.ReadLine());
                                             
-                                            insert.Catalogue(id_C, id_cuisinier, id_com, heritage);
-                                           
+                                            heritage.Save($"SVG ID_Cuisto");
+                                            Console.WriteLine("Identifiant Commande : ");
+                                            id_com = nb_com + 1;
+                                            Console.WriteLine(id_com);
+                                            int id_cat = nb_cat + 1;
+                                            Console.WriteLine($"Identifiant Catalogue : \n {id_cat}");
+                                            insert.Catalogue(id_cat,id_C, id_cuisinier, id_com, heritage);
+                                            
+                                            Console.WriteLine();
                                         }
                                         catch (SqlException ex)
                                         {
@@ -2287,17 +2540,6 @@ switch (Menu)
 
                                     }
                                     
-                                  
-
-
-
-
-
-
-
-
-
-
 
 
                                     #endregion
