@@ -232,7 +232,7 @@ namespace Paris_Mapper
             {
                 b.Dispose();
 
-                connection.Close();
+               
             }
         }
         public void Cuisto_1()
@@ -362,5 +362,86 @@ namespace Paris_Mapper
 
         #endregion
         #endregion
+        public void Ingredient_Volume(int id_ingredient,int id_volume, int v,int q , string u , DateTime depart , DateTime arrivee,string ingredient)
+        {
+
+        }
+        public void Metro()
+        {
+
+
+        }
+        public void Application_Site(int id  ,int id_c = 0 , int id_cui = 0 , string mdp = null )
+        {
+            SqlCommand b = connection.CreateCommand();
+            SqlParameter p = new SqlParameter();
+            p.DbType = DbType.Int32;
+            p.Value = id;
+            p.ParameterName = "@ID_Cuisto";
+            p.Direction = ParameterDirection.Input;
+            p.SourceColumn = "ID_Cuisto";
+            SqlParameter m = new SqlParameter();
+            m.Value = id_c;
+            m.ParameterName = "@ID_Client";
+            m.Direction = ParameterDirection.Input;
+            m.DbType = DbType.Int32;
+            SqlParameter o = new SqlParameter();
+            o.Value = id;
+            o.ParameterName = "@ID_Application";
+            
+            o.DbType = DbType.Int32;
+            
+            SqlParameter r = new SqlParameter();
+            r.Value = mdp;
+            r.ParameterName = "@Mdp";
+            
+            r.DbType = DbType.String;
+            string query = "UPDATE Application_Site SET ";
+            if (id_c != 0)
+            {
+                query += "I_Client = '@ID_Client'";
+                b.Parameters.Add(o);
+            }
+            if (id_cui != 0)
+            {
+                query += "ID_Cuisto = '@ID_Cuisto'";
+                b.Parameters.Add(m);
+            }
+            
+            if (mdp != null)
+            {
+
+                query += "Mdp = '@Mdp'";
+                b.Parameters.Add(r);
+            }
+            query += "WHERE ID_Application = @ID_Application";
+            b.CommandText = query;
+            b.CommandType = CommandType.Text;
+            b.Parameters.Add(p);
+
+
+
+
+            try
+            {
+                b.ExecuteNonQuery();
+                Console.WriteLine("Modification réussi");
+
+
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                return;
+            }
+            finally
+            {
+                b.Dispose();
+
+                connection.Close();
+            }
+
+        }
     }
 }

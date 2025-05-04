@@ -624,7 +624,7 @@ namespace Paris_Mapper
         {
             SqlParameter co = new SqlParameter();
             co.DbType = DbType.Int32;
-            co.Value = id_cuisto;
+            co.Value = id;
             co.ParameterName = "@ID_Commandes";
             SqlParameter me = new SqlParameter();
             me.Value = menu;
@@ -863,39 +863,19 @@ namespace Paris_Mapper
         #endregion
 
         #region Catalogue
-        public void Catalogue(int catalogue, int id_c,int id_cui,int id_com,SqlTransaction t)
+        public void Cat(SqlTransaction t)
         {
-            SqlParameter com = new SqlParameter();
-            com.DbType = DbType.Int32;
-            com.Value = id_com;
-            com.ParameterName = "@ID_Commandes";
-            SqlParameter j = new SqlParameter();
-            j.DbType = DbType.Int32;
-            j.Value = id_c;
-            j.ParameterName = "@ID_Client";
-            SqlParameter a = new SqlParameter();
-            a.DbType = DbType.Int32;
-            a.Value = id_cui;
-            a.ParameterName = "@ID_Cuisto";
-            SqlParameter cat = new SqlParameter("@ID_Catalogue", DbType.Int32);
-            cat.Value = catalogue;
-            string q = "INSERT INTO Catalogue(ID_Catalogue,ID_Client,ID_Cuisto,ID_Commandes)\r\nVALUES(@ID_Catalogue,@ID_Client,@ID_Cuisto,@ID_Commandes)";
-            SqlCommand c = new SqlCommand(q, connection);
-            c.Parameters.Add(j);
-            c.Parameters.Add(a);
-            c.Parameters.Add(com);
-            c.Parameters.Add(cat);
+            string query = "INSERT INTO Catalogue(ID_Catalogue,ID_Client,ID_Cuisto,ID_Commandes)\r\nSELECT ROW_NUMBER() OVER (ORDER BY c.ID_Client,cui.ID_Cuisto,com.ID_Commandes) as ID,c.ID_Client,cui.ID_Cuisto,com.ID_Commandes from Commande com\r\n INNER JOIN Client c on c.ID_Client = com.ID_Client\r\n INNER JOIN Cuisto cui on cui.ID_Cuisto = com.ID_Cuisto\r\ngroup by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes\r\norder by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes;";
+            SqlCommand c = connection.CreateCommand();
+            c.CommandText = query;
             c.Transaction = t;
             try
             {
 
                 c.ExecuteNonQuery();
-                t.Commit();
                 Console.Write("Insertion réussite");
 
             }
-
-
 
             catch (SqlException e)
             {
@@ -905,9 +885,11 @@ namespace Paris_Mapper
             finally
             {
                 c.Dispose();
-                t.Dispose();
+
             }
+
         }
+       
 
         #endregion
 
@@ -1465,7 +1447,7 @@ namespace Paris_Mapper
                 read.Close();
 
             }
-            catch (MySqlException e)
+            catch (SqlException e)
             {
                 Console.WriteLine(" ErreurConnexion : " + e.ToString());
                 return;

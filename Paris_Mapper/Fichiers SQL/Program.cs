@@ -645,7 +645,8 @@ switch (Menu)
                                 goto default;
                             case 6:
                                 goto default;
-                            default: bool quitter14 = false;
+                            default: 
+                                bool quitter14 = false;
                                 if(quitter14)
                                 {
                                     break;
@@ -767,6 +768,7 @@ switch (Menu)
                                 break;
                             default:
                                 bool quitter3 = false;
+                                quitter3 = Convert.ToBoolean(Console.ReadLine());
                                 if(quitter3)
                                 {
                                     break;
@@ -846,34 +848,7 @@ switch (Menu)
                                 string n = Console.ReadLine();
                                 Console.WriteLine("Email :");
                                 string e_mail = Console.ReadLine();
-                                if (prenom_1 != string.Empty && nom_1 != string.Empty && n != string.Empty && e_mail != string.Empty)
-                                {
-                                    // m.Client(id_1, prenom_1, nom_1, e_mail, n);
-                                }
-                                if (prenom_1 != string.Empty && nom_1 != string.Empty)
-                                {
-                                    m.Client(id_1, prenom_1, nom_1);
-                                }
-                                if (prenom_1 != string.Empty && n != string.Empty)
-                                {
-                                    //m.Client(id_1, prenom_1, n);
-                                }
-                                if (prenom_1 != string.Empty && e_mail != string.Empty)
-                                {
-                                    m.Client(id_1, prenom_1, e_mail);
-                                }
-                                if (nom_1 != string.Empty && n != string.Empty)
-                                {
-                                    //m.Client(id_1, null,null,nom_1, n);
-                                }
-                                if (nom_1 != string.Empty && e_mail != string.Empty)
-                                {
-                                    m.Client(id_1, nom_1, e_mail);
-                                }
-                                if (n != string.Empty && e_mail != string.Empty)
-                                {
-                                    //m.Client(id_1, null,e_mail,null, n);
-                                }
+                                
                                 if (prenom_1 != string.Empty)
                                 {
                                     m.Client(id_1, prenom_1);
@@ -884,7 +859,7 @@ switch (Menu)
                                 }
                                 if (n != string.Empty)
                                 {
-                                    //m.Client(id_1,null,null,null, n);
+                                    m.Client(id_1,n);
                                 }
                                 if (e_mail != string.Empty)
                                 {
@@ -911,34 +886,7 @@ switch (Menu)
                                 string n1 = Console.ReadLine();
                                 Console.WriteLine("Email :");
                                 string e_mail_1 = Console.ReadLine();
-                                if (prenom_2 != string.Empty && nom_2 != string.Empty && n1 != string.Empty && e_mail_1 != string.Empty)
-                                {
-                                    // m.Cuisto(id_2, prenom_2, nom_2, e_mail_1, n1);
-                                }
-                                if (prenom_2 != string.Empty && nom_2 != string.Empty)
-                                {
-                                    m.Cuisto(id_2, prenom_2, nom_2);
-                                }
-                                if (prenom_2 != string.Empty && n1 != string.Empty)
-                                {
-                                    //m.Cuisto(id_2, prenom_2, n1);
-                                }
-                                if (prenom_2 != string.Empty && e_mail_1 != string.Empty)
-                                {
-                                    m.Cuisto(id_2, prenom_2, e_mail_1);
-                                }
-                                if (nom_2 != string.Empty && n1 != string.Empty)
-                                {
-                                    //m.Cuisto(id_2, null,null,nom_2, n1);
-                                }
-                                if (nom_2 != string.Empty && e_mail_1 != string.Empty)
-                                {
-                                    m.Cuisto(id_2, nom_2, e_mail_1);
-                                }
-                                if (n1 != string.Empty && e_mail_1 != string.Empty)
-                                {
-                                    //m.Cuisto(id_2, null,e_mail_1,null, n1);
-                                }
+                               
                                 if (prenom_2 != string.Empty)
                                 {
                                     m.Cuisto(id_2, prenom_2);
@@ -949,13 +897,14 @@ switch (Menu)
                                 }
                                 if (n1 != string.Empty)
                                 {
-                                    //m.Cuisto(id_2,null,null,null, n1);
+                                    m.Cuisto(id_2, n1);
                                 }
                                 if (e_mail_1 != string.Empty)
                                 {
                                     m.Cuisto(id_2, e_mail_1);
                                 }
                                 bool maj_adresse_cuisto = false;
+                                Console.WriteLine("Modification ? : \n\t True \n\t False");
                                 maj_adresse_cuisto = Convert.ToBoolean(Console.ReadLine());
                                 if (maj_adresse_cuisto == true)
                                 {
@@ -966,19 +915,116 @@ switch (Menu)
                                 Console.WriteLine("Table : Adresse");
                                 Console.WriteLine("Identifiant : ");
                                 int id_a = Convert.ToInt32(Console.ReadLine());
-                                Console.WriteLine("ID_Client : ");
-                                int id_c = Convert.ToInt32(Console.ReadLine());
-                                Console.WriteLine("ID_Cuisto : ");
-                                int id_cui = Convert.ToInt32(Console.ReadLine());
-                                Console.WriteLine("Ville: ");
-                                string ville = Console.ReadLine();
-                                Console.WriteLine("Region :");
-                                string region = Console.ReadLine();
-                                string commune = Console.ReadLine();
-                                string lieu = Console.ReadLine();
-                                int num = Convert.ToInt32(Console.ReadLine());
-                                int code = Convert.ToInt32(Console.ReadLine());
+
                                 int id_m = Convert.ToInt32(Console.ReadLine());
+                                switch(id_m)
+                                {
+                                    case 0:
+                                        Console.WriteLine("ID_Client : ");
+                                        int id_c = Convert.ToInt32(Console.ReadLine());
+                                        m.Adresse(id_a, id_c);
+                                        goto default;
+                                    case 1:
+                                        Console.WriteLine("ID_Cuisto : ");
+                                        int id_cui = Convert.ToInt32(Console.ReadLine());
+                                        m.Adresse(id_a, id_cui);
+                                        goto default;
+                                    case 2:
+                                        Console.WriteLine("Ville: ");
+                                        string ville = Console.ReadLine();
+                                        m.Adresse(id_a,0,0,ville);
+                                        goto default;
+                                    case 3:
+                                        Console.WriteLine("Region :");
+                                        string region = Console.ReadLine();
+                                        m.Adresse(id_a,0,0,null, region);
+                                        goto default;
+                                    case 4:
+                                        Console.WriteLine("Commune :");
+                                        string commune = Console.ReadLine();
+                                        m.Adresse(id_a,0,0,null,null,commune);
+                                        goto default ;
+                                    case 5:
+                                        Console.WriteLine("Lieu :");
+                                        string lieu = Console.ReadLine();
+                                        m.Adresse(id_a,0,0,null,null,null,0,0, lieu);
+                                        goto default;
+                                    case 6:
+                                        Console.WriteLine("Numero :");
+                                        int num = Convert.ToInt32(Console.ReadLine());
+                                        m.Adresse(id_a, num);
+                                        goto default;
+                                    case 7:
+                                        Console.WriteLine("Code Postal :");
+                                        int code = Convert.ToInt32(Console.ReadLine());
+                                        m.Adresse(id_a, code);
+                                        goto default ;
+                                    case 8:Console.WriteLine("Dept :");
+                                        int d = Convert.ToInt32(Console.ReadLine());
+                                        m.Adresse(id_a, d);
+                                        goto default;
+                                    case 9:Console.WriteLine("ID_Metro :");
+                                        int metro = Convert.ToInt32(Console.ReadLine());
+                                        m.Adresse(id_a, metro);
+
+                                        goto default;
+                                    default:
+                                        bool quitter20 = false;
+                                        quitter20 = Convert.ToBoolean(Console.ReadLine());
+                                        if(quitter20)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            int select = Convert.ToInt32(Console.ReadLine());
+                                           
+                                            if(select == 0)
+                                            {
+                                                goto case 0;
+                                            }
+                                            if (select == 1)
+                                            {
+                                                goto case 1;
+                                            }
+                                            if (select == 2)
+                                            {
+                                                goto case 2;
+                                            }
+                                            if (select == 3)
+                                            {
+                                                goto case 3;
+                                            }
+                                            if (select == 4)
+                                            {
+                                                goto case 4;
+                                            }
+                                            if (select == 5)
+                                            {
+                                                goto case 5;
+                                            }
+                                            if (select == 6)
+                                            {
+                                                goto case 6;
+                                            }
+                                            if (select == 7)
+                                            {
+                                                goto case 7;
+                                            }
+                                            if (select == 8)
+                                            {
+                                                goto case 8;
+                                            }
+                                            if (select == 9)
+                                            {
+                                                goto case 9;
+                                            }
+                                            break;
+
+                                        }
+                                       
+                                        
+                                }
                                goto default;
                             case 3:
                                 Console.WriteLine("Table : Commandes");
@@ -997,6 +1043,38 @@ switch (Menu)
                                 goto default;
                             case 8:
                                 Console.WriteLine("Table : Application_Site");
+                                Console.WriteLine("ID_Application : ");
+                                int id_app = Convert.ToInt32(Console.ReadLine());
+
+
+                                Console.WriteLine("Modification : \n\t 0 : Mot de passe");
+                                int modif_app = Convert.ToInt32(Console.ReadLine());
+                                switch(modif_app)
+                                {
+                                    
+                                    case 0:
+                                        Console.WriteLine("Mot de passe :");
+                                        string mdp = Console.ReadLine();
+                                        m.Application_Site(id_app,0,0, mdp);
+                                        break;
+                                    default:
+                                        bool quitter15 = false;
+                                        quitter15 = Convert.ToBoolean(Console.ReadLine());
+                                        if(quitter15)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            int select1 = Convert.ToInt32(Console.ReadLine());
+                                            if(select1 == 0)
+                                            {
+                                                goto case 0;
+                                            }
+                                           
+                                            break;
+                                        }
+                                }
                                 goto default;
                             case 9:
                                 break;
@@ -1006,53 +1084,62 @@ switch (Menu)
                                 break;
                             default:
                                 bool quitter2 = false;
-                                Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes \n\t 4 : Plat \n\t 5 : Dessert \n\t 6 : Entree \n\t 7 : Contenu du Menu \n\t 8 : Application_Site ");
-                                int c1 = Convert.ToInt32(Console.ReadLine());
-                                if (c1 == 0)
+                                quitter2 = Convert.ToBoolean(Console.ReadLine());
+                                if(quitter2)
                                 {
-                                    goto case 0;
+                                    break;
                                 }
-                                if (c1 == 1)
+                                else
                                 {
-                                    goto case 1;
-                                }
-                                if (c1 == 2)
-                                {
-                                    goto case 2;
-                                }
-                                if (c1 == 3)
-                                {
-                                    goto case 3;
-                                }
-                                if (c1 == 4)
-                                {
-                                    goto case 4;
-                                }
-                                if (c1 == 5)
-                                {
-                                    goto case 5;
-                                }
-                                if (c1 == 6)
-                                {
-                                    goto case 6;
-                                }
-                                if (c1 == 7)
-                                {
+                                    Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes \n\t 4 : Plat \n\t 5 : Dessert \n\t 6 : Entree \n\t 7 : Contenu du Menu \n\t 8 : Application_Site ");
+                                    int c1 = Convert.ToInt32(Console.ReadLine());
+                                    if (c1 == 0)
+                                    {
+                                        goto case 0;
+                                    }
+                                    if (c1 == 1)
+                                    {
+                                        goto case 1;
+                                    }
+                                    if (c1 == 2)
+                                    {
+                                        goto case 2;
+                                    }
+                                    if (c1 == 3)
+                                    {
+                                        goto case 3;
+                                    }
+                                    if (c1 == 4)
+                                    {
+                                        goto case 4;
+                                    }
+                                    if (c1 == 5)
+                                    {
+                                        goto case 5;
+                                    }
+                                    if (c1 == 6)
+                                    {
+                                        goto case 6;
+                                    }
+                                    if (c1 == 7)
+                                    {
 
+                                    }
+                                    if (c1 == 8)
+                                    {
+                                        goto case 8;
+                                    }
+                                    if (c1 == 9)
+                                    {
+                                        goto case 9;
+                                    }
+                                    if (c1 == 10)
+                                    {
+                                        goto case 10;
+                                    }
                                 }
-                                if (c1 == 8)
-                                {
-                                    goto case 8;
-                                }
-                                if (c1 == 9)
-                                {
-                                    goto case 9;
-                                }
-                                if (c1 == 10)
-                                {
-                                    goto case 10;
-                                }
-                                return;
+                                    
+                                break;
                         }
                         #endregion
                         break;
@@ -1767,16 +1854,10 @@ switch (Menu)
                                             V();
                                             Console.WriteLine();
                                             w.WriteLine();
-                                            if (date_plat == false)
-                                            {
-                                                insert.Lecture_Ingredient(Commandes);
-
-                                                insert.Lecture_Volume(Commandes);
-                                            }
-                                            else
-                                            {
+                                            
+                                            
                                                 insert.Lecture_Ingredient_Volume(Commandes);
-                                            }
+                                            
                                             void V()
                                             {
                                                 Console.WriteLine("Table : Volume");
@@ -1793,8 +1874,7 @@ switch (Menu)
                                             void I()
                                             {
 
-                                                if (date_plat == true)
-                                                {
+                                                
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
                                                     int ID_2 = nb_ingredient + 1 ;
@@ -1833,21 +1913,8 @@ switch (Menu)
                                                     }
 
 
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine();
-                                                    Console.WriteLine("Table : Ingredient");
-                                                    Console.WriteLine("Identifiant :");
-                                                    int ID = nb_ingredient + 1;
-                                                    Console.WriteLine(ID);
-                                                    w.Write(Convert.ToString(ID) + "|");
-                                                    Console.WriteLine("Ingredient : ");
-                                                    string ingredient = Console.ReadLine();
-                                                    Console.WriteLine("Quantite/Portions :");
-                                                    int q = Convert.ToInt32(Console.ReadLine());
-                                                    insert.Ingredient(ID, ingredient, q,Commandes);
-                                                }
+                                                
+                                                
 
                                             }
                                         }
@@ -1935,16 +2002,10 @@ switch (Menu)
                                             V();
                                             Console.WriteLine();
                                             w_dessert.WriteLine();
-                                            if (date == false)
-                                            {
-                                                insert.Lecture_Ingredient(Commandes);
-
-                                                insert.Lecture_Volume(Commandes);
-                                            }
-                                            else
-                                            {
+                                            
+                                            
                                                 insert.Lecture_Ingredient_Volume(Commandes);
-                                            }
+                                            
                                             void V()
                                             {
                                                 Console.WriteLine("Table : Volume");
@@ -1961,8 +2022,7 @@ switch (Menu)
                                             void I()
                                             {
 
-                                                if (date == true)
-                                                {
+                                                
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
                                                     int ID_2 = nb_ingredient + 1;
@@ -2005,20 +2065,8 @@ switch (Menu)
                                                         Console.WriteLine(peremption_1);
                                                         insert.Ingredient(ID_2, ingredient_2, q2, fabrication_1, peremption_1,Commandes);
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("Table : Ingredient");
-                                                    Console.WriteLine("Identifiant :");
-                                                    int ID = nb_ingredient + 1;
-                                                    Console.WriteLine(ID);
-                                                    w_dessert.Write(Convert.ToString(ID) + "|");
-                                                    Console.WriteLine("Ingredient : ");
-                                                    string ingredient = Console.ReadLine();
-                                                    Console.WriteLine("Quantite/Portions :");
-                                                    int q = Convert.ToInt32(Console.ReadLine());
-                                                    insert.Ingredient(ID, ingredient, q,Commandes);
-                                                }
+                                                
+                                                
 
                                             }
                                         }
@@ -2092,9 +2140,7 @@ switch (Menu)
                                         }
                                         Console.WriteLine("Nombre d'ingredients et de volumes : ");
                                         int n2 = Convert.ToInt32(Console.ReadLine());
-                                        bool date_entree = false;
-                                        Console.WriteLine("Insertion des dates de fabrication et de peremption ? \n\t True \n\t False");
-                                        date_entree = Convert.ToBoolean(Console.ReadLine());
+                                       
                                         for (int z = 0; z < n2; z++)
                                         {
                                             w_entree.Write(nom_entree + "|");
@@ -2106,16 +2152,10 @@ switch (Menu)
                                             V();
                                             Console.WriteLine();
                                             w_entree.WriteLine();
-                                            if (date_entree == false)
-                                            {
-                                                insert.Lecture_Ingredient(Commandes);
-
-                                                insert.Lecture_Volume(Commandes);
-                                            }
-                                            else
-                                            {
+                                            
+                                                
                                                 insert.Lecture_Ingredient_Volume(Commandes);
-                                            }
+                                          
 
                                             void V()
                                             {
@@ -2133,8 +2173,7 @@ switch (Menu)
                                             void I()
                                             {
 
-                                                if (date_entree == true)
-                                                {
+                                                
                                                     Console.WriteLine("Table : Ingredient");
                                                     Console.WriteLine("Identifiant :");
                                                     int ID_1 = nb_ingredient + 1;
@@ -2169,20 +2208,8 @@ switch (Menu)
                                                         Console.WriteLine(peremption_1);
                                                         insert.Ingredient(ID_1, ingredient_1, q1, fabrication_1, peremption_1,Commandes);
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("Table : Ingredient");
-                                                    Console.WriteLine("Identifiant :");
-                                                    int ID = nb_ingredient + 1;
-                                                    Console.WriteLine(ID);
-                                                    w_entree.Write(Convert.ToString(ID) + "|");
-                                                    Console.WriteLine("Ingredient : ");
-                                                    string ingredient = Console.ReadLine();
-                                                    Console.WriteLine("Quantite/Portions :");
-                                                    int q = Convert.ToInt32(Console.ReadLine());
-                                                    insert.Ingredient(ID, ingredient, q,Commandes);
-                                                }
+                                                
+                                                
 
 
                                             }
@@ -2214,7 +2241,10 @@ switch (Menu)
                                             
                                             Console.WriteLine("Table : Contenu du Menu");
                                             Console.WriteLine("Nom du Menu : ");
-                                            //nom_menu = Console.ReadLine();
+                                            if (nom_menu == string.Empty)
+                                            {
+                                                nom_menu = Console.ReadLine();
+                                            }
                                             insert.Contenu_du_Menu(nom_menu, Commandes1);
                                            
                                         }
@@ -2366,21 +2396,7 @@ switch (Menu)
                                         {
                                             nb_cat = Nb_Catalogue(cat);
                                         }
-                                        Console.WriteLine("Identifiant Client : ");
-                                        //id_C = Convert.ToInt32(Console.ReadLine());
-                                        Console.WriteLine(id_C);
-                                        Console.WriteLine("Identifiant Cuisinier : ");
-                                        // id_cuisinier = Convert.ToInt32(Console.ReadLine());
-                                        Console.WriteLine(id_cuisinier);
-                                        Console.WriteLine("Identifiant Commande : ");
-                                        id_com = nb_com + 1;
-                                        Console.WriteLine(id_com);
-                                        Console.WriteLine("Identifiant Catalogue : ");
-                                        int id_cat = nb_cat +  1;
-                                        Console.WriteLine(id_cat);
-                                        insert.Catalogue(id_cat,id_C, id_cuisinier, id_com,cat);
-                                        
-                                        Console.WriteLine();
+                                        insert.Cat(cat);
                                         #endregion
                                     }
                                     else
@@ -2402,24 +2418,28 @@ switch (Menu)
                                             Console.WriteLine("Pays d'orgine :");
                                             string pays = Console.ReadLine();
                                             bool jour = false;
-                                            Console.WriteLine("Jour : ");
+                                            Console.WriteLine("Jour : \n\t True : Aujourd'hui = Date de départ \n\t False : Insertion manuelle des dates");
                                             jour = Convert.ToBoolean(Console.ReadLine());
                                             DateTime depart = DateTime.Now;
                                             DateTime arrivee = DateTime.Now;
-                                            if (!jour)
+                                            if (jour)
                                             {
                                                 Console.WriteLine("Date de depart : ");
                                                 depart = DateTime.Today;
-                                                Console.WriteLine("Date d'arrivee : ");
+                                                Console.WriteLine(depart);
+                                                //Console.WriteLine("Date d'arrivee : ");
                                                 bool gestion_aleatoire = false;
+                                                Console.WriteLine("Gestion aléatoire de la date d'arrivée ? : \n\t True : Gestion aléatoire \n\t False : Insertion manuelle ");
                                                 gestion_aleatoire = Convert.ToBoolean(Console.ReadLine());
-                                                if (!gestion_aleatoire)
+                                                if (gestion_aleatoire)
                                                 {
                                                     Console.WriteLine("Temps d'arrivee(en minutes) : ");
                                                     Random t = new Random();
                                                     int temps = Convert.ToInt32(t.Next(1, 1441));
                                                     Console.WriteLine("Date d'arrivee : ");
                                                     arrivee = depart.AddMinutes(temps);
+                                                    Console.WriteLine(arrivee);
+
                                                 }
                                                 else
                                                 {
@@ -2427,6 +2447,8 @@ switch (Menu)
                                                     int temps = Convert.ToInt32(Console.ReadLine());
                                                     Console.WriteLine("Date d'arrivee : ");
                                                     arrivee = depart.AddMinutes(temps);
+                                                    Console.WriteLine(arrivee);
+
                                                 }
                                                     
                                             }
@@ -2460,6 +2482,8 @@ switch (Menu)
 
                                         #region Catalogue
                                         bool rollback_cat = false;
+                                        
+                                        
                                         try
                                         {
                                             SqlTransaction heritage = connection.BeginTransaction();
@@ -2512,24 +2536,8 @@ switch (Menu)
                                             {
                                                 nb_cat = Nb_Catalogue(heritage);
                                             }
-                                            heritage.Save("Debut insertion_Catalogue");
-                                            Console.WriteLine("Identifiant  Client : ");
-                                            // id_C = Convert.ToInt32(Console.ReadLine());
-                                            Console.WriteLine(id_C);
-                                            heritage.Save($"SVG Id_Client");
-                                            Console.WriteLine("Identifiant Cuisinier : ");
-                                            Console.WriteLine(id_cuisinier);
-                                            // id_cuisinier = Convert.ToInt32(Console.ReadLine());
+                                            insert.Cat(heritage);
                                             
-                                            heritage.Save($"SVG ID_Cuisto");
-                                            Console.WriteLine("Identifiant Commande : ");
-                                            id_com = nb_com + 1;
-                                            Console.WriteLine(id_com);
-                                            int id_cat = nb_cat + 1;
-                                            Console.WriteLine($"Identifiant Catalogue : \n {id_cat}");
-                                            insert.Catalogue(id_cat,id_C, id_cuisinier, id_com, heritage);
-                                            
-                                            Console.WriteLine();
                                         }
                                         catch (SqlException ex)
                                         {
@@ -2558,6 +2566,7 @@ switch (Menu)
 
                             default:
                                 bool qui = false;
+                                qui = Convert.ToBoolean(Console.ReadLine());
                                 if (qui)
                                 {
                                     break;

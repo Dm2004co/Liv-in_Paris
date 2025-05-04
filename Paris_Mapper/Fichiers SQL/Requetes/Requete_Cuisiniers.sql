@@ -41,4 +41,9 @@ join Client c on c.ID_Client = com.ID_Client
 group by cui.ID_Cuisto , c.ID_Client , appli.ID_Application
 order by cui.ID_Cuisto , c.ID_Client , appli.ID_Application,DAY(GETDATE());
 
+select cui.ID_Cuisto , com.ID_Commandes ,com.Nb_de_Personnes,com.Date_depart,com.Date_arrivee,com.Nom_Menu,com.Prix_Unitaire,com.Regime, com.Pays_d_origine from Commande as com 
+join Cuisto cui on cui.ID_Cuisto = com.ID_Cuisto
+group by com.Pays_d_origine,cui.ID_Cuisto,com.ID_Commandes,com.Date_depart,com.Date_arrivee,com.Nom_Menu,com.Prix_Unitaire,com.Regime,com.Nb_de_Personnes
+ORDER BY  com.Pays_d_origine;
+
 

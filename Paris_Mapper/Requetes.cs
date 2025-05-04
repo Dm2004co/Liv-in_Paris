@@ -25,8 +25,8 @@ namespace Paris_Mapper
 {
     class Requetes
     {
-         public string connexion;
-         public SqlConnection connection;
+        public string connexion;
+        public SqlConnection connection;
         public Requetes(string connexion, SqlConnection connection)
         {
             this.connexion = connexion;
@@ -43,53 +43,61 @@ namespace Paris_Mapper
             int client = Convert.ToInt32(Console.ReadLine());
             switch (client)
             {
-                case 0: Console.WriteLine("Selection : Lecture de la table Client");
+                case 0:
+                    Console.WriteLine("Selection : Lecture de la table Client");
                     Lecture_Client();
                     break;
-                    
-                case 1: Console.WriteLine("Selection : Filtrage par ordre alphabétique");
+
+                case 1:
+                    Console.WriteLine("Selection : Filtrage par ordre alphabétique");
                     Filtre_Nom_Client();
                     break;
-                case 2: Console.WriteLine("Selection : Adresse des clients");
+                case 2:
+                    Console.WriteLine("Selection : Adresse des clients");
                     Adresse_Client();
                     break;
-                case 3: Console.WriteLine("Selection : Facture des clients");
+                case 3:
+                    Console.WriteLine("Selection : Facture des clients");
                     Montant_Client();
                     break;
-                case 4: Console.WriteLine("Selection : Profil du Client");
+                case 4:
+                    Console.WriteLine("Selection : Profil du Client");
                     Console.WriteLine("Identifiant du Client :");
                     int nombre = Convert.ToInt32(Console.ReadLine());
                     Profil_Client(nombre);
                     break;
-                case 5: Console.WriteLine("Selection : Comptes Clients");
+                case 5:
+                    Console.WriteLine("Selection : Comptes Clients");
                     Comptes_Clients();
                     break;
                 default:
                     bool quitter30 = false;
-                    if(quitter30)
+                    Console.WriteLine("Quitter : \n_t True \\t False ");
+                    quitter30 = Convert.ToBoolean(Console.ReadLine());
+                    if (quitter30)
                     {
                         break;
                     }
                     else
                     {
                         int cs = Convert.ToInt32(Console.ReadLine());
-                        if(cs == 1 )
+                        if (cs == 1)
                         {
                             goto case 1;
                         }
-                        if(cs == 2 )
+                        if (cs == 2)
                         {
                             goto case 2;
                         }
-                        if(cs == 3)
+                        if (cs == 3)
                         {
                             goto case 3;
                         }
-                        if(cs == 4)
+                        if (cs == 4)
                         {
                             goto case 4;
                         }
-                        if(cs == 5)
+                        if (cs == 5)
                         {
                             goto case 5;
                         }
@@ -116,7 +124,7 @@ namespace Paris_Mapper
                         string Prenom = (string)read["Prenom"];
                         string Nom = (string)read["Nom"];
                         //DateTime mylastupdate = (DateTime)read["mydate"];
-                        
+
                         Console.WriteLine($" {Prenom} | {Nom} ");
                         string val = "";
                         for (int i = 0; i < read.FieldCount; i++)
@@ -129,7 +137,7 @@ namespace Paris_Mapper
                     }
 
                     read.Close();
-                  
+
 
                 }
 
@@ -160,7 +168,7 @@ namespace Paris_Mapper
                         string Telephone = (string)read["Telephone"];
                         string Email = (string)read["Email"];
                         //DateTime mylastupdate = (DateTime)read["mydate"];
-                        
+
                         Console.WriteLine($"{ID_Client} | {Prenom} | {Nom} | {Telephone} | {Email} ");
                         for (int i = 0; i < read.FieldCount; i++)
                         {
@@ -199,7 +207,7 @@ namespace Paris_Mapper
 
 
                     {
-                        
+
                         int Numero = (int)read["Numero"];
                         string Lieu = (string)read["Lieu"];
                         string Ville = (string)read["Ville"];
@@ -207,7 +215,7 @@ namespace Paris_Mapper
                         string Region = (string)read["Region"];
 
                         //DateTime mylastupdate = (DateTime)read["mydate"];
-                       
+
                         Console.WriteLine($" {Numero} | {Lieu} | {Ville} | {Code_Postal} | {Region}");
                         for (int i = 0; i < read.FieldCount; i++)
                         {
@@ -251,7 +259,7 @@ namespace Paris_Mapper
                         string Nom = (string)read["Nom"];
                         decimal Montant = (decimal)read["Montant"];
                         //DateTime mylastupdate = (DateTime)read["mydate"];
-                        
+
                         Console.WriteLine($"{ID_Client}| {Prenom}| {Nom}| {Montant} ");
                         for (int i = 0; i < read.FieldCount; i++)
                         {
@@ -275,8 +283,8 @@ namespace Paris_Mapper
             }
 
         }
-        
-         public void Profil_Client(int id)
+
+        public void Profil_Client(int id)
         {
             try
             {
@@ -296,14 +304,14 @@ namespace Paris_Mapper
 
 
                 {
-                    
+
                     string Prenom = (string)read["Prenom"];
                     string Nom = (string)read["Nom"];
                     string Telephone = (string)read["Telephone"];
                     string Email = (string)read["Email"];
                     //string Adresse = (string)read["Adresse"];
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                   
+
                     Console.WriteLine($" {Prenom} | {Nom} | {Telephone} | {Email} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -326,7 +334,7 @@ namespace Paris_Mapper
             }
         }
 
-         public void Comptes_Clients()
+        public void Comptes_Clients()
         {
             try
             {
@@ -342,8 +350,8 @@ namespace Paris_Mapper
 
                 {
                     double Compte = (double)read["Compte_Client"];
-                    
-                   
+
+
                     //DateTime mylastupdate = (DateTime)read["mydate"];
                     Console.WriteLine($"{Compte} ");
                     for (int i = 0; i < read.FieldCount; i++)
@@ -373,10 +381,10 @@ namespace Paris_Mapper
         {
             Console.WriteLine("Requetes : \n\t 0 : Lecture de la table Cuisto \n\t 1 : Profil du Cuisto  \n\t 2 : Plat du Jour \n\t 3 : Adresse des cuisiniers \n\t 4 :  \n\t 5 : ");
             int cui = Convert.ToInt32(Console.ReadLine());
-            switch(cui)
+            switch (cui)
             {
                 case 0:
-                    Console.WriteLine("Selection : Lecture de la table Cuisto"); 
+                    Console.WriteLine("Selection : Lecture de la table Cuisto");
                     Lecture_Cuisto();
                     break;
                 case 1:
@@ -395,12 +403,13 @@ namespace Paris_Mapper
                 case 4:
                     Console.WriteLine("Selection : ");
                     break;
-                
-                
-            }
-             
+                default: break;
 
-         }
+
+            }
+
+
+        }
 
         void Lecture_Cuisto()
         {
@@ -423,7 +432,7 @@ namespace Paris_Mapper
                     string Telephone = (string)read["Telephone"];
                     string Email = (string)read["Email"];
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    
+
                     Console.WriteLine($"{ID_Cuisto} | {Prenom} | {Nom} | {Telephone} | {Email} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -474,7 +483,7 @@ namespace Paris_Mapper
                     string Email = (string)read["Email"];
                     string Adresse = (string)read["Adresse"];
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    
+
                     Console.WriteLine($" {Prenom} | {Nom} | {Telephone} | {Email} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -496,7 +505,7 @@ namespace Paris_Mapper
                 return;
             }
         }
-       public void Adresse_Cuisto()
+        public void Adresse_Cuisto()
         {
             try
             {
@@ -519,7 +528,7 @@ namespace Paris_Mapper
                     string Region = (string)read["Region"];
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    
+
                     Console.WriteLine($" {Numero} | {Lieu} | {Ville} | {Code_Postal} | {Region}");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -544,25 +553,30 @@ namespace Paris_Mapper
         #endregion
         #region Statistiques
         public void Stats()
-            {
+        {
             Console.WriteLine("Requetes : \n\t 0 : Nombre de Livraisons par cuisiniers \n\t 1 : Commandes selon une période de temps \n\t 2 : Moyenne des prix des commandes \n\t 3 :  Moyenne des comptes clients");
-                int stat = Convert.ToInt32(Console.ReadLine());
-                switch(stat)
-                {
-                case 0: Console.WriteLine("Selection : Nombre de Livraisons par cuisiniers");
+            int stat = Convert.ToInt32(Console.ReadLine());
+            switch (stat)
+            {
+                case 0:
+                    Console.WriteLine("Selection : Nombre de Livraisons par cuisiniers");
                     Nb_Livraisons();
                     break;
-                case 1: Console.WriteLine("Selection : Commandes selon une periode de temps ");
+                case 1:
+                    Console.WriteLine("Selection : Commandes selon une periode de temps ");
                     Console.WriteLine("Temps : 0 : Annee en cours  \n\t 1 : Mois en cours  \n\t 2 : Jour en cours \n\t 3 : Annee d'inscritption \n\t  4 : Date d'inscription ");
                     int choix = Convert.ToInt32(Console.ReadLine());
-                    switch(choix)
+                    switch (choix)
                     {
-                        case 0: Console.WriteLine("Selection : Annee en cours");
+                        case 0:
+                            Console.WriteLine("Selection : Annee en cours");
                             break;
-                        case 1: Console.WriteLine("Selection : Mois en cours");
+                        case 1:
+                            Console.WriteLine("Selection : Mois en cours");
                             Commande_Mois();
                             break;
-                        case 2: Console.WriteLine("Selection : Jour en cours");
+                        case 2:
+                            Console.WriteLine("Selection : Jour en cours");
                             break;
                         case 3:
                             Console.WriteLine("Selection : Annee d'inscription");
@@ -572,17 +586,23 @@ namespace Paris_Mapper
                             break;
                     }
                     break;
-                case 2: Console.WriteLine("Selection : Moyenne des prix des commandes ");
+                case 2:
+                    Console.WriteLine("Selection : Moyenne des prix des commandes ");
                     Moyenne_Prix_Commande();
                     break;
                 case 3:
                     Console.WriteLine("Selection : Moyenne des comptes clients");
                     Moyenne_Comptes_Client();
                     break;
+                case 4:
+                    Console.WriteLine("Selection : Filtre par nationalité");
+                    Commande_Nationalite();
+                    break;
+                default: break;
 
             }
-            }
-        public  void Nb_Livraisons()
+        }
+        public void Nb_Livraisons()
         {
             try
             {
@@ -604,7 +624,7 @@ namespace Paris_Mapper
 
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    
+
                     Console.WriteLine($"{ID_Cuisto} | {Nombre} | {Nom} | {Prenom}");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -626,7 +646,7 @@ namespace Paris_Mapper
                 return;
             }
         }
-       
+
         public void Moyenne_Comptes_Client()
         {
 
@@ -647,7 +667,7 @@ namespace Paris_Mapper
 
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    
+
                     Console.WriteLine($"{Compte} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -687,7 +707,7 @@ namespace Paris_Mapper
 
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    
+
                     Console.WriteLine($"{ID_Com} | {Moy_Prix} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -727,7 +747,7 @@ namespace Paris_Mapper
 
 
                     //DateTime mylastupdate = (DateTime)read["mydate"];
-                    
+
                     Console.WriteLine($"{ID_Com} | {Mois} ");
                     for (int i = 0; i < read.FieldCount; i++)
                     {
@@ -763,11 +783,218 @@ namespace Paris_Mapper
         {
 
         }
-        #endregion
-        public void Autres()
+        public void Commande_Nationalite()
+        {
+            try
             {
 
+                string query = "SELECT * FROM Commande_Nationalite WHERE Pays_d_origine IS NOT NULL";
+                SqlCommand c = new SqlCommand(query, connection);
+
+                SqlDataReader read = c.ExecuteReader();
+                string[] valueString = new string[read.FieldCount];
+
+                Console.WriteLine("ID_Cuisto | ID_Comandes | Nombre de Personnes | Date de depart | Date d'arrivee | Nom du menu | Prix par personne | Regime | Nationalité");
+                while (read.Read())
+
+
+                {
+                    int ID = (int)read["ID_Cuisto"];
+                    int ID_Commande = (int)read["ID_Commandes"];
+                    int nb = (int)read["Nb_de_Personnes"];
+                    DateTime depart = (DateTime)read["Date_depart"];
+                    DateTime arrivee = (DateTime)read["Date_arrivee"];
+                    string menu = (string)read["Nom_Menu"];
+                    decimal prix = (decimal)read["Prix_Unitaire"];
+                    string regime = (string)read["Regime"];
+                    string nationalite = (string)read["Pays_d_origine"];
+
+
+                    //DateTime mylastupdate = (DateTime)read["mydate"];
+
+                    Console.WriteLine($"{ID} | {ID_Commande} | {nb} | {depart} | {arrivee} | {menu} | {prix} | {regime} | {nationalite}");
+                    for (int i = 0; i < read.FieldCount; i++)
+                    {
+                        valueString[i] = read.GetValue(i).ToString();
+                    }
+
+                    Console.WriteLine();
+
+                }
+
+                read.Close();
+
             }
-      
+            catch (SqlException ex)
+            {
+                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                return;
+            }
+        }
+        #endregion
+        public void Autres()
+        {
+            Console.WriteLine("Requetes : \n\t 0 : Lecture de tables \n\t Vues du menu de l'application");
+            int autres = Convert.ToInt32(Console.ReadLine());
+            switch (autres)
+            {
+                case 0:
+                    Console.WriteLine("Selection :  Lecture de tables");
+                    int table = Convert.ToInt32(Console.ReadLine());
+                    switch (table)
+                    {
+                        case 0:
+                            Console.WriteLine("Table : Commandes");
+                            break;
+                        case 1:
+                            Console.WriteLine("Table : Contenu du Menu");
+                            break;
+                        case 2:
+                            Console.WriteLine("Table : Catalogue");
+                            break;
+                        case 3:
+                            Console.WriteLine("Table : Entree");
+                            break;
+                        case 4:
+                            Console.WriteLine("Table : Plat");
+                            break;
+                        case 5:
+                            Console.WriteLine("Table : Dessert");
+                            break;
+                        case 6:
+                            Console.WriteLine("Table : Ingredient");
+                            Lecture_Ingredient_1();
+                            break;
+                        case 7:
+                            Console.WriteLine("Table : Volume");
+                            Lecture_Volume();
+                            break;
+                        case 8:
+                            Console.WriteLine("Table : Metro");
+
+                            break;
+                        
+                        case 9:
+                            Console.WriteLine("Table : Application_Site");
+                            break;
+                    }
+
+                    break;
+                case 1:
+                    Console.WriteLine("Selection : Vues du menu de l'application");
+                    int repas = Convert.ToInt32(Console.ReadLine());
+                    switch(repas)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+
+                default: break;
+
+            }
+
+        }
+        public void Lecture_Ingredient_1()
+        {
+            try
+            {
+
+
+                string selecton_ing = "SELECT * FROM Ingredient;";
+                SqlCommand command2 = new SqlCommand(selecton_ing, connection);
+                
+                SqlDataReader read = command2.ExecuteReader();
+                string[] valueString = new string[read.FieldCount];
+                Console.WriteLine("ID | Ingredient | Quantite | Date de fabrication | Date de peremption");
+
+                while (read.Read())
+
+
+                {
+                    int ID = (int)read["ID_Ingredient"];
+                    string ingredient = (string)read["Ingredient"];
+                    DateTime f = (DateTime)read["Date_2_Fabrication"];
+                    DateTime p = (DateTime)read["Date_2_Peremption"];
+                    int Q = (int)read["Quantite"];
+
+                    Console.WriteLine($"{ID} | {ingredient} | {Q} | {f} | {p}");
+                    string val = "";
+                    for (int i = 0; i < read.FieldCount; i++)
+                    {
+                        valueString[i] = read.GetValue(i).ToString();
+
+                    }
+
+
+                }
+
+                read.Close();
+
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+
+
+                return;
+            }
+
+        }
+        public void Lecture_Volume()
+        {
+            try
+            {
+
+
+                string selecton_ing = "SELECT * FROM Volume;";
+                SqlCommand command2 = new SqlCommand(selecton_ing, connection);
+
+                SqlDataReader read = command2.ExecuteReader();
+                string[] valueString = new string[read.FieldCount];
+                Console.WriteLine("ID_V | Volume | Unite de mesure");
+
+                while (read.Read())
+
+
+                {
+
+                    int ID_V = (int)read["ID_Volume"];
+                    decimal volume = (decimal)read["Volume"];
+                    string unite = (string)read["Unite_de_mesure"];
+                    //DateTime mylastupdate = (DateTime)read["mydate"];
+
+                    Console.WriteLine($"{ID_V} | {volume} | {unite}");
+
+                    for (int i = 0; i < read.FieldCount; i++)
+                    {
+
+
+                        valueString[i] = read.GetValue(i).ToString();
+
+                    }
+
+
+                }
+
+                read.Close();
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                return;
+            }
+
+        }
+
     }
 }
