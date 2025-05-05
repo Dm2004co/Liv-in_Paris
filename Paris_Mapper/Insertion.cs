@@ -865,7 +865,7 @@ namespace Paris_Mapper
         #region Catalogue
         public void Cat(SqlTransaction t)
         {
-            string query = "INSERT INTO Catalogue(ID_Catalogue,ID_Client,ID_Cuisto,ID_Commandes)\r\nSELECT ROW_NUMBER() OVER (ORDER BY c.ID_Client,cui.ID_Cuisto,com.ID_Commandes) as ID,c.ID_Client,cui.ID_Cuisto,com.ID_Commandes from Commande com\r\n INNER JOIN Client c on c.ID_Client = com.ID_Client\r\n INNER JOIN Cuisto cui on cui.ID_Cuisto = com.ID_Cuisto\r\ngroup by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes\r\norder by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes;";
+            string query = "INSERT INTO Catalogue(ID_Catalogue,ID_Client,ID_Cuisto,ID_Commandes)\r\nSELECT NEWID() as ID,c.ID_Client,cui.ID_Cuisto,com.ID_Commandes from Commande com\r\n INNER JOIN Client c on c.ID_Client = com.ID_Client\r\n INNER JOIN Cuisto cui on cui.ID_Cuisto = com.ID_Cuisto\r\ngroup by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes\r\norder by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes;";
             SqlCommand c = connection.CreateCommand();
             c.CommandText = query;
             c.Transaction = t;

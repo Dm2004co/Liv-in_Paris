@@ -29,6 +29,7 @@ using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto.Macs;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 using Org.BouncyCastle.Asn1.X509;
+using System.Windows.Markup;
 Console.Clear();
 Console.Title = "Liv'in Paris";
 Console.WriteLine(value: Console.Title.ToUpper() + Environment.NewLine);
@@ -128,7 +129,7 @@ switch (Menu)
                         bool quitter = false ; 
                         if(quitter)
                         {
-                            break;
+                            Console.WriteLine("Retour au menu precedent");
                         }
                         else
                         {
@@ -158,8 +159,9 @@ switch (Menu)
                             {
                                 goto case 5;
                             }
-                            return;
+                           
                         }
+                        break;
 
                 }
 
@@ -554,7 +556,8 @@ switch (Menu)
            
               
         }
-        break;
+        goto default;
+        
     #endregion
     #region BDD
     case 1:
@@ -620,40 +623,40 @@ switch (Menu)
                     #region Requetes
                     case 0:
                         Requetes r = new Requetes(connexion,connection);
-                        Console.WriteLine(" Table : 0 : Client \n\t 1 : Cuisinier \n\t 2 : Statistiques \n\t 3 : Autres ");
+                        Console.WriteLine(" Table : 0 : Client \n\t 1 : Cuisinier \n\t 2 : Statistiques \n\t 3 : Autres \n\t 4 : Commande");
                         int req = Convert.ToInt32(Console.ReadLine());
                         switch (req)
                         {
                             case 0:
-                                Console.WriteLine("Table : Client");
+                                Console.WriteLine("Module : Client");
                                 r.Client();
                                 goto default;
                             case 1:
-                                Console.WriteLine("Table : Cuisinier");
+                                Console.WriteLine("Module : Cuisinier");
                                 r.Cuisinier();
                                goto default;
                             case 2:
-                                Console.WriteLine("Statistiques");
+                                Console.WriteLine("Moduele: Statistiques");
                                 r.Stats();
                                 goto default;
                             case 3:
-                                Console.WriteLine("Autres");
+                                Console.WriteLine("Modules : Autres");
+                                r.Autres();
                                 goto default;
                             case 4:
+                                Console.WriteLine("Modules : Commande");
+                                r.Commande();
                                 goto default;
-                            case 5:
-                                goto default;
-                            case 6:
-                                goto default;
+                           
                             default: 
                                 bool quitter14 = false;
                                 if(quitter14)
                                 {
-                                    break;
+                                    Console.WriteLine("Retour au menu precedent");
                                 }
                                 else
                                 {
-                                    Console.WriteLine(" Table : 0 : Client \n\t 1 : Cuisinier \n\t 2 : Statistiques \n\t 3 : Autres ");
+                                    Console.WriteLine(" Table : 0 : Client \n\t 1 : Cuisinier \n\t 2 : Statistiques \n\t 3 : Autres \n\t 4 : Commande");
                                     int c1 = Convert.ToInt32(Console.ReadLine());
                                     if (c1 == 0)
                                     {
@@ -671,21 +674,18 @@ switch (Menu)
                                     {
                                         goto case 3;
                                     }
-                                    if (c1 == 4)
+                                    if(c1 == 4)
                                     {
                                         goto case 4;
                                     }
-                                    if (c1 == 5)
-                                    {
-                                        goto case 5;
-                                    }
-                                    break;
-
+                                   
+                                  
                                 }
+                                break;
 
 
                         }
-                        break;
+                        goto default;
                         #endregion
                        
                     #region Suppression
@@ -726,19 +726,19 @@ switch (Menu)
                                 Console.WriteLine("Identifiant : ");
                                 int p = Convert.ToInt32(Console.ReadLine());
                                 s.Plat(p);
-                                break;
+                                goto default;
                             case 5:
                                 Console.WriteLine("Table : Dessert");
                                 Console.WriteLine("Identifiant : ");
                                 int de = Convert.ToInt32(Console.ReadLine());
                                 s.Dessert(de);
-                                break;
+                                goto default;
                             case 6:
                                 Console.WriteLine("Table : Entree");
                                 Console.WriteLine("Identifiant : ");
                                 int e = Convert.ToInt32(Console.ReadLine());
                                 s.Entree(e);
-                                break;
+                                goto default;
                             #endregion
                             case 7:
                                 Console.WriteLine("Table : Contenu du Menu");
@@ -765,13 +765,14 @@ switch (Menu)
                                 s.Ingredient(id_ingredient);
                                 goto default;
                             case 11:
-                                break;
+                                goto default;
                             default:
                                 bool quitter3 = false;
+                                Console.WriteLine("Quitter le menu actuelle : \n\t True \n\t False");
                                 quitter3 = Convert.ToBoolean(Console.ReadLine());
                                 if(quitter3)
                                 {
-                                    break;
+                                    Console.WriteLine("Retour au menu precedent");
                                 }
                                 else
                                 {
@@ -808,7 +809,7 @@ switch (Menu)
                                     }
                                     if (c1 == 7)
                                     {
-
+                                        goto case 7;
                                     }
                                     if (c1 == 8)
                                     {
@@ -824,10 +825,10 @@ switch (Menu)
                                     }
                                 }
                                     
-                                break ;
+                                break;
                         }
                         #endregion
-                        break;
+                        goto default;
                     #region Modification
                     case 3:
                         Modification m = new Modification(connexion,connection);
@@ -866,6 +867,7 @@ switch (Menu)
                                     m.Client(id_1, e_mail);
                                 }
                                 bool maj_adresse_client = false;
+                                Console.WriteLine("Modification adresse ? : \n\t True \n\t False");
                                 maj_adresse_client = Convert.ToBoolean(Console.ReadLine());
                                 if(maj_adresse_client == true)
                                 {
@@ -913,6 +915,7 @@ switch (Menu)
                                 goto default;
                             case 2:
                                 Console.WriteLine("Table : Adresse");
+                                Console.WriteLine("Modification au choix : \n\t 0 : ID_Client \n\t 1 : ID_Cuisto \n\t  2 : Ville \n\t 3 : Region \n\t 4 : Commune \n\t 5 : Lieu \n\t 6 : Numero \n\t 7 : Code Postal \n\t 8 : Dept`\n\t 9 : ID_Metro");
                                 Console.WriteLine("Identifiant : ");
                                 int id_a = Convert.ToInt32(Console.ReadLine());
 
@@ -970,13 +973,15 @@ switch (Menu)
                                         goto default;
                                     default:
                                         bool quitter20 = false;
+                                        Console.WriteLine("Quitter le menu actuelle : \n\t True \n\t False");
                                         quitter20 = Convert.ToBoolean(Console.ReadLine());
                                         if(quitter20)
                                         {
-                                            break;
+                                            Console.WriteLine("Retour au menu precedent");
                                         }
                                         else
                                         {
+                                            Console.WriteLine("Modification au choix : \n\t 0 : ID_Client \n\t 1 : ID_Cuisto \n\t  2 : Ville \n\t 3 : Region \n\t 4 : Commune \n\t 5 : Lieu \n\t 6 : Numero \n\t 7 : Code Postal \n\t 8 : Dept`\n\t 9 : ID_Metro");
                                             int select = Convert.ToInt32(Console.ReadLine());
                                            
                                             if(select == 0)
@@ -1019,11 +1024,11 @@ switch (Menu)
                                             {
                                                 goto case 9;
                                             }
-                                            break;
-
+                                           
                                         }
-                                       
-                                        
+                                        break;
+
+
                                 }
                                goto default;
                             case 3:
@@ -1046,8 +1051,7 @@ switch (Menu)
                                 Console.WriteLine("ID_Application : ");
                                 int id_app = Convert.ToInt32(Console.ReadLine());
 
-
-                                Console.WriteLine("Modification : \n\t 0 : Mot de passe");
+                                Console.WriteLine("Modification : \n\t 0 : Mot de passe \n\t 1 : Nom du menu");
                                 int modif_app = Convert.ToInt32(Console.ReadLine());
                                 switch(modif_app)
                                 {
@@ -1056,13 +1060,18 @@ switch (Menu)
                                         Console.WriteLine("Mot de passe :");
                                         string mdp = Console.ReadLine();
                                         m.Application_Site(id_app,0,0, mdp);
-                                        break;
+                                        goto default;
+                                    case 1:
+                                        Console.WriteLine("Nom du menu :");
+                                        string menu = Console.ReadLine();
+                                        m.Application_Site(id_app, 0, 0, null, menu);
+                                        goto default;
                                     default:
                                         bool quitter15 = false;
                                         quitter15 = Convert.ToBoolean(Console.ReadLine());
                                         if(quitter15)
                                         {
-                                            break;
+                                            Console.WriteLine("Retour au menu precedent");
                                         }
                                         else
                                         {
@@ -1071,23 +1080,29 @@ switch (Menu)
                                             {
                                                 goto case 0;
                                             }
-                                           
-                                            break;
+                                            if (select1 == 1)
+                                            {
+                                                goto case 1;
+                                            }
+
+
                                         }
+                                        break;
                                 }
                                 goto default;
                             case 9:
-                                break;
+                                goto default;
                             case 10:
-                                break;
+                                goto default;
                             case 11:
-                                break;
+                                goto default;
                             default:
                                 bool quitter2 = false;
+                                Console.WriteLine("Quitter le menu actuelle : \n\t True \n\t False");
                                 quitter2 = Convert.ToBoolean(Console.ReadLine());
                                 if(quitter2)
                                 {
-                                    break;
+                                    Console.WriteLine("Retour au menu precedent");
                                 }
                                 else
                                 {
@@ -1138,11 +1153,11 @@ switch (Menu)
                                         goto case 10;
                                     }
                                 }
-                                    
+
                                 break;
                         }
                         #endregion
-                        break;
+                        goto default;
                     #region Insertion
                     case 2:
                         Insertion insert = new Insertion(connexion,connection);
@@ -1193,7 +1208,7 @@ switch (Menu)
                                             Console.WriteLine(" ErreurConnexion : " + ex.ToString());
                                             return;
                                         }
-                                        break;
+                                        goto default;
                                     case 1:
                                          try
                                         {
@@ -1231,9 +1246,33 @@ switch (Menu)
                                             Console.WriteLine(" ErreurConnexion : " + ex.ToString());
                                             return;
                                         }
-                                        break;
+                                        goto default;
+                                    default:
+                                        bool quitter64 = false;
+                                        Console.WriteLine("Quitter le menu actuelle : \n\t True \n\t False");
+                                        quitter64 = Convert.ToBoolean(Console.ReadLine());
+                                        if(quitter64)
+                                        {
+                                            Console.WriteLine("Retour au menu precedent");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Table : Client \n\t 0 : Tuples(id,prenom,nom) \n\t 1 : Tuples(id,prenom,nom,telephone,email) ");
+                                            int select10 = Convert.ToInt32(Console.ReadLine());
+                                            if(select10 == 0)
+                                            {
+                                                goto case 0;
+                                            }
+                                            if(select10 == 1)
+                                            {
+                                                goto case 1;
+                                            }
+
+
+                                        }
+                                            break;
                                 }
-                                break;
+                                goto default;
                             case 1:
                                 Console.WriteLine("Table : Cuisinier \n\t 0 : Tuples(id,prenom,nom) \n\t 1 : Tuples(id,prenom,nom,telephone,email) ");
                                 int cuist = Convert.ToInt32(Console.ReadLine());
@@ -1308,7 +1347,30 @@ switch (Menu)
                                             Console.WriteLine(" ErreurConnexion : " + ex.ToString());
                                             return;
                                         }
-                                        break;
+                                        goto default;
+                                    default:
+                                        bool quitter19 = false;
+                                        Console.WriteLine("Quitter le menu actuelle : \n\t True \n\t False");
+                                        quitter19 = Convert.ToBoolean(Console.ReadLine());
+                                        if(quitter19)
+                                        {
+                                            Console.WriteLine("Retour au menu precedent");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Table : Cuisinier \n\t 0 : Tuples(id,prenom,nom) \n\t 1 : Tuples(id,prenom,nom,telephone,email) ");
+                                            int selectionner = Convert.ToInt32(Console.ReadLine());
+                                            if(selectionner == 0 )
+                                            {
+                                                goto case 0;
+                                            }
+                                            if (selectionner == 1)
+                                            {
+                                                goto case 1;
+                                            }
+                                        }
+
+                                            break;
                                 }
                                 goto default;
                             case 2:
@@ -1433,7 +1495,7 @@ switch (Menu)
                                             }
                                         }
 
-                                        break;
+                                        goto default;
                                     case 1:
                                         bool client_2 = false;
                                         bool cuisto_2 = false;
@@ -1551,130 +1613,41 @@ switch (Menu)
                                         }
 
                                         goto default;
+                                   
                                     default:
+                                        bool quitter20 = false;
+                                        Console.WriteLine("Quitter le menu actuelle: \n\t True \n\t False ");
+                                        quitter20 = Convert.ToBoolean(Console.ReadLine());
+                                        if (quitter20)
+                                        {
+                                            Console.WriteLine("Retour au menu precedent");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Table : Adresse \n\t 0 : Tuples(id,ville,numero,lieu dit,id_metro) \n\t 1 : Tuples(id,ville,numero,lieu dit,id_metro,region,code postal,dept,commune)");
+                                            int select = Convert.ToInt32(Console.ReadLine());
+
+                                            if (select == 0)
+                                            {
+                                                goto case 0;
+                                            }
+                                            if (select == 1)
+                                            {
+                                                goto case 1;
+                                            }
+                                            
+                                            
+
+                                        }
                                         break;
                                 }
 
-                                break;
+                                goto default;
                             case 3:
-                                #region App
-                                string nom_menu = "";
-                                bool rollback_app = false;
-                                bool inscription = false;
-                                Console.WriteLine("Inscription : \n\t True \n\t False");
-                                inscription = Convert.ToBoolean(Console.ReadLine());
-                                if(inscription)
-                                {
-                                    Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
-                                    int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
-                                    Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
-                                    int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
-                                    int Nb_Appli()
-                                    {
-
-                                        string q = "SELECT COUNT(*) FROM Application_Site";
-                                        SqlCommand c = new SqlCommand(q, connection);
-                                        int n = 0;
-                                        try
-                                        {
-
-
-                                            SqlDataReader read = c.ExecuteReader();
-                                            string[] valueString = new string[read.FieldCount];
-
-
-                                            while (read.Read())
-                                            {
-
-                                                for (int i = 0; i < read.FieldCount; i++)
-                                                {
-
-                                                    valueString[i] = read.GetValue(i).ToString();
-                                                    n = Convert.ToInt32(valueString[0]);
-
-
-                                                }
-
-
-                                            }
-
-                                            read.Close();
-                                        }
-
-                                        catch (SqlException e)
-                                        {
-                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                                            return 0;
-                                        }
-
-
-                                        return n;
-                                    }
-                                    int id_app = 1;
-                                    int n_appli = Nb_Appli();
-                                    if (n_appli > 1)
-                                    {
-                                        id_app = n_appli;
-                                    }
-
-
-                                    try
-                                    {
-                                        if (nb_inscription_cuisto > 0)
-                                        {
-                                            for (int nombre = 0; nombre < nb_inscription_cuisto; nombre++)
-                                            {
-                                                SqlTransaction inscription_appli_cuisto = connection.BeginTransaction();
-                                                string inscription_cuisto_debut = " Debut Inscription_Cuisinier";
-                                                inscription_appli_cuisto.Save(inscription_cuisto_debut);
-                                                Console.WriteLine("Table : Application_Site");
-                                                Console.WriteLine("Mot de passe : ");
-                                                string mot_de_passse = Console.ReadLine();
-                                                inscription_appli_cuisto.Save($" SVG Mdp_cuisinier");
-                                                Console.WriteLine("Identifiant  Cuisinier :");
-                                                int id_cuisto = Convert.ToInt32(Console.ReadLine());
-                                                inscription_appli_cuisto.Save($" SVG Id_Cuisinier");
-                                                Console.WriteLine("Nom  Menu : ");
-                                                nom_menu = Console.ReadLine();
-                                                inscription_appli_cuisto.Save($" SVG Nom Menu ");
-                                                insert.App(id_app, nom_menu, id_cuisto, mot_de_passse, inscription_appli_cuisto);
-                                                id_app++;
-                                                Console.WriteLine();
-
-                                            }
-                                        }
-
-                                        if (nb_inscription_client > 0)
-                                        {
-                                            for (int nb_c = 0; nb_c < nb_inscription_client; nb_c++)
-                                            {
-                                                SqlTransaction inscription_appli_client = connection.BeginTransaction();
-                                                string inscription_client_debut = "Debut Inscription_Client";
-                                                inscription_appli_client.Save(inscription_client_debut);
-                                                Console.WriteLine("Table : Application_Site");
-                                                Console.WriteLine("Mot de passe : ");
-                                                string mot_de_passe = Console.ReadLine();
-                                                inscription_appli_client.Save($" SVG Mdp_client");
-                                                Console.WriteLine("Identifiant Client :");
-                                                int id_cl = Convert.ToInt32(Console.ReadLine());
-                                                insert.App_Client(id_app, id_cl, mot_de_passe, inscription_appli_client);
-                                                id_app++;
-                                                Console.WriteLine();
-                                            }
-                                        }
-
-
-                                    }
-                                    catch (SqlException ex)
-                                    {
-                                        Console.WriteLine(" ErreurConnexion : " + ex.ToString());
-                                        return;
-                                    }
-
-                                }
 
 
                                 #endregion
+                                string nom_menu = "";
                                 bool rollback_commandes = false;
                                 SqlTransaction Commandes = connection.BeginTransaction();
                                 Commandes.Save("Debut de la Commande");
@@ -2311,9 +2284,7 @@ switch (Menu)
                                     Console.WriteLine("Etape 3 : Finalisation de la commande ");
                                     Console.WriteLine("Table : Commandes \n\t True : Tuples(Client,Cuisto,Nombre de Personnes, Date de depart , Date d'arrivee,Pays d'origine,Prix par personne ,Regime alimentaire) \n\t False : Tuples(Client,Cuisto,Nombre,Prix Unitaire)");
 
-
                                     bool com = false;
-                                        
                                     com = Convert.ToBoolean(Console.ReadLine());
                                     
                                     int id_com = nb_com + 1;
@@ -2562,19 +2533,173 @@ switch (Menu)
 
                                 goto default;
 
+                            case 4:
+                                #region App
+                               
+                                bool rollback_app = false;
+                                bool inscription = false;
+                                Console.WriteLine("Selection : \n\t 0 : Inscription automatique \n\t 1 : Inscritption manuelle");
+                                int inscription_auto = Convert.ToInt32(Console.ReadLine());
+                                switch(inscription_auto)
+                                {
+                                        case 0:
+                                        Console.WriteLine("Selection : Inscription automatique(ID : Application , Client , Cuisto) et remplissage manuelle du mdp et du nom du menu ");
+                                         goto default;
+                                        case 1:
+                                        Console.WriteLine("Selection : Inscription manuelle(ID_Cuisto,ID_Client,Mdp, Nom_Menu)");
+                                            goto default;
+                                    default:
+                                        bool quitter75 = false;
+                                        Console.WriteLine("Quitter : \n\t True \n\t False");
+                                        if(quitter75)
+                                        {
+                                            Console.WriteLine("Retour au menu precedent");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Selection : \n\t 0 : Inscription automatique \n\t 1 : Inscritption manuelle");
+                                            int select60 = Convert.ToInt32(Console.ReadLine());
+                                            if(select60 == 0)
+                                            {
+                                                goto case 0;
+                                            }
+                                            if(select60 == 1)
+                                            {
+                                                goto case 1;
+                                            }
+                                        }
+                                        break;
+                                }
+                                Console.WriteLine("Inscription manuelle : \n\t True \n\t False");
+                                inscription = Convert.ToBoolean(Console.ReadLine());
+                                if (inscription)
+                                {
+                                    Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
+                                    int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
+                                    Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
+                                    int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
+                                    int Nb_Appli()
+                                    {
 
+                                        string q = "SELECT COUNT(*) FROM Application_Site";
+                                        SqlCommand c = new SqlCommand(q, connection);
+                                        int n = 0;
+                                        try
+                                        {
+
+
+                                            SqlDataReader read = c.ExecuteReader();
+                                            string[] valueString = new string[read.FieldCount];
+
+
+                                            while (read.Read())
+                                            {
+
+                                                for (int i = 0; i < read.FieldCount; i++)
+                                                {
+
+                                                    valueString[i] = read.GetValue(i).ToString();
+                                                    n = Convert.ToInt32(valueString[0]);
+
+
+                                                }
+
+
+                                            }
+
+                                            read.Close();
+                                        }
+
+                                        catch (SqlException e)
+                                        {
+                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                            return 0;
+                                        }
+
+
+                                        return n;
+                                    }
+                                    int id_app = 1;
+                                    int n_appli = Nb_Appli();
+                                    if (n_appli > 1)
+                                    {
+                                        id_app = n_appli;
+                                    }
+
+
+                                    try
+                                    {
+                                        if (nb_inscription_cuisto > 0)
+                                        {
+                                            for (int nombre = 0; nombre < nb_inscription_cuisto; nombre++)
+                                            {
+                                                SqlTransaction inscription_appli_cuisto = connection.BeginTransaction();
+                                                string inscription_cuisto_debut = " Debut Inscription_Cuisinier";
+                                                inscription_appli_cuisto.Save(inscription_cuisto_debut);
+                                                Console.WriteLine("Table : Application_Site");
+                                                Console.WriteLine("Mot de passe : ");
+                                                string mot_de_passse = Console.ReadLine();
+                                                inscription_appli_cuisto.Save($" SVG Mdp_cuisinier");
+                                                Console.WriteLine("Identifiant  Cuisinier :");
+                                                int id_cuisto = Convert.ToInt32(Console.ReadLine());
+                                                inscription_appli_cuisto.Save($" SVG Id_Cuisinier");
+                                                Console.WriteLine("Nom  Menu : ");
+                                                nom_menu = Console.ReadLine();
+                                                inscription_appli_cuisto.Save($" SVG Nom Menu ");
+                                                insert.App(id_app, nom_menu, id_cuisto, mot_de_passse, inscription_appli_cuisto);
+                                                id_app++;
+                                                Console.WriteLine();
+
+                                            }
+                                        }
+
+                                        if (nb_inscription_client > 0)
+                                        {
+                                            for (int nb_c = 0; nb_c < nb_inscription_client; nb_c++)
+                                            {
+                                                SqlTransaction inscription_appli_client = connection.BeginTransaction();
+                                                string inscription_client_debut = "Debut Inscription_Client";
+                                                inscription_appli_client.Save(inscription_client_debut);
+                                                Console.WriteLine("Table : Application_Site");
+                                                Console.WriteLine("Mot de passe : ");
+                                                string mot_de_passe = Console.ReadLine();
+                                                inscription_appli_client.Save($" SVG Mdp_client");
+                                                Console.WriteLine("Identifiant Client :");
+                                                int id_cl = Convert.ToInt32(Console.ReadLine());
+                                                insert.App_Client(id_app, id_cl, mot_de_passe, inscription_appli_client);
+                                                id_app++;
+                                                Console.WriteLine();
+                                            }
+                                        }
+
+
+                                    }
+                                    catch (SqlException ex)
+                                    {
+                                        Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                        return;
+                                    }
+
+                                }
+
+                                goto default;
 
                             default:
                                 bool qui = false;
+                                Console.WriteLine("Quitter le menu actuelle : \n\t True \n\t False");
                                 qui = Convert.ToBoolean(Console.ReadLine());
                                 if (qui)
                                 {
-                                    break;
+                                    Console.WriteLine("Retour au menu precedent");
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes  ");
+                                    Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes \n\t 4 : Application_Site ");
                                     int cq = Convert.ToInt32(Console.ReadLine());
+                                    if (cq == 0)
+                                    {
+                                        goto case 0;
+                                    }
                                     if (cq == 1)
                                     {
                                         goto case 1;
@@ -2587,6 +2712,10 @@ switch (Menu)
                                     {
                                         goto case 3;
                                     }
+                                    if (cq == 4)
+                                    {
+                                        goto case 4;
+                                    }
 
                                 }
 
@@ -2596,17 +2725,45 @@ switch (Menu)
 
                         }
 
-                        break;
+                        goto default;
 
                         #endregion
                     
 
                     default:
                         bool quitter16 = false;
-                        return;
+                        Console.WriteLine("Quitter le menu actuelle : \n\t True  \n\t False ");
+                        quitter16 = Convert.ToBoolean(Console.ReadLine());
+                        if(quitter16)
+                        {
+                            Console.WriteLine("Retour au menu precedent");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Modules : \n\t 0 : Requetes \n\t 1 : Suppression \n\t 2 : Insertion \n\t 3 : Modification ");
+                            int selection2 = Convert.ToInt32(Console.ReadLine());
+                            if(selection2 ==  0)
+                            {
+                                goto case 0;
+                            }
+                            if (selection2 == 1)
+                            {
+                                goto case 1;
+                            }
+                            if (selection2 == 2)
+                            {
+                                goto case 2;
+                            }
+                            if (selection2 == 3)
+                            {
+                                goto case 3;
+                            }
+
+                        }
+                        break;
                 }
 
-                break;
+                goto default;
             #endregion
             #region Serialisation
             case 3:
@@ -2878,13 +3035,68 @@ switch (Menu)
                 goto default;
 
                 default:
-                return;
+                bool quitter60 = false;
+                Console.WriteLine("Quitter le menu actuelle : \n\t True\n\t False");
+                quitter60 = Convert.ToBoolean(Console.ReadLine());
+                if(quitter60)
+                {
+                    Console.WriteLine("Retour au menu precedent ");
+                }
+                else
+                {
+                    Console.WriteLine("Module : BDD(Base de données) \n\t 0 : Interface Client \n\t 1 : Interface Cuisto \n\t 2 : Interface Administrateur \n\t 3 : Serialisation");
+                    int use = Convert.ToInt32(Console.ReadLine());
+                    if(use == 0 )
+                    {
+                        goto case 0;
+                    }
+                    if(use == 1)
+                    {
+                        goto case 1;
+                    }
+                    if (use == 2)
+                    {
+                        goto case 2;
+                    }
+                    if (use == 3)
+                    {
+                        goto case 3;
+                    }
+
+                }
+                break;
 
 
                 #endregion
         }
-        break;
+        goto default;
+    default:
+        bool quitter50 = false;
+        Console.WriteLine("Quitter le menu actuelle : \n\t True  \n\t False");
+        quitter50 = Convert.ToBoolean(Console.ReadLine());
+        if(quitter50)
+        {
+            Console.WriteLine("Retour au menu precedent");
+        }
+        else
+        {
+            Console.WriteLine("Modules :\n\t 0 : Graphes \n\t 1 : BDD");
+            int selection40 = Convert.ToInt32(Console.ReadLine());
+            if(selection40 == 0)
+            {
+                goto case 0;
+            }
+            if (selection40 == 1)
+            {
+                goto case 1;
+            }
+            
+        }
+            break; 
+
+       
         #endregion
 }
+
 
 

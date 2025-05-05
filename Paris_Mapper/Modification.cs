@@ -371,7 +371,7 @@ namespace Paris_Mapper
 
 
         }
-        public void Application_Site(int id  ,int id_c = 0 , int id_cui = 0 , string mdp = null )
+        public void Application_Site(int id  ,int id_c = 0 , int id_cui = 0 , string mdp = null , string n_menu = null )
         {
             SqlCommand b = connection.CreateCommand();
             SqlParameter p = new SqlParameter();
@@ -394,12 +394,14 @@ namespace Paris_Mapper
             SqlParameter r = new SqlParameter();
             r.Value = mdp;
             r.ParameterName = "@Mdp";
+            SqlParameter menu = new SqlParameter("@Nom_Menu", DbType.String);
+            menu.Value = n_menu;
             
             r.DbType = DbType.String;
             string query = "UPDATE Application_Site SET ";
             if (id_c != 0)
             {
-                query += "I_Client = '@ID_Client'";
+                query += "ID_Client = '@ID_Client'";
                 b.Parameters.Add(o);
             }
             if (id_cui != 0)
@@ -410,10 +412,15 @@ namespace Paris_Mapper
             
             if (mdp != null)
             {
-
                 query += "Mdp = '@Mdp'";
                 b.Parameters.Add(r);
             }
+            if (n_menu != null)
+            {
+                query += "Nom_menu = '@Nom_menu'";
+                b.Parameters.Add(menu);
+            }
+
             query += "WHERE ID_Application = @ID_Application";
             b.CommandText = query;
             b.CommandType = CommandType.Text;
