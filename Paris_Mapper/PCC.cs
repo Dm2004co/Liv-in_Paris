@@ -960,6 +960,78 @@ namespace Paris_Mapper
 
         #endregion
         #region Bellman_Ford
+        public SortedList<Lien<T>, T> Bellman_Ford(T sourceNode) // Changement de la signature pour prendre le noeud source en paramètre
+        {
+
+            //Noeud n = new Noeud(sourceNode); //n'est plus utilisé
+            int V = graphe.Sommet.Count;
+            int E = graphe.Aretes.Count;
+            SortedList<Lien<T>,T> distances = new SortedList<Lien<T>, T>(); // Utilisation d'un SortedList pour stocker les distances, la clé devrait être un identifiant de lien unique
+            Dictionary<T,T> d = new Dictionary<T, T>(); // Dictionnaire pour stocker les distances depuis la source vers chaque nœud, clé = sommet, valeur = distance.  IMPORTANT: Initialisé avec les distances
+            Dictionary<T, T> predecesseurs = new Dictionary<T, T>(); // Dictionnaire des prédécesseurs pour reconstruire le chemin
+
+            // Initialisation des distances : distance à la source est 0, les autres à l'infini
+            for (int i = 0; i < V; i++)
+            {
+                d[graphe.Noeuds[i].ID] = graphe.Inversion_Conversion(int.MaxValue); // Initialise toutes les distances à l'infini
+                predecesseurs[graphe.Noeuds[i].ID] = graphe.Inversion_Conversion(-1); // -1 indique l'absence de prédécesseur
+            }
+            d[sourceNode] = graphe.Inversion_Conversion(0); // Distance de la source à elle-même est 0
+
+            // Relaxation des arêtes |V| - 1 fois
+            for (int i = 0; i < V; i++)
+            {
+                for(int j  = 0;  j < E; j++)
+                {
+                    var u1 = graphe.Aretes[j].Item1;
+                    var v1 = graphe.Aretes[j].Item2;
+                    Noeud<T> u = graphe.Noeuds.Find(noeud => noeud.ID.Equals(u1));
+                    Noeud<T> v = graphe.Noeuds.Find(noeud => noeud.ID.Equals(v1));
+
+                    double poids_uv = new Lien<T>(u, v).Calcul_Poids(u, v); // Utilisez une instance de Lien pour accéder à Calcul_Poids
+                    if (graphe.Conversion(d[u.ID]) != int.MaxValue && graphe.Conversion(d[u.ID]) + Convert.ToInt32(poids_uv) < graphe.Conversion(d[v.ID]))
+                    {
+                        int w = 0;
+                        w = graphe.Conversion(d[v.ID]);
+                        int y = graphe.Conversion(d[u.ID]) + Convert.ToInt32(poids_uv);
+                        w = y;
+                        predecesseurs[v.ID] = u.ID;
+                    }
+                }
+                {
+                   
+                    
+                    
+                }
+            }
+
+            // Vérification de la présence de cycles négatifs
+            for(int j = 0; j < E; j++)
+            {
+                var u1 = graphe.Aretes[j].Item1;
+                var v1 = graphe.Aretes[j].Item2;
+                Noeud<T> u = graphe.Noeuds.Find(noeud => noeud.ID.Equals(u1));
+                Noeud<T> v = graphe.Noeuds.Find(noeud => noeud.ID.Equals(v1));
+
+                double poids_uv = new Lien<T>(u,v).Calcul_Poids(u, v);
+
+                if (graphe.Conversion(d[u.ID]) != int.MaxValue && graphe.Conversion(d[u.ID]) + Convert.ToInt32(poids_uv) < graphe.Conversion(d[v.ID]))
+                {
+                    throw new InvalidOperationException("Le graphe contient un cycle négatif.");
+                    //return null; // Indique la présence d'un cycle négatif.  Mieux: lancer une exception
+                }
+            }
+            // Construction du SortedList des distances à partir du dictionnaire d
+            foreach (var kvp in d)
+            {
+                T sommet = kvp.Key;
+                T distance = kvp.Value;
+                Lien<T> lien = new Lien<T>(new Noeud<T>(sourceNode), new Noeud<T>(sommet)); // Créer un Lien représentant le chemin de la source à ce sommet
+                distances.Add(lien, distance);
+            }
+
+            return distances;
+        }
 
 
         #endregion

@@ -74,10 +74,12 @@ namespace Paris_Mapper
             set { this.distance = value; }
         }
 
+        public object Destination { get; internal set; }
+
         public double Calcul_Poids(Noeud<T> a, Noeud<T> b)
         {
-            double poids = 0;
-            if (graphe.Chemin(a, b).Item1)
+            double poids = Calcul_Distance(a,b);
+          /* if (graphe.Chemin(a, b).Item1)
             {
                 List<Noeud<T>> Chemin = graphe.Chemin(a, b).Item3;
                 for(int i = 0; i < Chemin.Count;i++)
@@ -89,7 +91,7 @@ namespace Paris_Mapper
                         poids += l.Calcul_Distance(Chemin[i], Chemin[i + 1]);
                     }
                 }
-            }
+            }*/
 
             return poids;
         }

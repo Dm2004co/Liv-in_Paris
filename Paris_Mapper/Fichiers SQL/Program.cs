@@ -229,10 +229,12 @@ switch (Menu)
                                 void Chemin()
                                 {
                                     Console.WriteLine(" Choissisez un Noeud< de départ entre 1 et 319 (compris) : ");
-                                    Noeud<int> n = new Noeud<int>();
+                                    int depart = Convert.ToInt32(Console.ReadLine());
+                                    Noeud<int> n = new Noeud<int>(depart);
                                     Console.WriteLine(" Choissisez un Noeud d'arrivée entre 1 et 319 (compris) : ");
-                                    Noeud<int> m = new Noeud<int>();
-                                    //graphe.Affichage_Ordre_BFS(graphe.Chemin(n, m).Item2);
+                                    int arrivee = Convert.ToInt32(Console.ReadLine());
+                                    Noeud<int> m = new Noeud<int>(arrivee);
+                                    graphe.Affichage_Ordre_Noeud(graphe.Chemin(n, m).Item3);
                                     Console.WriteLine();
                                     //graphe.Affichage_Ordre_BFS_Noeud(graphe.Chemin(n, m).Item3);
                                 }
@@ -462,7 +464,29 @@ switch (Menu)
 
                     case 1:
                         Console.WriteLine("Choix de PCC : Bellman-Ford");
-                        //pcc.Bellman_Ford();
+                        Console.WriteLine(" Noeud de depart : ");
+                        int source_node = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Arrivee: ");
+                        int arrivee = Convert.ToInt32(Console.ReadLine());
+                       
+                        SortedList<Lien<int>, int> resultatBellmanFord  = pcc.Bellman_Ford(source_node); // Appelle Bellman-Ford avec le noeud source 1
+
+                        if (resultatBellmanFord != null) // Vérifie si un cycle négatif a été détecté
+                        {
+                            Console.WriteLine($"Distances depuis le nœud de départ {source_node} :");
+                            foreach (var kvp in resultatBellmanFord)
+                            {
+                                if(kvp.Key.Destination.Equals(arrivee))
+                                {
+                                    Console.WriteLine($"Vers le sommet {kvp.Key.Destination}: {kvp.Value}");
+                                }
+                                
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Le graphe contient un cycle négatif, l'algorithme ne peut pas trouver de solution.");
+                        }
 
                         break;
                     case 2:
@@ -1162,7 +1186,7 @@ switch (Menu)
                     case 2:
                         Insertion insert = new Insertion(connexion,connection);
                         
-                        Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes  ");
+                        Console.WriteLine("Table :  0 : Client \n\t 1 : Cuisinier \n\t 2 : Adresse \n\t 3 : Commandes \n\t 4 : Application_Site ");
                         int table = Convert.ToInt32(Console.ReadLine());
                         switch (table)
                         {
@@ -1800,7 +1824,7 @@ switch (Menu)
                                     if (plat1 == true)
                                     {
                                         Console.WriteLine("Table : Plat");
-                                        StreamWriter w = new StreamWriter(path_plat);
+                                        StreamWriter w = new StreamWriter(path_plat,append : true);
                                         Console.WriteLine("Nom Plat : ");
                                         string nom_plat = "";
                                         while (nom_plat == string.Empty)
@@ -1891,7 +1915,7 @@ switch (Menu)
 
                                             }
                                         }
-
+                                        
                                         w.Close();
 
                                     }
@@ -1950,7 +1974,7 @@ switch (Menu)
                                     if (dessert1 == true)
                                     {
                                         Console.WriteLine("Table : Dessert");
-                                        StreamWriter w_dessert = new StreamWriter(path_dessert);
+                                        StreamWriter w_dessert = new StreamWriter(path_dessert,append : true);
                                         Console.WriteLine("Nom  Dessert : ");
                                         string nom_dessert = "";
                                         int nb_dessert = Nb_Dessert(Commandes);
@@ -2102,7 +2126,7 @@ switch (Menu)
                                     }
                                     if (entree1 == true)
                                     {
-                                        StreamWriter w_entree = new StreamWriter(path_entree);
+                                        StreamWriter w_entree = new StreamWriter(path_entree,append: true);
                                         Console.WriteLine("Table : Entree");
                                         Console.WriteLine("Nom de l'Entree : ");
                                         string nom_entree = string.Empty;
@@ -2543,14 +2567,223 @@ switch (Menu)
                                 switch(inscription_auto)
                                 {
                                         case 0:
-                                        Console.WriteLine("Selection : Inscription automatique(ID : Application , Client , Cuisto) et remplissage manuelle du mdp et du nom du menu ");
-                                         goto default;
+                                        Console.WriteLine("Selection : Inscription automatique(ID : Application , Client , Cuisto et Mdp) ");
+                                        Console.WriteLine("Inscription automatique : \n\t True \n\t False");
+                                        inscription = Convert.ToBoolean(Console.ReadLine());
+                                        if (inscription)
+                                        {
+                                            Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
+                                            int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
+                                            Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
+                                            int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
+                                            int Nb_Appli()
+                                            {
+
+                                                string q = "SELECT COUNT(*) FROM Application_Site";
+                                                SqlCommand c = new SqlCommand(q, connection);
+                                                int n = 0;
+                                                try
+                                                {
+
+
+                                                    SqlDataReader read = c.ExecuteReader();
+                                                    string[] valueString = new string[read.FieldCount];
+
+
+                                                    while (read.Read())
+                                                    {
+
+                                                        for (int i = 0; i < read.FieldCount; i++)
+                                                        {
+
+                                                            valueString[i] = read.GetValue(i).ToString();
+                                                            n = Convert.ToInt32(valueString[0]);
+
+
+                                                        }
+
+
+                                                    }
+
+                                                    read.Close();
+                                                }
+
+                                                catch (SqlException e)
+                                                {
+                                                    Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                                    return 0;
+                                                }
+
+
+                                                return n;
+                                            }
+                                            int id_app = 1;
+                                            int n_appli = Nb_Appli();
+                                            if (n_appli > 1)
+                                            {
+                                                id_app = n_appli;
+                                            }
+
+
+                                            try
+                                            {
+                                                if (nb_inscription_cuisto > 0)
+                                                {
+                                                    for (int nombre = 0; nombre < nb_inscription_cuisto; nombre++)
+                                                    {
+                                                        SqlTransaction inscription_appli_cuisto = connection.BeginTransaction();
+                                                        
+                                                        Console.WriteLine();
+
+                                                    }
+                                                }
+
+                                                if (nb_inscription_client > 0)
+                                                {
+                                                    for (int nb_c = 0; nb_c < nb_inscription_client; nb_c++)
+                                                    {
+                                                        SqlTransaction inscription_appli_client = connection.BeginTransaction();
+                                                        Random re = new Random();
+                                                        int id_appli = id_app + re.Next(0, 100);
+                                                        insert.App_Client1(id_appli, inscription_appli_client);
+                                                        Modification m_app = new Modification(connexion, connection);
+                                                        Console.WriteLine("Mot de passe :");
+                                                        string mdp = Console.ReadLine();
+                                                        m_app.Application_Site(id_appli, 0, 0, mdp);
+                                                        Console.WriteLine();
+                                                    
+                                                    }
+                                                }
+
+
+                                            }
+                                            catch (SqlException ex)
+                                            {
+                                                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                                return;
+                                            }
+
+                                        }
+                                        goto default;
                                         case 1:
                                         Console.WriteLine("Selection : Inscription manuelle(ID_Cuisto,ID_Client,Mdp, Nom_Menu)");
-                                            goto default;
+                                        Console.WriteLine("Inscription manuelle : \n\t True \n\t False");
+                                        inscription = Convert.ToBoolean(Console.ReadLine());
+                                        if (inscription)
+                                        {
+                                            Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
+                                            int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
+                                            Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
+                                            int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
+                                            int Nb_Appli()
+                                            {
+
+                                                string q = "SELECT COUNT(*) FROM Application_Site";
+                                                SqlCommand c = new SqlCommand(q, connection);
+                                                int n = 0;
+                                                try
+                                                {
+
+
+                                                    SqlDataReader read = c.ExecuteReader();
+                                                    string[] valueString = new string[read.FieldCount];
+
+
+                                                    while (read.Read())
+                                                    {
+
+                                                        for (int i = 0; i < read.FieldCount; i++)
+                                                        {
+
+                                                            valueString[i] = read.GetValue(i).ToString();
+                                                            n = Convert.ToInt32(valueString[0]);
+
+
+                                                        }
+
+
+                                                    }
+
+                                                    read.Close();
+                                                }
+
+                                                catch (SqlException e)
+                                                {
+                                                    Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                                                    return 0;
+                                                }
+
+
+                                                return n;
+                                            }
+                                            int id_app = 1;
+                                            int n_appli = Nb_Appli();
+                                            if (n_appli > 1)
+                                            {
+                                                id_app = n_appli;
+                                            }
+
+
+                                            try
+                                            {
+                                                if (nb_inscription_cuisto > 0)
+                                                {
+                                                    for (int nombre = 0; nombre < nb_inscription_cuisto; nombre++)
+                                                    {
+                                                        SqlTransaction inscription_appli_cuisto = connection.BeginTransaction();
+                                                        string inscription_cuisto_debut = " Debut Inscription_Cuisinier";
+                                                        inscription_appli_cuisto.Save(inscription_cuisto_debut);
+                                                        Console.WriteLine("Table : Application_Site");
+                                                        Console.WriteLine("Mot de passe : ");
+                                                        string mot_de_passse = Console.ReadLine();
+                                                        inscription_appli_cuisto.Save($" SVG Mdp_cuisinier");
+                                                        Console.WriteLine("Identifiant  Cuisinier :");
+                                                        int id_cuisto = Convert.ToInt32(Console.ReadLine());
+                                                        inscription_appli_cuisto.Save($" SVG Id_Cuisinier");
+                                                        Console.WriteLine("Nom  Menu : ");
+                                                        nom_menu = Console.ReadLine();
+                                                        inscription_appli_cuisto.Save($" SVG Nom Menu ");
+                                                        insert.App(id_app, nom_menu, id_cuisto, mot_de_passse, inscription_appli_cuisto);
+                                                        id_app++;
+                                                        Console.WriteLine();
+
+                                                    }
+                                                }
+
+                                                if (nb_inscription_client > 0)
+                                                {
+                                                    for (int nb_c = 0; nb_c < nb_inscription_client; nb_c++)
+                                                    {
+                                                        SqlTransaction inscription_appli_client = connection.BeginTransaction();
+                                                        string inscription_client_debut = "Debut Inscription_Client";
+                                                        inscription_appli_client.Save(inscription_client_debut);
+                                                        Console.WriteLine("Table : Application_Site");
+                                                        Console.WriteLine("Mot de passe : ");
+                                                        string mot_de_passe = Console.ReadLine();
+                                                        inscription_appli_client.Save($" SVG Mdp_client");
+                                                        Console.WriteLine("Identifiant Client :");
+                                                        int id_cl = Convert.ToInt32(Console.ReadLine());
+                                                        insert.App_Client(id_app, id_cl, mot_de_passe, inscription_appli_client);
+                                                        id_app++;
+                                                        Console.WriteLine();
+                                                    }
+                                                }
+
+
+                                            }
+                                            catch (SqlException ex)
+                                            {
+                                                Console.WriteLine(" ErreurConnexion : " + ex.ToString());
+                                                return;
+                                            }
+
+                                        }
+
+                                        goto default;
                                     default:
                                         bool quitter75 = false;
                                         Console.WriteLine("Quitter : \n\t True \n\t False");
+                                        quitter75 = Convert.ToBoolean(Console.ReadLine());
                                         if(quitter75)
                                         {
                                             Console.WriteLine("Retour au menu precedent");
@@ -2570,118 +2803,7 @@ switch (Menu)
                                         }
                                         break;
                                 }
-                                Console.WriteLine("Inscription manuelle : \n\t True \n\t False");
-                                inscription = Convert.ToBoolean(Console.ReadLine());
-                                if (inscription)
-                                {
-                                    Console.WriteLine("Nombre d'inscriptions de clients dans l'application");
-                                    int nb_inscription_client = Convert.ToInt32(Console.ReadLine());
-                                    Console.WriteLine("Nombre d'inscriptions de cuistos dans l'application");
-                                    int nb_inscription_cuisto = Convert.ToInt32(Console.ReadLine());
-                                    int Nb_Appli()
-                                    {
-
-                                        string q = "SELECT COUNT(*) FROM Application_Site";
-                                        SqlCommand c = new SqlCommand(q, connection);
-                                        int n = 0;
-                                        try
-                                        {
-
-
-                                            SqlDataReader read = c.ExecuteReader();
-                                            string[] valueString = new string[read.FieldCount];
-
-
-                                            while (read.Read())
-                                            {
-
-                                                for (int i = 0; i < read.FieldCount; i++)
-                                                {
-
-                                                    valueString[i] = read.GetValue(i).ToString();
-                                                    n = Convert.ToInt32(valueString[0]);
-
-
-                                                }
-
-
-                                            }
-
-                                            read.Close();
-                                        }
-
-                                        catch (SqlException e)
-                                        {
-                                            Console.WriteLine(" ErreurConnexion : " + e.ToString());
-                                            return 0;
-                                        }
-
-
-                                        return n;
-                                    }
-                                    int id_app = 1;
-                                    int n_appli = Nb_Appli();
-                                    if (n_appli > 1)
-                                    {
-                                        id_app = n_appli;
-                                    }
-
-
-                                    try
-                                    {
-                                        if (nb_inscription_cuisto > 0)
-                                        {
-                                            for (int nombre = 0; nombre < nb_inscription_cuisto; nombre++)
-                                            {
-                                                SqlTransaction inscription_appli_cuisto = connection.BeginTransaction();
-                                                string inscription_cuisto_debut = " Debut Inscription_Cuisinier";
-                                                inscription_appli_cuisto.Save(inscription_cuisto_debut);
-                                                Console.WriteLine("Table : Application_Site");
-                                                Console.WriteLine("Mot de passe : ");
-                                                string mot_de_passse = Console.ReadLine();
-                                                inscription_appli_cuisto.Save($" SVG Mdp_cuisinier");
-                                                Console.WriteLine("Identifiant  Cuisinier :");
-                                                int id_cuisto = Convert.ToInt32(Console.ReadLine());
-                                                inscription_appli_cuisto.Save($" SVG Id_Cuisinier");
-                                                Console.WriteLine("Nom  Menu : ");
-                                                nom_menu = Console.ReadLine();
-                                                inscription_appli_cuisto.Save($" SVG Nom Menu ");
-                                                insert.App(id_app, nom_menu, id_cuisto, mot_de_passse, inscription_appli_cuisto);
-                                                id_app++;
-                                                Console.WriteLine();
-
-                                            }
-                                        }
-
-                                        if (nb_inscription_client > 0)
-                                        {
-                                            for (int nb_c = 0; nb_c < nb_inscription_client; nb_c++)
-                                            {
-                                                SqlTransaction inscription_appli_client = connection.BeginTransaction();
-                                                string inscription_client_debut = "Debut Inscription_Client";
-                                                inscription_appli_client.Save(inscription_client_debut);
-                                                Console.WriteLine("Table : Application_Site");
-                                                Console.WriteLine("Mot de passe : ");
-                                                string mot_de_passe = Console.ReadLine();
-                                                inscription_appli_client.Save($" SVG Mdp_client");
-                                                Console.WriteLine("Identifiant Client :");
-                                                int id_cl = Convert.ToInt32(Console.ReadLine());
-                                                insert.App_Client(id_app, id_cl, mot_de_passe, inscription_appli_client);
-                                                id_app++;
-                                                Console.WriteLine();
-                                            }
-                                        }
-
-
-                                    }
-                                    catch (SqlException ex)
-                                    {
-                                        Console.WriteLine(" ErreurConnexion : " + ex.ToString());
-                                        return;
-                                    }
-
-                                }
-
+                               
                                 goto default;
 
                             default:

@@ -641,7 +641,7 @@ namespace Paris_Mapper
             SqlParameter p = new SqlParameter();
             p.DbType = DbType.Int32;
             p.Value = nb;
-            p.ParameterName = "@Nombre_de_Personnes";
+            p.ParameterName = "@Nb_de_Personnes";
             SqlParameter m = new SqlParameter();
             m.Value = pays;
             m.ParameterName = "@Pays_d_origine";
@@ -649,10 +649,10 @@ namespace Paris_Mapper
             SqlParameter o = new SqlParameter();
             o.Value = date_depart;
             o.DbType = DbType.DateTime;
-            o.ParameterName = "@Date_Depart";
+            o.ParameterName = "@Date_depart";
             SqlParameter q = new SqlParameter();
             q.Value = date_arrivee;
-            q.ParameterName = "@Date_Arrivee";
+            q.ParameterName = "@Date_arrivee";
             q.DbType = DbType.DateTime;
             SqlParameter r = new SqlParameter();
             r.Value = prix_par_personne;
@@ -662,8 +662,8 @@ namespace Paris_Mapper
             s.Value = regime;
             s.ParameterName = "@Regime";
             s.DbType = DbType.String;
-            string query = "INSERT INTO Commande(ID_Commandes,Nom_Menu,ID_Client,ID_Cuisto,Nb_de_Personnes,Pays_d_origine,Date_Depart,Date_Arrivee,Prix_Unitaire,Regime))" +
-                "VALUES(@ID_Commandes,@Nom_Menu,@ID_Client,@ID_Cuisto,@Nombre_de_Personnes,@Pays_d_origine,@Date_Depart,@Date_Arrivee,@Prix_Unitaire,@Regime)\r\n;";
+            string query = "INSERT INTO Commande(ID_Client,ID_Cuisto,Nom_Menu,ID_Commandes,Nb_de_Personnes,Pays_d_origine,Regime,Date_depart,Date_arrivee,Prix_Unitaire)" +
+                "VALUES(@ID_Client,@ID_Cuisto,@Nom_Menu,@ID_Commandes,@Nb_de_Personnes,@Pays_d_origine,@Regime,@Date_depart,@Date_arrivee,@Prix_Unitaire)\r\n;";
                 ;
             SqlCommand c = connection.CreateCommand();
             c.CommandText = query;
@@ -818,6 +818,10 @@ namespace Paris_Mapper
             }
         }
 
+        public void App_Cuisto1()
+        {
+
+        }
         public void App_Client(int id_client,int id, string mdp , SqlTransaction t)
         {
             SqlParameter p = new SqlParameter();
@@ -860,12 +864,43 @@ namespace Paris_Mapper
             }
         }
 
+        public void App_Client1(int id, SqlTransaction t)
+        {
+            
+            SqlParameter a = new SqlParameter("@ID", DbType.Int32);
+            a.Value = id;
+            string query = "INSERT INTO Application_Site(ID_Application,ID_Client)\r\nSELECT  CEILING(LOG(EXP(RAND(CEILING(POWER((RAND(PI() * POWER(RADIANS(EXP(1) * LOG(PI())),2) + EXP(ROW_NUMBER() OVER (ORDER BY c.ID_Client))) * LOG(ROW_NUMBER() OVER (ORDER BY c.ID_Client))),c.ID_Client))))) * EXP(c.ID_Client)* 2) + @ID as ID , c.ID_Client from Client c\r\n;";
+            SqlCommand c = connection.CreateCommand();
+            c.CommandText = query;
+            
+            c.Parameters.Add(a);
+            c.Transaction = t;
+            try
+            {
+
+                c.ExecuteNonQuery();
+                t.Commit();
+                Console.Write("Insertion réussite");
+
+            }
+
+            catch (SqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                return;
+            }
+            finally
+            {
+                c.Dispose();
+                t.Dispose();
+            }
+        }
         #endregion
 
         #region Catalogue
         public void Cat(SqlTransaction t)
         {
-            string query = "INSERT INTO Catalogue(ID_Catalogue,ID_Client,ID_Cuisto,ID_Commandes)\r\nSELECT NEWID() as ID,c.ID_Client,cui.ID_Cuisto,com.ID_Commandes from Commande com\r\n INNER JOIN Client c on c.ID_Client = com.ID_Client\r\n INNER JOIN Cuisto cui on cui.ID_Cuisto = com.ID_Cuisto\r\ngroup by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes\r\norder by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes;";
+            string query = "INSERT INTO Catalogue(ID_Catalogue,ID_Client,ID_Cuisto,ID_Commandes)\r\nSELECT ROW_NUMBER() OVER (ORDER BY c.ID_Client),c.ID_Client,cui.ID_Cuisto,com.ID_Commandes from Commande com\r\n INNER JOIN Client c on c.ID_Client = com.ID_Client\r\n INNER JOIN Cuisto cui on cui.ID_Cuisto = com.ID_Cuisto\r\ngroup by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes\r\norder by c.ID_Client,cui.ID_Cuisto,com.ID_Commandes;";
             SqlCommand c = connection.CreateCommand();
             c.CommandText = query;
             c.Transaction = t;

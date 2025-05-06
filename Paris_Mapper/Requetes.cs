@@ -20,6 +20,7 @@ using System.Data;
 using Org.BouncyCastle.Crypto.Signers;
 using System.Runtime.CompilerServices;
 using Org.BouncyCastle.Asn1.Cms;
+using System.Drawing;
 
 
 namespace Paris_Mapper
@@ -1892,6 +1893,362 @@ namespace Paris_Mapper
             }
 
         }
+        public string Trajet(int id_c , int id_cui , int id_com)
+        {
+            
+                
+                Noeud<int> d = new Noeud<int>(id_c);
+                Noeud<int> a = new Noeud<int>(id_cui);
+                List<int> temp = PCC_FWR(d, a).Item2;
+            string trajet = 
+            temp.ToString();
+
+
+            return "";
+        }
+        #region FWR
+        Graphe<int> graphe = new Graphe<int>();
+        public void Affichage_FWR(List<int> FWR)
+        {
+            string orden = "";
+            foreach (var s in FWR)
+            {
+                orden += Convert.ToString(s) + "|";
+            }
+
+            Console.WriteLine();
+            Console.WriteLine($"L'ordre de visite : {orden}");
+        }
+
+        public void Affichage_Ordre_FWR_Noeud(List<Noeud<int>> BFS)
+        {
+            Console.WriteLine();
+            string[] orden = new string[13];
+            foreach (Noeud<int> n in BFS)
+            {
+                string s1 = "";
+                string s = "";
+                for (int i = 0; i < 13; i++)
+                {
+                    orden[0] = Convert.ToString($"ID = {n.ID}");
+                    orden[1] = Convert.ToString($"Coordonnees = {n.Coordonnees}");
+                    orden[2] = Convert.ToString($"Ligne = {n.Numero_2_ligne}");
+                    orden[3] = Convert.ToString($"Code Postal : {n.Code_Postal}");
+                    orden[4] = Convert.ToString($"Commune : {n.Commune}");
+                    foreach (var cor in n.Correspondance)
+                    {
+                        orden[4] = Convert.ToString($"Correspondance de {n.Station} : {cor}");
+                    }
+                    orden[5] = Convert.ToString(n.Couleur);
+                    orden[6] = Convert.ToString(n.date_Dec);
+                    orden[7] = Convert.ToString(n.date_Fin);
+                    orden[8] = Convert.ToString($"Niveau = {n.Niveau}");
+                    orden[9] = Convert.ToString($"Degre = {n.Degre}");
+                    foreach (var p in n.Pred.Values)
+                    {
+                        foreach (var pred in p)
+                        {
+                            s += Convert.ToString(pred + "|");
+
+                        }
+
+                    }
+                    orden[10] = Convert.ToString($"Predecesseurs de {n.Station} sont : {s}");
+                    foreach (var suc in n.Succ.Values)
+                    {
+                        foreach (var succ in suc)
+                        {
+
+                            s1 += Convert.ToString(succ + "|");
+
+                        }
+                    }
+                    orden[11] = Convert.ToString($"Sucesseurs de {n.Station} sont : {s1}");
+
+                    Console.WriteLine($"Proprietes de {n.Station}  : {orden[i]}");
+                }
+                Console.WriteLine();
+            }
+
+
+        }
+        public double[,] Floyd_Warshall_Roy()
+        {
+
+            int n = graphe.Matrice_ADJ.GetLength(0);
+            int nb_sommets = graphe.Sommet.Count;
+            double[,] Floyd = new double[n, n];
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    for (int k = 0; k < nb_sommets; k++)
+                    {
+
+                        if (graphe.Matrice_ADJ[i, j] != 0 && graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j] == 0)
+                        {
+                            Floyd[i, j] = graphe.Matrice_ADJ[i, j];
+                        }
+
+
+                        if (graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j] != 0 && graphe.Matrice_ADJ[i, j] == 0)
+                        {
+                            Floyd[i, j] = graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j];
+                        }
+
+
+                        if (graphe.Matrice_ADJ[i, j] != 0 && graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j] != 0)
+                        {
+                            Floyd[i, j] = Math.Min(graphe.Matrice_ADJ[i, j], graphe.Matrice_ADJ[i, k] + graphe.Matrice_ADJ[k, j]);
+
+                        }
+
+
+
+                    }
+                }
+            }
+            return Floyd;
+        }
+
+
+        public void Afficher_FWR(double[,] m)
+        {
+
+            for (int i = 0; i < m.GetLength(0); i++)
+            {
+                int k = 0;
+                while (k < m.GetLength(0))
+                {
+                    Console.Write("===");
+                    k++;
+                }
+
+                Console.WriteLine();
+                for (int j = 0; j < m.GetLength(1); j++)
+                {
+                    if (m[i, j] != 0)
+                    {
+                        string s = Convert.ToString($"|{m[i, j]}|");
+                        Console.Write(s);
+                    }
+
+
+                }
+                Console.WriteLine();
+
+            }
+        }
+        public SortedList<int,List<int>> Liste_Succ()
+        {
+            int n = graphe.Sommet.Count;
+            double[,] FWR = Floyd_Warshall_Roy();
+            SortedList<int, List<int>> Successeur = new SortedList<int, List<int>>(n);
+            for (int a = 0; a < n; a++)
+            {
+                Successeur[graphe.Sommet[a]] = new List<int>();
+
+            }
+            for (int i = 0; i < FWR.GetLength(0); i++)
+            {
+                for (int j = 0; j < FWR.GetLength(1); j++)
+                {
+                    if (FWR[i, j] != 0)
+                    {
+                        if (graphe.Sommet[j].Equals(330) || graphe.Sommet[i].Equals(330))
+                        {
+                            int s = 332;
+                            if (s.Equals(graphe.Sommet[i]))
+                            {
+                                Successeur[graphe.Sommet[j]].Add(s);
+                            }
+
+                        }
+                        else
+                        {
+                            Successeur[graphe.Sommet[j]].Add(graphe.Sommet[i]);
+                        }
+
+                    }
+                }
+
+            }
+
+            return Successeur;
+        }
+
+
+        public (bool, List<int>, List<Noeud<int>>, double) PCC_FWR(Noeud<int> depart, Noeud<int> arrivee)
+        {
+            Queue<Noeud<int>> BFS = new Queue<Noeud<int>>();
+            List<Noeud<int>> Noeud_v = new List<Noeud<int>>();
+            List<int> Ordre = new List<int>();
+            List<int> Chemin = new List<int>();
+            List<Noeud<int>> C = new List<Noeud<int>>();
+            SortedList<int, List<int>> L = Liste_Succ();
+            Lien<int> l = new Lien<int>();
+            bool chemin = false;
+            double dist = 0;
+            arrivee = graphe.Noeuds.Find(noeud => noeud.ID.Equals(arrivee.ID));
+            try
+            {
+                depart = graphe.Noeuds.Find(noeud => noeud.ID.Equals(depart.ID));
+                depart.Couleur = Color.Yellow;
+                depart.date_Dec = depart.Decouverte();
+                depart.Degre = depart.Calcul_Degre();
+                Console.WriteLine($"Debut d'exploration de  : {depart.ID}");
+                Noeud_v.Add(depart);
+                Console.WriteLine($"Noeud :{depart.ID} , visité");
+                Ordre.Add(depart.ID);
+                BFS.Enqueue(depart);
+                Console.WriteLine("Noeud rajouté dans la pile");
+
+                while (BFS.Count > 0)
+                {
+                    Noeud<int> y = BFS.Dequeue();
+                    y = graphe.Noeuds.Find(noeud => noeud.ID.Equals(y.ID));
+
+                    y.Degre = y.Calcul_Degre();
+                    y.Couleur = Color.Red;
+                    y.date_Fin = y.Fin();
+                    Console.WriteLine($"Fin d'exploration de : {y.ID}");
+                    if (L[y.ID].Count > 0)
+                    {
+                        foreach (var voisinage in L[y.ID])
+                        {
+
+                            if (L.TryGetValue(voisinage, out List<int>? value))
+                            {
+                                if (L[voisinage].Count > 0)
+                                {
+
+                                    Noeud<int> voisin = new Noeud<int>(voisinage);
+                                    voisin = graphe.Noeuds.Find(noeud => noeud.ID.Equals(voisinage));
+
+
+                                    int niveau = y.Niveau + 1;
+                                    voisin.Niveau = niveau;
+                                    voisin.Degre = voisin.Calcul_Degre();
+
+
+                                    for (int i = 0; i < Noeud_v.Count; i++)
+                                    {
+                                        voisin.Pred[voisin.ID] = new List<int>();
+
+                                        if (!voisin.ID.Equals(Noeud_v[i].ID) && Occurence(Noeud_v, voisin) < 1)
+                                        {
+                                            voisin.Couleur = Color.Yellow;
+                                            voisin.date_Dec = voisin.Decouverte();
+
+                                            Console.WriteLine($"Debut d'exploration de  : {voisin.ID}");
+                                            Noeud_v.Add(voisin);
+                                            Console.WriteLine($"Noeud :{voisin.ID} , visité");
+                                            Ordre.Add((voisin.ID));
+                                            BFS.Enqueue(voisin);
+                                            Console.WriteLine($"Noeud : {voisin.ID}, rajouté dans la pile");
+                                            voisin.Pred[voisin.ID].Add(y.ID);
+
+
+                                        }
+                                        if (graphe.Egale(arrivee, voisin))
+                                        {
+                                            chemin = true;
+                                            //dist = distance;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+
+            catch (ArgumentNullException arg)
+            {
+                Console.WriteLine($" Null Exception  : {arg.Source} , \n{arg.Message}");
+            }
+            catch (StackOverflowException s)
+            {
+                Console.WriteLine($" Stack Overflow : {s.Source} , \n{s.Message}");
+            }
+            catch (IndexOutOfRangeException i)
+            {
+                Console.WriteLine($" Index Out of Range : {i.Source} , \n{i.Message}");
+            }
+            catch (Exception ex)
+            {
+                string s = " (Le chemin n'existe pas)";
+                Console.WriteLine($" {ex.Source} , \n{ex.Message} ,\n {s} ");
+            }
+            for (int p = 0; p < Ordre.Count; p++)
+            {
+                if (arrivee.Egale(Ordre[p], arrivee.ID))
+                {
+                    int index_arrivee = p;
+
+                    Chemin = Ordre.GetRange(0, index_arrivee + 1);
+                }
+            }
+            for (int i = 0; i < Noeud_v.Count; i++)
+            {
+
+                if (graphe.Egale(arrivee, Noeud_v[i]))
+                {
+                    int index_arrivee = i;
+
+                    C = Noeud_v.GetRange(0, index_arrivee + 1);
+                }
+
+            }
+            if (C.Count != null)
+            {
+                for (int c1 = 0; c1 < C.Count; c1++)
+                {
+                    if (c1 + 1 < C.Count && C[c1 + 1] != null)
+                    {
+                        int a = graphe.Conversion(C[c1].ID);
+                        int b = graphe.Conversion(C[c1 + 1].ID);
+                        if (a < b)
+                        {
+                            dist += l.Calcul_Distance(C[c1], C[c1 + 1]);
+                        }
+                        else
+                        {
+                            dist -= l.Calcul_Distance(C[c1], C[c1 + 1]);
+                        }
+
+
+                    }
+                }
+            }
+
+            Console.WriteLine($"Distance entre {depart.Station} et {arrivee.Station} : {dist}");
+            return (chemin, Chemin, C, dist);
+
+
+        }
+
+        public int Occurence(List<Noeud<int>> n, Noeud<int> n1)
+        {
+            int occ = 0;
+            for (int i = 0; i < n.Count; i++)
+            {
+                if (n1.Egale(n1.ID, n[i].ID))
+                {
+                    occ++;
+                }
+            }
+            return occ;
+        }
+
+
+        #endregion
 
     }
 }

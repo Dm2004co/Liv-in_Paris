@@ -566,7 +566,6 @@ namespace Paris_Mapper
                         Successeur[Sommet[j]].Add(Sommet[i]);
 
 
-
                     }
                 }
 
@@ -807,6 +806,57 @@ namespace Paris_Mapper
             }
         }
 
+        public void Affichage_Ordre_Noeud(List<Noeud<T>> Dijkstra)
+        {
+            Console.WriteLine();
+            string[] orden = new string[13];
+            foreach (Noeud<T> n in Dijkstra)
+            {
+                string s1 = "";
+                string s = "";
+                for (int i = 0; i < 13; i++)
+                {
+                    orden[0] = Convert.ToString($"ID = {n.ID}");
+                    orden[1] = Convert.ToString($"Coordonnees = {n.Coordonnees}");
+                    orden[2] = Convert.ToString($"Ligne = {n.Numero_2_ligne}");
+                    orden[3] = Convert.ToString($"Code Postal : {n.Code_Postal}");
+                    orden[4] = Convert.ToString($"Commune : {n.Commune}");
+                    foreach (var cor in n.Correspondance)
+                    {
+                        orden[4] = Convert.ToString($"Correspondance de {n.Station} : {cor}");
+                    }
+                    orden[5] = Convert.ToString(n.Couleur);
+                    orden[6] = Convert.ToString(n.date_Dec);
+                    orden[7] = Convert.ToString(n.date_Fin);
+                    orden[8] = Convert.ToString($"Niveau = {n.Niveau}");
+                    orden[9] = Convert.ToString($"Degre = {n.Degre}");
+                    foreach (var p in n.Pred.Values)
+                    {
+                        foreach (var pred in p)
+                        {
+                            s += Convert.ToString(pred + "|");
 
+                        }
+
+                    }
+                    orden[10] = Convert.ToString($"Predecesseurs de {n.Station} sont : {s}");
+                    foreach (var suc in n.Succ.Values)
+                    {
+                        foreach (var succ in suc)
+                        {
+
+                            s1 += Convert.ToString(succ + "|");
+
+                        }
+                    }
+                    orden[11] = Convert.ToString($"Sucesseurs de {n.Station} sont : {s1}");
+
+                    Console.WriteLine($"Proprietes de {n.Station}  : {orden[i]}");
+                }
+                Console.WriteLine();
+            }
+
+        }
     }
 }
+
