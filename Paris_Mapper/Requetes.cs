@@ -1831,6 +1831,12 @@ namespace Paris_Mapper
                     Prix();
                     goto default;
                 case 1:
+                    Console.WriteLine("Numero du client : ");
+                    int id_client = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Nuemro du cuisinier :");
+                    int id_cui = Convert.ToInt32(Console.ReadLine());
+                    (string,int) num_trajet = Trajet(id_client,id_cui);
+                    Console.WriteLine($"Le trajet à effectuer pour la commnde n°{num_trajet.Item2} : {num_trajet.Item1} ");
                     goto default;
                 default:
                     bool quitter30 = false;
@@ -1893,18 +1899,19 @@ namespace Paris_Mapper
             }
 
         }
-        public string Trajet(int id_c , int id_cui , int id_com)
+        public (string,int) Trajet(int id_c , int id_cui)
         {
-            
-                
+
+            Functions f = new Functions(connexion,connection);
                 Noeud<int> d = new Noeud<int>(id_c);
                 Noeud<int> a = new Noeud<int>(id_cui);
                 List<int> temp = PCC_FWR(d, a).Item2;
             string trajet = 
             temp.ToString();
+            int num = f.Num_Commande(id_c, id_cui);
 
 
-            return "";
+            return (trajet,num);
         }
         #region FWR
         Graphe<int> graphe = new Graphe<int>();

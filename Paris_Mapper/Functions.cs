@@ -22,6 +22,7 @@ using Mysqlx.Crud;
 using System.Reflection.Metadata;
 using System.Net.Sockets;
 using System.Reflection.Metadata.Ecma335;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 
@@ -114,6 +115,53 @@ namespace Paris_Mapper
             {
                 Console.WriteLine(" ErreurConnexion : " + e.ToString());
                 return;
+            }
+            finally
+            {
+                c.Dispose();
+                ;
+            }
+
+        }
+        public int Num_Commande(int id_c , int id_cui)
+        {
+            string g = $"DECLARE\t@return_value Int\r\n\r\nEXEC\t@return_value = [dbo].[Num_Commande]\r\n\t\t@ID1 = {id_c},\r\n\t\t@ID2 = {id_cui}\r\n\r\nSELECT\t@return_value as 'Numero de la Commande'";
+            SqlCommand c = new SqlCommand(g, connection);
+           
+            SqlDataReader read = c.ExecuteReader();
+            string[] valueString = new string[read.FieldCount];
+            int n = 0;
+
+            try
+            {
+                while (read.Read())
+
+
+                {
+                    n = (int)read["Numero de la Commande"];
+
+                    Console.WriteLine($"{n}");
+
+                    for (int i = 0; i < read.FieldCount; i++)
+                    {
+                        valueString[i] = read.GetValue(i).ToString();
+
+                    }
+
+
+                }
+
+                read.Close();
+
+                return n;
+            }
+
+
+            
+            catch (SqlException e)
+            {
+                Console.WriteLine(" ErreurConnexion : " + e.ToString());
+                return 0;
             }
             finally
             {
