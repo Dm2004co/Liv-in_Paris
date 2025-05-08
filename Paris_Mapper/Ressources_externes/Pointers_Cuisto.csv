@@ -1,0 +1,10 @@
+ID_Cuisto,Nom,Prenom,Telephone,Email,Adresse,ID_Metro,Station,Longitude,Latitude
+1,Dupond,Marie,652851947,Mdupond@gmail.com,"4,Rue des Lombards,75004,Paris,Ile_de_France",12,Hôtel de Ville,2.35206767,48.8573524
+2,Pierre,Jean-Michel,793042658,Jmpierre@gmail.com,"3,Place du Général Koenig,75017,Paris,Ile_de_France",45,Porte de Champerret,2.292112482,48.88565239
+3,Martin,Achille,663942750,achMartin@gmail.com,"34,Boulevard de la Chapelle,75018,Paris,Ile_de_France",32,Barbès - Rochechouart,2.350607079,48.88377609
+4,Messi,Darrell,629384173,darMessi@outlook.com,"102,Rue d'Alésia,75014,Paris,Ile_de_France",94,Alésia,2.327093235,48.82820106
+5,Marguin,Benjamin,775465981,benjiMarguin@yahoo.fr,"41,Rue Monsieur le Prince,75006,Paris,Ile_de_France",84,Saint-Michel,2.343991799,48.85359408
+6,Megel,Ambroise,744556677,ambMegel@goole.com,"12,Rue de Clignancourt ,75018,Paris,Ile_de_France",32,Barbès - Rochechouart,2.350607079,48.88377609
+7,Piqué,Gerard,631405968,gerPiqué@barcelone.fr,"116,Rue d'Alésia,75014,Paris,Ile_de_France",94,Alésia,2.327093235,48.82820106
+8,Levallois,Thomas,787960514,thoLevallois@cardinet.com,"29,Rue de Rivoli,75004,Paris,Ile_de_France",12,Hôtel de Ville,2.35206767,48.8573524
+9,Igloo,Jonathan,656789012,jonIgloo@gmail.com,"112,Bd de Sébastopol,75003,Paris,Ile_de_France",78,Strasbourg - Saint-Denis,2.354491617,48.86962358

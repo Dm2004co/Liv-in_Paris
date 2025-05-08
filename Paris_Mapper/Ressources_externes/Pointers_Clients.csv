@@ -1,0 +1,10 @@
+ID_Client,Nom,Prenom,Telephone,Email,Adresse,ID_Metro,Station,Longitude,Latitude
+1,Durand,Medhy,645781239,Mdurand@gmail.com,"38,Rue Saint-Maur,75011,Paris,Ile_de_France",62,Rue Saint-Maur,2.380507756,48.8641177
+2,Armandi,Bernard,781902346,B.Armandi@gmail.com,"44,Rue Jean-Baptiste Pigalle,75009,Paris,Ile_de_France",30,Pigalle,2.337211165,48.88202093
+3,Joli,Tollisso,152839417,T.Joli@gmail.com,"129,Rue de Grenelle,75007,Paris,Ile_de_France",308,Invalides,2.31463266,48.86109201
+4,Desstreet,Mendy,698213560,M.Desstreet@gmail.com,"32,Quai d'Austerlitz,75013,Paris,Ile_de_France",110,Gare d'Austerlitz,2.364177311,48.84340541
+5,Hover,Giogina,764325789,G.Hover@gmail.com,"41,Rue Alain Chartier,75015,Paris,Ile_de_France",298,Convention,2.296391386,48.83713505
+6,Lolly,Henri,633445566,H.Lolly@gmail.com,"44,Bd Richard Lenoir,75011,Paris,Ile_de_France",106,Richard-Lenoir,2.37181363,48.85987694
+7,Quintila,Kane,619283745,K.Quintila@gmail.com,"4,Avenue de Villiers,75017,Paris,Ile_de_France",49,Villiers,2.315815093,48.88107318
+8,Megha,Paul,756789012,P.Nmegha@gmail.com,"18,Rue de Paradis,75010,Paris,Ile_de_France",102,Gare de l'Est,2.358064594,48.87616299
+9,Smith,William,324557859,W.Smith@gmail.com,"44,Bd de Picpus,75012,Paris,Ile_de_France",206,Daumesnil,2.396148628,48.83943401

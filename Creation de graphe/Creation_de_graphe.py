@@ -128,7 +128,9 @@ def visualize_graph(graph, node_colors):
     plt.axis('off')
     plt.show()
 
-
+    #Automatisation de la creation d'un graphe 
+    #Recherche de mes clients 
+    #Serialisation de mes tables
 
 def main():
     """
@@ -301,7 +303,7 @@ def main():
     print(f"Nombre d'arêtes : {commande_graph.number_of_edges()}")
     print(f"Nœuds : {commande_graph.nodes()}")
     print(f"Arêtes : {commande_graph.edges()}")
-
+    
     # Définir les couleurs à utiliser
     colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'cyan', 'magenta', 'brown', 'pink']
 
@@ -310,11 +312,13 @@ def main():
     if not node_colors:
         print("Le graphe n'a pas pu être colorié.")
         return
-
+   
     # Afficher les couleurs des nœuds
     print("\nCouleurs des nœuds :")
     for node, color in node_colors.items():
         print(f"Le nœud {node} a la couleur {color}")
+
+      
 
     # Visualiser le graphe avec les couleurs attribuées
     visualize_graph(commande_graph, node_colors)
