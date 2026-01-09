@@ -1,1 +1,1 @@
-Liv'in Paris : Project Conf
+## Liv'in Paris : Project Configuration
