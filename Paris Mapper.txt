@@ -1,5 +1,0 @@
-Paris Mapper 
-Requetes de Bot pour la visualisation de graphe avec python : 
-
-1 :  Créer un graphe à partir de données JSON (Aretes et Noeuds )
-2 :  
